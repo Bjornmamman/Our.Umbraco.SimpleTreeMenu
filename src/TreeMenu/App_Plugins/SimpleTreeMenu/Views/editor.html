@@ -1,0 +1,55 @@
+<div class="treemenu-editor" ng-controller="SimpleTreeMenu.EditorController">
+    <div class="dd" id="treemenu">
+        <script type="text/ng-template" id="items_renderer.html">
+
+            <div ui-tree-handle>
+
+
+                
+
+
+                <input type="text" class="nodename textstring" ng-model="item.name" localize="placeholder" placeholder="@placeholders_entername" />
+
+
+                <umb-button action="openEditor(item)" button-style="link" type="button" label-key="general_edit"></umb-button>
+                <umb-button action="addNode(item)" ng-if="item.level < model.config.levels - 1" button-style="link" type="button" label-key="shortcuts_addChild"></umb-button>
+
+
+                <div class="settings pull-right">
+
+                    <a class="btn umb-button__button" ng-if="item.items && item.items.length > 0" data-nodrag ng-click="toggle(item)">
+                        <i class="icon-navigation-last" ng-class="{'icon-navigation-right': collapsed, 'icon-navigation-down ': !collapsed}"></i>
+                    </a>
+
+                    <div title="Level / Max level" class="btn">
+                        {{item.level + 1}} / {{model.config.levels}}
+                    </div>
+
+                    <div title="Number of children" class="btn" ng-if="item.items.length > 0">
+                        {{item.items.length}}
+                    </div>
+
+                    <umb-button action="requestDeleteNode(item)" button-style="danger" type="button" label-key="general_delete"></umb-button>
+
+                </div>
+
+            </div>
+
+            <ol ui-tree-nodes="treeOptions" ng-model="item.items" ng-class="{hidden: collapsed}">
+                <li ng-repeat="item in item.items" ui-tree-node ng-include="'items_renderer.html'"></li>
+            </ol>
+
+        </script>
+
+        <div ui-tree="treeOptions" class="angular-ui-tree" data-max-depth="model.config.levels - 1">
+            <ol ui-tree-nodes ng-model="items" id="tree-root">
+                <li ng-repeat="item in items" ui-tree-node ng-include="'items_renderer.html'"></li>
+            </ol>
+        </div>
+
+        <a class="btn-reset umb-nested-content__add-content umb-focus" ng-click="addNode()" prevent-default>
+            <localize key="grid_addElement"></localize>
+        </a>
+
+    </div>
+</div>

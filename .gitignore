@@ -1,0 +1,4 @@
+﻿*.user
+src/TreeMenu/obj
+src/TreeMenu/bin
+src/TreeMenu/App_Data

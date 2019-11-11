@@ -1,0 +1,43 @@
+﻿{
+    "propertyEditors": [
+        {
+			alias: "SimpleTreeMenu",
+			name: "SimpleTreeMenu",
+			isParameterEditor: true,
+			editor: {
+				view: "~/App_Plugins/SimpleTreeMenu/Views/editor.html",
+				valueType: "JSON"
+			},
+			prevalues: {
+				fields: [
+					{
+						label: "Doctype",
+						description: "Allowed doctype",
+						key: "doctype",
+						view: "textstring"
+					},
+					{
+						label: "Levels",
+						description: "Max number of levels",
+						key: "levels",
+						view: "number"
+					}
+				]
+			},
+			defaultConfig: {
+				"doctype": "menuNode",
+				"levels": "3"
+			}
+		}
+
+    ],
+    "javascript": [
+        
+        "~/App_plugins/SimpleTreeMenu/Js/lib/treemenu.js",
+		"~/App_plugins/SimpleTreeMenu/Js/dialog.controller.js",
+        "~/App_plugins/SimpleTreeMenu/Js/treemenueditor.controller.js",
+    ],
+    "css": [ 
+        "~/App_plugins/SimpleTreeMenu/Css/treemenu.css",
+	]
+}

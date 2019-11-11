@@ -1,0 +1,30 @@
+<form name="doctyperender" novalidate class="doctyperender-dialog umb-panel" novalidate ng-controller="SimpleTreeMenu.DialogController" val-form-manager>
+
+    <div class="umb-panel-body no-header with-footer umb-scrollable" ng-show="edit" style="padding: 20px;">
+        <fieldset ng-repeat="tab in model.node.variants[0].tabs">
+            <legend style="font-size: 18px;">{{tab.alias}}</legend>
+
+            <umb-property data-element="property-{{property.alias}}" ng-repeat="property in tab.properties" property="property">
+                <umb-property-editor model="property"></umb-property-editor>
+            </umb-property>
+
+        </fieldset>
+    </div>
+
+    <div class="umb-panel-footer">
+        <div class="umb-el-wrap umb-panel-buttons">
+            <div class="btn-toolbar umb-btn-toolbar">
+
+                <a href ng-click="close()" class="btn btn-link">
+                    <localize key="general_cancel">Cancel</localize>
+                </a>
+
+                <button class="btn btn-primary" ng-click="save()">
+                    <localize key="buttons_save">Save</localize>
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+</form>

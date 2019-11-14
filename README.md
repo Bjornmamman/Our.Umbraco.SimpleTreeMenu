@@ -2,7 +2,7 @@
 
 ### A simple treemenu propertyeditor that uses a doc-type (element) for menu items.
 
-With a valueconverter that utilises the built in nestedcontent for type conversion of menu items.
+With a valueconverter that utilize the built in nestedcontent for type conversion of menu items.
 Every item can be cast to an IPublishedElement for propertyaccess through Umbracos extension-methods.
 
 It will work without the valueconverter, just remove the binary and use JObject instead of IEnumerable<ISimpleTreeItem>

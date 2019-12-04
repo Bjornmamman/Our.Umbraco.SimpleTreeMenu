@@ -1,30 +1,45 @@
-<form name="doctyperender" novalidate class="doctyperender-dialog umb-panel" novalidate ng-controller="SimpleTreeMenu.DialogController" val-form-manager>
+<div class="doctyperender-dialog umb-panel" ng-controller="SimpleTreeMenu.DialogController as vm">
 
-    <div class="umb-panel-body no-header with-footer umb-scrollable" ng-show="edit" style="padding: 20px;">
-        <fieldset ng-repeat="tab in model.node.variants[0].tabs">
-            <legend style="font-size: 18px;">{{tab.alias}}</legend>
+    <form name="doctyperender" novalidate val-form-manager>
+        <umb-editor-view>
+            <umb-editor-container class="no-header">
+                <umb-load-indicator ng-if="vm.loadingNode">
+                </umb-load-indicator>
 
-            <umb-property data-element="property-{{property.alias}}" ng-repeat="property in tab.properties" property="property">
-                <umb-property-editor model="property"></umb-property-editor>
-            </umb-property>
+                <umb-box ng-if="!vm.loadingNode">
+                    <umb-box-content>
 
-        </fieldset>
-    </div>
+                        <div ng-repeat="tab in model.node.variants[0].tabs">
+                            <h4>{{tab.alias}}</h4>
 
-    <div class="umb-panel-footer">
-        <div class="umb-el-wrap umb-panel-buttons">
-            <div class="btn-toolbar umb-btn-toolbar">
+                            <umb-property data-element="property-{{property.alias}}" ng-repeat="property in tab.properties" property="property">
+                                <umb-property-editor model="property"></umb-property-editor>
+                            </umb-property>
 
-                <a href ng-click="close()" class="btn btn-link">
-                    <localize key="general_cancel">Cancel</localize>
-                </a>
+                        </div>
+                    </umb-box-content>
+                </umb-box>
+            </umb-editor-container>
 
-                <button class="btn btn-primary" ng-click="save()">
-                    <localize key="buttons_save">Save</localize>
-                </button>
+            <umb-editor-footer>
+                <umb-editor-footer-content-right>
 
-            </div>
-        </div>
-    </div>
+                    <umb-button type="button"
+                                button-style="link"
+                                label-key="general_cancel"
+                                shortcut="esc"
+                                action="vm.close()">
+                    </umb-button>
 
-</form>
+                    <umb-button
+                                type="button"
+                                button-style="success"
+                                label-key="buttons_save"
+                                action="vm.save()">
+                    </umb-button>
+
+                </umb-editor-footer-content-right>
+            </umb-editor-footer>
+        </umb-editor-view>
+    </form>
+</div>

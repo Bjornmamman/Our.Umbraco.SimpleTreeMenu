@@ -21,7 +21,7 @@ namespace Our.Umbraco.SimpleTreeMenu
         public IPublishedContentType ContentType => Item.ContentType;
 
         public Guid Key => Item.Key;
-
+        public string Name { get; set; }
         public IEnumerable<IPublishedProperty> Properties => Item.Properties;
 
         public IPublishedProperty GetProperty(string alias)

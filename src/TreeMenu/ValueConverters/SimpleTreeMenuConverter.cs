@@ -14,10 +14,10 @@ using UmbracoCore = Umbraco.Core;
 
 namespace Our.Umbraco.SimpleTreeMenu.ValueConverters
 {
-    public class SimpleTreeMenuConverter : NestedContentValueConverterBase
+    public class SimpleTreeMenuConverter : NestedContentValueConverterBase, IPropertyValueConverter
     {
         private readonly IPublishedSnapshotAccessor _publishedSnapshotAccessor;
-
+        
         public SimpleTreeMenuConverter(IPublishedSnapshotAccessor publishedSnapshotAccessor, IPublishedModelFactory publishedModelFactory) : base(publishedSnapshotAccessor, publishedModelFactory)
         {
             _publishedSnapshotAccessor = publishedSnapshotAccessor;
@@ -54,7 +54,8 @@ namespace Our.Umbraco.SimpleTreeMenu.ValueConverters
             return convertToItem(items, referenceCacheLevel, preview);
 
         }
-
+        public override Type GetPropertyValueType(IPublishedPropertyType propertyType)
+            => typeof (IEnumerable<SimpleTreeItem>);
         private IEnumerable<SimpleTreeItem> convertToItem(List<JObject> objects, PropertyCacheLevel referenceCacheLevel, bool preview)    
         {
             if (!objects.Any())

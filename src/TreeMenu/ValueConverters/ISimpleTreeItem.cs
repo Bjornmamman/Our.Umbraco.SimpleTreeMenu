@@ -12,6 +12,7 @@ namespace Our.Umbraco.SimpleTreeMenu
         IPublishedElement Item { get; set; }
         IEnumerable<ISimpleTreeItem> Items { get; set; }
         Guid Key { get; }
+        string Name { get; }
         int Level { get; set; }
         IEnumerable<IPublishedProperty> Properties { get; }
 

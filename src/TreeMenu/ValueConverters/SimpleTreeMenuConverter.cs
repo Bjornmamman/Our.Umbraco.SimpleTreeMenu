@@ -78,7 +78,8 @@ namespace Our.Umbraco.SimpleTreeMenu.ValueConverters
 
                 var item = new SimpleTreeItem()
                 {
-                    Item = element
+                    Item = element,
+                    Name =sourceObject["name"]?.ToObject<string>()
                 };
 
                 var children = sourceObject["items"]?.ToObject<List<JObject>>();

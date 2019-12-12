@@ -41,7 +41,7 @@
 
         </script>
 
-        <div ui-tree="treeOptions" class="angular-ui-tree" data-max-depth="model.config.levels - 1">
+        <div ui-tree="treeOptions" class="angular-ui-tree" data-max-depth="model.config.levels">
             <ol ui-tree-nodes ng-model="items" id="tree-root">
                 <li ng-repeat="item in items" ui-tree-node ng-include="'items_renderer.html'"></li>
             </ol>

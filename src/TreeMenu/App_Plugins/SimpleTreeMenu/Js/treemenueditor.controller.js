@@ -1,6 +1,7 @@
 ﻿angular.module("umbraco").controller('SimpleTreeMenu.EditorController', function ($scope, localizationService, overlayService, editorService) {
 
     var doctype = $scope.model.config.doctype;
+    var vm = this;
 
     if (typeof $scope.model.value == "string" || typeof $scope.model.value == "undefined")
         $scope.model.value = {};
@@ -9,14 +10,10 @@
         $scope.model.value.items = [];
 
     $scope.treeOptions = {
-        maxDepth: $scope.model.config.levels - 1,
-        dropped: function(e) {
-            console.log(e.pos);
+        dropped: function (e) {
             setLevels();
         },
-        accept: function (sourceNodeScope, destNodesScope, destIndex) {
-            return true;
-        },
+        
         dragStart: function (event) {
             $scope.setDirty();
         }

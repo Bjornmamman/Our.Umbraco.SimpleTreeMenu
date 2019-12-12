@@ -5,14 +5,16 @@
             <div ui-tree-handle>
 
 
-                
+
 
 
                 <input type="text" class="nodename textstring" ng-model="item.name" localize="placeholder" placeholder="@placeholders_entername" />
 
 
-                <umb-button action="openEditor(item)" button-style="link" type="button" label-key="general_edit"></umb-button>
-                <umb-button action="addNode(item)" ng-if="item.level < model.config.levels - 1" button-style="link" type="button" label-key="shortcuts_addChild"></umb-button>
+                <umb-button action="openEditor(item)" button-style="info" type="button" label-key="general_edit"></umb-button>
+                <umb-button action="duplicate(item, items)" button-style="info" type="button" label-key="general_copy"></umb-button>
+                <umb-button action="addNode(item)" ng-if="item.level < model.config.levels - 1" button-style="info" type="button" label-key="shortcuts_addChild"></umb-button>
+
 
 
                 <div class="settings pull-right">

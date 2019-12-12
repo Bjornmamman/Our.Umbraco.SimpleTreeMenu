@@ -23,6 +23,7 @@
 
     setLevels();
 
+
     function cleanItem() {
         return {
             "id": $scope.nextId(),
@@ -120,13 +121,16 @@
             var meth = arguments.callee;
             for (var i = 0; i < list.length; i++) {
                 if (item) return;
-                if (list[i].id == node.id || list[i].key == node.key) { item = list[i]; list.splice(i, 1); return; }
+                if (list[i].key == node.key) { item = list[i]; list.splice(i, 1); return; }
                 if (list[i].items && list[i].items.length > 0) meth(list[i].items);
             }
         })($scope.items);
 
         if (item) {
+            $scope.setDirty();
+
             delete item;
+
             return true;
         }
 
@@ -147,17 +151,67 @@
         return id + 1;
     }
 
-    $scope.findNode = function (id) {
+    $scope.findNode = function (key) {
         var item;
 
         (function (list) {
             var meth = arguments.callee;
             for (var i = 0; i < list.length; i++) {
                 if (item) return;
-                if (list[i].id == id || list[i].key == id) { item = list[i]; return; }
+                if (list[i].key == key) { item = list[i]; return; }
                 if (list[i].items && list[i].items.length > 0) meth(list[i].items);
             }
         })($scope.items);
+
+        return item;
+    }
+
+    $scope.findParentList = function (key) {
+        var items;
+
+        (function (list) {
+            var meth = arguments.callee;
+            for (var i = 0; i < list.length; i++) {
+                if (items) return;
+                if (list[i].key == key) { items = list; return; }
+                if (list[i].items && list[i].items.length > 0) meth(list[i].items);
+            }
+        })($scope.items);
+
+        return items;
+    }
+
+    $scope.duplicate = function (item) {
+        var items = $scope.findParentList(item.key);
+        var clone = $.extend(true, {}, item);
+
+        clone.$$hashKey = undefined;
+        clone.id = $scope.nextId();
+        clone.key = String.CreateGuid();
+
+        var id = clone.id;
+
+        if (clone.items && clone.items.length > 0) {
+            (function (list) {
+                var meth = arguments.callee;
+                for (var i = 0; i < list.length; i++) {
+
+                    list[i].$$hashKey = undefined;
+                    list[i].id = $scope.nextId();
+                    list[i].key = String.CreateGuid();
+
+                    if (list[i].items && list[i].items.length > 0) meth(list[i].items);
+                }
+            })(clone.items);
+        }
+
+        
+
+        
+
+        items.push(clone);
+
+        $scope.setDirty();
     }
 
 

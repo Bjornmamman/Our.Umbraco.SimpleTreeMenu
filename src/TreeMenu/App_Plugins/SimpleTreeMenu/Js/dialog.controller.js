@@ -92,7 +92,7 @@
 
         if ($scope.model.doctype) {
 
-            $scope.model.selectedDoctype = "blog";//$scope.model.doctype;
+            $scope.model.selectedDoctype = $scope.model.doctype;
 
             contentTypeResource.getAll().then(function (data) {
                 

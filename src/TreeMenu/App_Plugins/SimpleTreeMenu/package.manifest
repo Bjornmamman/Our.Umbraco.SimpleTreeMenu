@@ -3,6 +3,7 @@
         {
 			alias: "SimpleTreeMenu",
 			name: "SimpleTreeMenu",
+			icon: "icon-network-alt",
 			isParameterEditor: true,
 			editor: {
 				view: "~/App_Plugins/SimpleTreeMenu/Views/editor.html",

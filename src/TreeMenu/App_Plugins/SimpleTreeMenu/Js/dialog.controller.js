@@ -1,4 +1,4 @@
-﻿angular.module("umbraco.directives").controller('SimpleTreeMenu.DialogController', function ($scope, $timeout, contentResource) {
+﻿angular.module("umbraco.directives").controller('SimpleTreeMenu.DialogController', function ($scope, $timeout, contentTypeResource, contentResource, notificationsService) {
 
     var vm = this;
 
@@ -80,6 +80,8 @@
             $scope.model.node = data;
 
             vm.loadingNode = false;
+        }, function (error) {
+                notificationsService.error("Error loading document type: \"" + $scope.model.selectedDoctype + "\"", error.errorMsg);
         });
     }
 
@@ -90,9 +92,33 @@
 
         if ($scope.model.doctype) {
 
-            $scope.model.selectedDoctype = $scope.model.doctype;
+            $scope.model.selectedDoctype = "blog";//$scope.model.doctype;
 
-            loadData();
+            contentTypeResource.getAll().then(function (data) {
+                
+                var doctype;
+
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].alias === $scope.model.selectedDoctype)
+                    {
+                        doctype = data[i];
+                        break;
+                    }
+                }
+
+                if (doctype == undefined) {
+                    notificationsService.error("Error loading document type: \"" + $scope.model.selectedDoctype + "\"", "");
+                    $scope.model.close();
+                } else if (doctype && doctype.isElement === false) {
+                    notificationsService.error("Error loading document type: \"" + $scope.model.selectedDoctype + "\"", "\"" + $scope.model.selectedDoctype + "\" is not an element type");
+                    $scope.model.close();
+                } else {
+                    loadData();
+                }
+
+                
+            });
+            
         }
     });
 

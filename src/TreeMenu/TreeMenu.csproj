@@ -396,9 +396,11 @@
   <ItemGroup>
     <Content Include="App_Plugins\SimpleTreeMenu\Css\treemenu.css" />
     <Content Include="App_Plugins\SimpleTreeMenu\Js\dialog.controller.js" />
+    <Content Include="App_Plugins\SimpleTreeMenu\Js\doctypepicker.controller.js" />
     <Content Include="App_Plugins\SimpleTreeMenu\Js\lib\treemenu.js" />
     <Content Include="App_Plugins\SimpleTreeMenu\Js\treemenueditor.controller.js" />
     <Content Include="App_Plugins\SimpleTreeMenu\Views\dialog.html" />
+    <Content Include="App_Plugins\SimpleTreeMenu\Views\doctypepicker.html" />
     <Content Include="App_Plugins\SimpleTreeMenu\Views\editor.html" />
   </ItemGroup>
   <ItemGroup>

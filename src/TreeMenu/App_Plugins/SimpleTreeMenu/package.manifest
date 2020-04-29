@@ -15,7 +15,7 @@
 						label: "Doctype",
 						description: "Allowed doctype",
 						key: "doctype",
-						view: "textstring"
+						view: "~/App_Plugins/SimpleTreeMenu/Views/doctypepicker.html",
 					},
 					{
 						label: "Levels",
@@ -26,7 +26,6 @@
 				]
 			},
 			defaultConfig: {
-				"doctype": "menuNode",
 				"levels": "3"
 			}
 		}
@@ -35,6 +34,7 @@
     "javascript": [
         
         "~/App_plugins/SimpleTreeMenu/Js/lib/treemenu.js",
+		"~/App_plugins/SimpleTreeMenu/Js/doctypepicker.controller.js",
 		"~/App_plugins/SimpleTreeMenu/Js/dialog.controller.js",
         "~/App_plugins/SimpleTreeMenu/Js/treemenueditor.controller.js",
     ],

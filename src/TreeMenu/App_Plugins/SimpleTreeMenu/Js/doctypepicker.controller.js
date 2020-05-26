@@ -2,6 +2,7 @@
     var vm = this;
 
     vm.items = [];
+    vm.loaded = false;
 
     contentTypeResource.getAll().then(function (data) {
     
@@ -15,6 +16,8 @@
         if (($scope.model.value === "" || $scope.model.value === "undefined") && vm.items.length > 0) {
             $scope.model.value = vm.items[0].alias;
         }
+
+        vm.loaded = true;
     });
 
 

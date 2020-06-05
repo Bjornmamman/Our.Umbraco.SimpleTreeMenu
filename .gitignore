@@ -7,3 +7,4 @@ src/packages
 src/TreeMenu/umbraco
 src/TreeMenu/Config
 src/TreeMenu/Web.config
+src/.vs

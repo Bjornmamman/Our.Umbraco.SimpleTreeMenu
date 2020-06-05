@@ -8,3 +8,5 @@ src/TreeMenu/umbraco
 src/TreeMenu/Config
 src/TreeMenu/Web.config
 src/.vs
+*.nupkg
+build/SimpleTreeMenu_*.zip

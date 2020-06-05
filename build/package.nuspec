@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+    <metadata>
+        <id>Our.Umbraco.SimpleTreeMenu</id>
+		    <license type="expression">MIT</license>
+      
+        <version>0.2.2</version>
+		    <authors>Dennis Öhman, Henry Öhman, David Sandström</authors>
+		    <icon>images\icon.png</icon>
+        <owners>Björnmamman</owners>
+
+        <projectUrl>https://github.com/Bjornmamman/Our.Umbraco.SimpleTreeMenu</projectUrl>
+
+
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+
+        <releaseNotes>
+          - Validate doctype
+          - Dropdown doctypepicker for datatype
+        </releaseNotes>
+
+        <description>Typed Treemenu for Umbraco</description>
+
+        <!-- Copyright information -->
+        <copyright>Copyright ©2019 Björnmamman AB</copyright>
+
+        <!-- Tags appear in the gallery and can be used for tag searches -->
+        <tags>umbraco,menu</tags>
+		    <dependencies>
+          <group targetFramework="net472">
+            <dependency id="UmbracoCMS.Core" version="8.1.0" />
+          </group>
+        </dependencies>
+        
+    </metadata>
+
+    <files>
+		    <file src="icon.png" target="images\" />
+        <file src="..\src\Treemenu\bin\Our.Umbraco.SimpleTreeMenu.dll" target="lib\net472" />
+        <file src="..\src\Treemenu\App_Plugins\SimpleTreeMenu\**\*" target="content\App_Plugins\SimpleTreeMenu" />
+    </files>
+
+
+</package>

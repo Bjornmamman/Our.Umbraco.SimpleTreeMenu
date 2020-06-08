@@ -1,4 +1,4 @@
-﻿angular.module("umbraco.directives").controller('SimpleTreeMenu.DialogController', function ($scope, $timeout, contentTypeResource, contentResource, notificationsService) {
+﻿angular.module("umbraco.directives").controller('SimpleTreeMenu.DialogController', function ($scope, $timeout, contentTypeResource, contentResource, notificationsService, simpleTreeMenuServices) {
 
     var vm = this;
 
@@ -40,49 +40,27 @@
 
             $scope.$broadcast('formSubmitting', { scope: $scope });
 
-            for (var t = 0; t < $scope.model.node.variants[0].tabs.length; t++) {
-
-                var tab = $scope.model.node.variants[0].tabs[t];
-
-                for (var p = 0; p < tab.properties.length; p++) {
-
-                    var prop = tab.properties[p];
-
-                    if (typeof prop.value !== "function") {
-                        value[prop.alias] = prop.value;
-                    }
-                }
-            }
-
-            return value;
+            return simpleTreeMenuServices.flatten($scope.model.node);
         } else {
             return null;
         }
     }
 
     function loadData() {
-        contentResource.getScaffold(-20, $scope.model.selectedDoctype).then(function (data) {
+        simpleTreeMenuServices.scaffold($scope.model.selectedDoctype, $scope.model.data).then(function (result) {
 
             vm.edit = true;
 
-            if ($scope.model.data) {
-                for (var t = 0; t < data.variants[0].tabs.length; t++) {
-                    var tab = data.variants[0].tabs[t];
-                    for (var p = 0; p < tab.properties.length; p++) {
-                        var prop = tab.properties[p];
-                        if ($scope.model.data[prop.alias]) {
-                            prop.value = $scope.model.data[prop.alias];
-                        }
-                    }
-                }
-            };
-
-            $scope.model.node = data;
+            $scope.model.node = result.scaffold;
+            $scope.model.data = result.menuNode;
 
             vm.loadingNode = false;
+
         }, function (error) {
                 notificationsService.error("Error loading document type: \"" + $scope.model.selectedDoctype + "\"", error.errorMsg);
         });
+
+        
     }
 
     $timeout(function () {

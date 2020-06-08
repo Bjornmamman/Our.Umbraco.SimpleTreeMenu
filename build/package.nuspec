@@ -4,7 +4,7 @@
         <id>Our.Umbraco.SimpleTreeMenu</id>
 		    <license type="expression">MIT</license>
       
-        <version>0.2.2</version>
+        <version>0</version>
 		    <authors>Dennis Öhman, Henry Öhman, David Sandström</authors>
 		    <icon>images\icon.png</icon>
         <owners>Björnmamman</owners>

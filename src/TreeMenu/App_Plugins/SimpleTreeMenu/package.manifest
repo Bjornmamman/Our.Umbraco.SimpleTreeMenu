@@ -18,6 +18,12 @@
 						view: "~/App_Plugins/SimpleTreeMenu/Views/doctypepicker.html",
 					},
 					{
+						label: "Name template",
+						description: "Enter an angular expression to evaluate against each item for its name.",
+						key: "nameTemplate",
+						view: "textstring"
+					},
+					{
 						label: "Levels",
 						description: "Max number of levels",
 						key: "levels",
@@ -34,6 +40,8 @@
     "javascript": [
         
         "~/App_plugins/SimpleTreeMenu/Js/lib/treemenu.js",
+		"~/App_plugins/SimpleTreeMenu/Js/services.js",
+        "~/App_plugins/SimpleTreeMenu/Js/treemenueditor.controller.js",
 		"~/App_plugins/SimpleTreeMenu/Js/doctypepicker.controller.js",
 		"~/App_plugins/SimpleTreeMenu/Js/dialog.controller.js",
         "~/App_plugins/SimpleTreeMenu/Js/treemenueditor.controller.js",

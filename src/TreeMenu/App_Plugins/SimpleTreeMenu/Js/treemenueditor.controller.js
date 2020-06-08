@@ -1,7 +1,10 @@
-﻿angular.module("umbraco").controller('SimpleTreeMenu.EditorController', function ($scope, localizationService, overlayService, editorService) {
+﻿angular.module("umbraco").controller('SimpleTreeMenu.EditorController', function ($scope, $interpolate, notificationsService, localizationService, overlayService, editorService) {
 
     var doctype = $scope.model.config.doctype;
+    
     var vm = this;
+
+    vm.inited = false;
 
     if (typeof $scope.model.value == "string" || typeof $scope.model.value == "undefined")
         $scope.model.value = {};
@@ -15,25 +18,43 @@
         },
         
         dragStart: function (event) {
-            $scope.setDirty();
+            vm.setDirty();
         }
     };
 
+
+    try {
+        vm.nameExp = !!$scope.model.config.nameTemplate
+            ? $interpolate($scope.model.config.nameTemplate)
+            : undefined;
+    } catch (error) {
+        notificationsService.error("Simple Tree Menu error", error);
+    }
+
+   
+
     $scope.items = $.extend(true, [], $scope.model.value.items);
 
-    setLevels();
+
+    function init() {
+        setLevels();
+
+        vm.inited = true;
+    }
+
+    
 
 
-    function cleanItem() {
+    var cleanItem = function() {
         return {
-            "id": $scope.nextId(),
+            "id": vm.nextId(),
             "key": String.CreateGuid(),
             "contentTypeAlias": doctype,
             "name": ""
         }
     }
 
-    function setLevels() {
+    var setLevels = function() {
         (function (list, depth) {
             var meth = arguments.callee;
             for (var i = 0; i < list.length; i++) {
@@ -43,9 +64,49 @@
         })($scope.items, 0);
     }
 
-    $scope.openEditor = function (node) {
+    vm.getName = function (node, index) {
+        if (!vm.nameExp)
+            return node.name || "Item " + node.id;
 
-        $scope.setDirty();
+        var newName = "";
+
+        try {
+            if (node.properties) {
+                var props = node.properties;
+
+                props["$id"] = node.id;
+                props["$key"] = node.key;
+                props["$type"] = node.contentTypeAlias;
+                props["$level"] = node.level;
+                props["$index"] = index;
+
+                newName = vm.nameExp(props);
+
+                delete props["$id"];
+                delete props["$key"];
+                delete props["$type"];
+                delete props["$level"];
+                delete props["$index"];
+            }
+        } catch (error) {
+        }
+
+        
+        
+
+        if (!newName || newName.length === 0)
+            newName = "Item " + node.id;
+
+        node.name = newName;
+
+        return newName;
+    }
+
+    vm.openEditor = function (node) {
+
+        vm.setDirty();
+
+        node.selected = true;
 
         editorService.closeAll();
 
@@ -56,18 +117,23 @@
             size: 'small',
             data: node.properties,
             submit: function (data) {
-                
+
                 node.properties = data;
+                node.selected = false;
 
                 editorService.close();
             },
             close: function () {
                 editorService.close();
+                node.selected = false;
+
+                if (node.properties == undefined)
+                    vm.deleteNode(node);
             }
         });
     }
 
-    $scope.addNode = function (node) {
+    vm.addNode = function (node) {
 
         var newNode = cleanItem();
 
@@ -77,18 +143,18 @@
 
             newNode.level = node.level + 1;
             node.items.push(newNode);
-            $scope.openEditor(node.items[node.items.length - 1]);
+            vm.openEditor(node.items[node.items.length - 1]);
 
         } else {
             newNode.level = 0;
             $scope.items.push(newNode);
-            $scope.openEditor($scope.items[$scope.items.length - 1]);
+            vm.openEditor($scope.items[$scope.items.length - 1]);
         }
 
-        $scope.setDirty();
+        vm.setDirty();
     }
 
-    $scope.requestDeleteNode = function (node) {
+    vm.requestDeleteNode = function (node) {
         localizationService.localizeMany(["content_nestedContentDeleteItem", "general_delete", "general_cancel", "contentTypeEditor_yesDelete"]).then(function (data) {
             const overlay = {
                 title: data[1],
@@ -100,7 +166,7 @@
                     overlayService.close();
                 },
                 submit: function () {
-                    $scope.deleteNode(node);
+                    vm.deleteNode(node);
                     overlayService.close();
                 }
             };
@@ -109,13 +175,13 @@
         });
     }
 
-    $scope.setDirty = function () {
+    vm.setDirty = function () {
         if ($scope.propertyForm) {
             $scope.propertyForm.$setDirty();
         }
     };
 
-    $scope.deleteNode = function (node) {
+    vm.deleteNode = function (node) {
         var item;
         (function (list) {
             var meth = arguments.callee;
@@ -127,7 +193,7 @@
         })($scope.items);
 
         if (item) {
-            $scope.setDirty();
+            vm.setDirty();
 
             delete item;
 
@@ -138,7 +204,11 @@
         
     }
 
-    $scope.nextId = function () {
+    vm.toggle = function (node) {
+        //node.collapsed = node.collapsed == undefined ? false : !node.collapsed;
+    }
+
+    vm.nextId = function () {
         var id = 0;
         (function (list) {
             var meth = arguments.callee;
@@ -151,7 +221,7 @@
         return id + 1;
     }
 
-    $scope.findNode = function (key) {
+    vm.findNode = function (key) {
         var item;
 
         (function (list) {
@@ -166,7 +236,7 @@
         return item;
     }
 
-    $scope.findParentList = function (key) {
+    vm.findParentList = function (key) {
         var items;
 
         (function (list) {
@@ -181,12 +251,12 @@
         return items;
     }
 
-    $scope.duplicate = function (item) {
-        var items = $scope.findParentList(item.key);
+    vm.duplicate = function (item) {
+        var items = vm.findParentList(item.key);
         var clone = $.extend(true, {}, item);
 
         clone.$$hashKey = undefined;
-        clone.id = $scope.nextId();
+        clone.id = vm.nextId();
         clone.key = String.CreateGuid();
 
         var id = clone.id;
@@ -197,7 +267,7 @@
                 for (var i = 0; i < list.length; i++) {
 
                     list[i].$$hashKey = undefined;
-                    list[i].id = $scope.nextId();
+                    list[i].id = vm.nextId();
                     list[i].key = String.CreateGuid();
 
                     if (list[i].items && list[i].items.length > 0) meth(list[i].items);
@@ -211,7 +281,7 @@
 
         items.push(clone);
 
-        $scope.setDirty();
+        vm.setDirty();
     }
 
 
@@ -223,4 +293,6 @@
         $scope.model.value.items = clone;
 
     });
+
+    init();
 });

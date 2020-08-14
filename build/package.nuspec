@@ -4,19 +4,18 @@
         <id>Our.Umbraco.SimpleTreeMenu</id>
 		    <license type="expression">MIT</license>
       
-        <version>0.2.2</version>
+        <version>1.0</version>
 		    <authors>Dennis Öhman, Henry Öhman, David Sandström</authors>
 		    <icon>images\icon.png</icon>
         <owners>Björnmamman</owners>
 
         <projectUrl>https://github.com/Bjornmamman/Our.Umbraco.SimpleTreeMenu</projectUrl>
 
-
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
 
         <releaseNotes>
-          - Validate doctype
-          - Dropdown doctypepicker for datatype
+          - 1.0 Release.
+          - Added interpolation-template item names = {{PROP}}. Defaults: {{$id}}, {{$key}}, {{$type}}, {{$level}}, {{$index}}
         </releaseNotes>
 
         <description>Typed Treemenu for Umbraco</description>

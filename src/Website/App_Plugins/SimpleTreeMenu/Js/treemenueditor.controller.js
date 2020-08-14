@@ -1,8 +1,9 @@
-﻿angular.module("umbraco").controller('SimpleTreeMenu.EditorController', function ($scope, $interpolate, notificationsService, localizationService, overlayService, editorService) {
+﻿angular.module("umbraco").controller('SimpleTreeMenu.EditorController', function ($scope, $interpolate, localStorageService, notificationsService, eventsService, localizationService, overlayService, editorService) {
 
     var doctype = $scope.model.config.doctype;
     
     var vm = this;
+    var STORAGE_KEY = "simpletreemenu-copy-" + doctype;
 
     vm.inited = false;
 
@@ -22,6 +23,7 @@
         }
     };
 
+    $scope.items = $.extend(true, [], $scope.model.value.items);
 
     try {
         vm.nameExp = !!$scope.model.config.nameTemplate
@@ -31,10 +33,124 @@
         notificationsService.error("Simple Tree Menu error", error);
     }
 
-   
 
-    $scope.items = $.extend(true, [], $scope.model.value.items);
+    var copy = function () {
+        localStorageService.set(STORAGE_KEY, JSON.stringify($scope.items));
 
+        eventsService.emit("simpletreemenu.copy");
+    }
+
+    var paste = function () {
+        var copy = getCopy();
+
+        if (copy == null) {
+
+            pasteItemsAction.isDisabled = true;
+            insertItemsAction.isDisabled = true;
+
+            return;
+        }
+
+        recursive(copy, function (item) {
+            item.$$hashKey = undefined;
+            item.key = String.CreateGuid();
+        });
+
+        $scope.items = copy;
+    }
+
+    var paste = function (insert) {
+        var copy = getCopy();
+
+        if (copy == null) {
+
+            pasteItemsAction.isDisabled = true;
+            insertItemsAction.isDisabled = true;
+            return;
+        }
+
+        recursive(copy, function (item) {
+            item.$$hashKey = undefined;
+            item.key = String.CreateGuid();
+        });
+
+        if (insert)
+            $scope.items = $scope.items.concat(copy);
+        else
+            $scope.items = copy;
+    }
+
+
+
+    var copyItemsAction = {
+        labelKey: 'actions_copy',
+        labelTokens: [],
+        icon: 'documents',
+        method: copy,
+        isDisabled: false
+    }
+
+    var pasteItemsAction = {
+        labelKey: 'defaultdialogs_paste',
+        labelTokens: ["items"],
+        icon: 'paste-in',
+        method: paste,
+        isDisabled: true
+    }
+
+    var insertItemsAction = {
+        labelKey: 'general_insert',
+        labelTokens: ["items"],
+        icon: 'indent',
+        method: function () { paste(true); },
+        isDisabled: true
+    }
+
+    var clearItemsAction = {
+        labelKey: 'general_clear',
+        labelTokens: ["items"],
+        icon: 'trash',
+        method: function () {
+            vm.requestClear();
+        },
+        isDisabled: false
+    }
+
+    if ($scope.umbProperty && localStorageService.isSupported) {
+        $scope.umbProperty.setPropertyActions([copyItemsAction,
+            pasteItemsAction,
+            insertItemsAction,
+            {
+                labelKey: '',
+                labelTokens: [""],
+                method: function () {
+                },
+                isDisabled: true
+            },
+            clearItemsAction
+        ]);
+    }
+
+    eventsService.on("simpletreemenu.copy", function () {
+        pasteItemsAction.isDisabled = false;
+        insertItemsAction.isDisabled = false;
+    });
+
+    var getCopy = function () {
+        var dataString = localStorageService.get(STORAGE_KEY);
+
+        if (dataString != null) {
+            dataJSON = JSON.parse(dataString);
+        }
+
+        if (!dataJSON || dataJSON == null || !Array.isArray(dataJSON) || dataJSON.length == 0)
+            return null;
+
+        return dataJSON;
+        
+    }
+
+    
 
     function init() {
         setLevels();
@@ -64,6 +180,17 @@
         })($scope.items, 0);
     }
 
+    var recursive = function (items, callback) {
+        (function (list) {
+            var meth = arguments.callee;
+            for (var i = 0; i < list.length; i++) {
+                callback(list[i]);
+
+                if (list[i].items && list[i].items.length > 0) meth(list[i].items);
+            }
+        })(items);
+    }
+
     vm.getName = function (node, index) {
         if (!vm.nameExp)
             return node.name || "Item " + node.id;
@@ -90,9 +217,6 @@
             }
         } catch (error) {
         }
-
-        
-        
 
         if (!newName || newName.length === 0)
             newName = "Item " + node.id;
@@ -175,11 +299,35 @@
         });
     }
 
+    vm.requestClear = function (node, submit) {
+        localizationService.localizeMany(["content_nestedContentDeleteAllItems", "general_delete", "general_cancel", "contentTypeEditor_yesDelete"]).then(function (data) {
+            const overlay = {
+                title: data[1],
+                content: data[0],
+                closeButtonLabel: data[2],
+                submitButtonLabel: data[3],
+                submitButtonStyle: "danger",
+                close: function () {
+                    overlayService.close();
+                },
+                submit: function () {
+                    
+                    $scope.items = [];
+                    overlayService.close();
+                }
+            };
+
+            overlayService.open(overlay);
+        });
+    }
+
     vm.setDirty = function () {
         if ($scope.propertyForm) {
             $scope.propertyForm.$setDirty();
         }
     };
+
+    
 
     vm.deleteNode = function (node) {
         var item;
@@ -250,6 +398,7 @@
 
         return items;
     }
+
 
     vm.duplicate = function (item) {
         var items = vm.findParentList(item.key);

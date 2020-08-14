@@ -4,7 +4,7 @@
         <id>Our.Umbraco.SimpleTreeMenu</id>
 		    <license type="expression">MIT</license>
       
-        <version>0</version>
+        <version>0.2.2</version>
 		    <authors>Dennis Öhman, Henry Öhman, David Sandström</authors>
 		    <icon>images\icon.png</icon>
         <owners>Björnmamman</owners>
@@ -35,8 +35,8 @@
     </metadata>
 
     <files>
-		    <file src="icon.png" target="images\" />
-        <file src="..\src\Treemenu\bin\Our.Umbraco.SimpleTreeMenu.dll" target="lib\net472" />
+	      <file src="icon.png" target="images\" />
+        <file src="..\src\Treemenu\bin\release\net472\Our.Umbraco.SimpleTreeMenu.dll" target="lib\net472" />
         <file src="..\src\Treemenu\App_Plugins\SimpleTreeMenu\**\*" target="content\App_Plugins\SimpleTreeMenu" />
     </files>
 

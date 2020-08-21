@@ -27,9 +27,6 @@ Example:
 
         @:<li><a class="nav-link" href="@url">@(element.Value<string>("title"))</a></li>
 
-
-
-
         if (item.Children.Any())
         {
             @:<ul>
@@ -37,7 +34,7 @@ Example:
                 {
                     var cElement = (IPublishedElement)child;
                     var cUrl = cElement.Value<IPublishedContent>("linkedContent")?.Url ?? cElement.Value<string>("linkedUrl") ?? "#";
-                    @:<!--<li>--><a class="nav-link" href="@cUrl">@(cElement.Value<string>("title"))</a></li>
+                    @:<li><a class="nav-link" href="@cUrl">@(cElement.Value<string>("title"))</a></li>
                 }
             @:</ul>
         }

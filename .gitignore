@@ -10,3 +10,12 @@ src/TreeMenu/Web.config
 src/.vs
 *.nupkg
 build/SimpleTreeMenu_*.zip
+src/Website/bin
+src/Website/obj
+src/Website/Umbraco
+src/Website/App_Data/cache
+src/Website/App_Data/Logs
+src/Website/App_Data/Models
+src/Website/App_Data/TEMP
+!src/Website/bin/Our.Umbraco.SimpleTreeMenu.dll
+src/node_modules

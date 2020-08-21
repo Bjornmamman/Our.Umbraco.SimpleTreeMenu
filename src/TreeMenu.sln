@@ -3,7 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeMenu", "TreeMenu\TreeMenu.csproj", "{374B3770-B5F7-4CB0-981C-6B5CD94593F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TreeMenu", "TreeMenu\TreeMenu.csproj", "{374B3770-B5F7-4CB0-981C-6B5CD94593F9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{CB8D8A8D-C066-4AB6-90B0-A87EC3B517E6}"
+	ProjectSection(SolutionItems) = preProject
+		TreeMenu\Properties\AssemblyInfo.cs = TreeMenu\Properties\AssemblyInfo.cs
+		..\build\build.bat = ..\build\build.bat
+		..\build\package.nuspec = ..\build\package.nuspec
+		..\build\package.xml = ..\build\package.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Develop", "Develop", "{6BD4BFC2-96DD-4774-8CBF-F38B4E9091FC}"
+	ProjectSection(SolutionItems) = preProject
+		package.json = package.json
+		webpack.config.js = webpack.config.js
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Website", "Website\Website.csproj", "{9D060B16-0914-43FE-90A1-930FC9D0E687}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +31,10 @@ Global
 		{374B3770-B5F7-4CB0-981C-6B5CD94593F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{374B3770-B5F7-4CB0-981C-6B5CD94593F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{374B3770-B5F7-4CB0-981C-6B5CD94593F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D060B16-0914-43FE-90A1-930FC9D0E687}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D060B16-0914-43FE-90A1-930FC9D0E687}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D060B16-0914-43FE-90A1-930FC9D0E687}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D060B16-0914-43FE-90A1-930FC9D0E687}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

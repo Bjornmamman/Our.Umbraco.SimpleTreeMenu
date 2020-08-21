@@ -16,28 +16,33 @@ Example:
 
   var navigationModel = Model.Value<IEnumerable<ISimpleTreeItem>>("navigation", defaultValue: new List<ISimpleTreeItem>());
   
-  @:<ul>
+   @:<ul>
+
 
     foreach (var item in navigationModel)
     {
 
-      var element = (IPublishedElement)item;
-      var url = element.Value<IPublishedContent>("linkedContent")?.Url ?? element.Value<string>("linkedUrl") ?? "#";
+        var element = (IPublishedElement)item;
+        var url = element.Value<IPublishedContent>("linkedContent")?.Url ?? element.Value<string>("linkedUrl") ?? "#";
 
-      @:<li><a href="@url">@(element.Value<string>("title"))</a></li>
+        @:<li><a class="nav-link" href="@url">@(element.Value<string>("title"))</a></li>
 
-      if (item.Children.Any())
-      {
-        @:<ul>
-          foreach (var child in item.Children)
-          {
-            var cElement = (IPublishedElement)child;
-            @:<li>@(cElement.Value<string>("title"))</li>
-          }
-        @:</ul>
-      }
+
+
+
+        if (item.Children.Any())
+        {
+            @:<ul>
+                foreach (var child in item.Children)
+                {
+                    var cElement = (IPublishedElement)child;
+                    var cUrl = cElement.Value<IPublishedContent>("linkedContent")?.Url ?? cElement.Value<string>("linkedUrl") ?? "#";
+                    @:<!--<li>--><a class="nav-link" href="@cUrl">@(cElement.Value<string>("title"))</a></li>
+                }
+            @:</ul>
+        }
     }
 
-  @:</ul>
+    @:</ul>
 }
 ```

@@ -1,4 +1,4 @@
-﻿angular.module("umbraco.directives").controller('SimpleTreeMenu.DialogController', function ($scope, $timeout, contentTypeResource, contentResource, notificationsService, simpleTreeMenuServices) {
+﻿angular.module("umbraco.directives").controller('SimpleTreeMenu.DialogController', function ($scope, $timeout, elementTypeResource, notificationsService, simpleTreeMenuServices) {
 
     var vm = this;
 
@@ -72,14 +72,12 @@
 
             $scope.model.selectedDoctype = $scope.model.doctype;
 
-            contentTypeResource.getAll().then(function (data) {
-                
+            elementTypeResource.getAll().then(function (elementTypes) {
                 var doctype;
 
-                for (var i = 0; i < data.length; i++) {
-                    if (data[i].alias === $scope.model.selectedDoctype)
-                    {
-                        doctype = data[i];
+                for (var i = 0; i < elementTypes.length; i++) {
+                    if (elementTypes[i].alias === $scope.model.selectedDoctype) {
+                        doctype = elementTypes[i];
                         break;
                     }
                 }
@@ -87,14 +85,9 @@
                 if (doctype == undefined) {
                     notificationsService.error("Error loading document type: \"" + $scope.model.selectedDoctype + "\"", "");
                     $scope.model.close();
-                } else if (doctype && doctype.isElement === false) {
-                    notificationsService.error("Error loading document type: \"" + $scope.model.selectedDoctype + "\"", "\"" + $scope.model.selectedDoctype + "\" is not an element type");
-                    $scope.model.close();
                 } else {
                     loadData();
                 }
-
-                
             });
             
         }

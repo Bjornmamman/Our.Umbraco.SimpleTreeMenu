@@ -3,18 +3,18 @@
   <info>
     <package>
       <name>SimpleTreeMenu</name>
-      <version>1.0</version>
+      <version>1.1</version>
       <iconUrl>https://bjornmamman.se/assets/Images/Favicons/apple-icon-180x180.png</iconUrl>
       <licence url="https://opensource.org/licenses/MIT">MIT</licence>
       <url>https://github.com/Bjornmamman/Our.Umbraco.SimpleTreeMenu</url>
       <requirements type="strict">
         <major>8</major>
+        <major>7</major>
         <major>1</major>
-        <major>0</major>
       </requirements>
     </package>
     <author>
-      <name>Dennis Öhman, Henry Öhman, David Sandström</name>
+      <name>Dennis Öhman, David Sandström</name>
       <website>https://github.com/Bjornmamman/Our.Umbraco.SimpleTreeMenu</website>
     </author>
     <readme><![CDATA[Typed Treemenu for Umbraco<]]></readme>

@@ -4,8 +4,8 @@
         <id>Our.Umbraco.SimpleTreeMenu</id>
 		    <license type="expression">MIT</license>
       
-        <version>1.0</version>
-		    <authors>Dennis Öhman, Henry Öhman, David Sandström</authors>
+        <version>1.1</version>
+		    <authors>Dennis Öhman, David Sandström</authors>
 		    <icon>images\icon.png</icon>
         <owners>Björnmamman</owners>
 
@@ -14,9 +14,8 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
 
         <releaseNotes>
-          - 1.0 Release.
-          - Added interpolation-template item names = {{PROP}}. Defaults: {{$id}}, {{$key}}, {{$type}}, {{$level}}, {{$index}}
-        </releaseNotes>
+			- Permission fix #16 - Thanks @DarkSummon
+		</releaseNotes>
 
         <description>Typed Treemenu for Umbraco</description>
 
@@ -27,7 +26,7 @@
         <tags>umbraco,menu</tags>
 		    <dependencies>
           <group targetFramework="net472">
-            <dependency id="UmbracoCMS.Core" version="8.1.0" />
+            <dependency id="UmbracoCMS.Core" version="8.7.1" />
           </group>
         </dependencies>
         

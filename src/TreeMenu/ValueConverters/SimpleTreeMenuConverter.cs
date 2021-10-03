@@ -47,7 +47,7 @@ namespace Our.Umbraco.SimpleTreeMenu.ValueConverters
         }
 
         public override PropertyCacheLevel GetPropertyCacheLevel(IPublishedPropertyType propertyType)
-            => PropertyCacheLevel.Elements;
+            => PropertyCacheLevel.Element;
 
         public override bool IsConverter(IPublishedPropertyType publishedProperty)
         {

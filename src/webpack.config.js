@@ -10,6 +10,7 @@ module.exports = {
         new CopyPlugin({
             patterns: [
                 { from: 'TreeMenu/App_Plugins/SimpleTreeMenu/', to: 'Website/App_Plugins/SimpleTreeMenu/' },
+                { from: 'TreeMenu/App_Plugins/SimpleTreeMenu/', to: 'WebsiteV9/App_Plugins/SimpleTreeMenu/' },
             ],
         }),
     ],

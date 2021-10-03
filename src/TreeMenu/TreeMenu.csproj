@@ -1,54 +1,46 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
-    <RootNamespace>Our.Umbraco.SimpleTreeMenu</RootNamespace>
+	<PropertyGroup>
+		<TargetFrameworks>net472;net5.0</TargetFrameworks>
+		<RootNamespace>Our.Umbraco.SimpleTreeMenu</RootNamespace>
 
-    <IncludeContentInPack>true</IncludeContentInPack>
-    <ContentTargetFolders>content</ContentTargetFolders>
-    <AssemblyName>Our.Umbraco.SimpleTreeMenu</AssemblyName>
-    <Authors>Dennis Öhman, Henry Öhman, David Sandström</Authors>
-    <Company>Björnmamman AB Sweden</Company>
-    <Description>Typed Treemenu for Umbraco</Description>
-    <PackageIcon>icon.png</PackageIcon>
+		<IncludeContentInPack>true</IncludeContentInPack>
+		<ContentTargetFolders>content</ContentTargetFolders>
+		<AssemblyName>Our.Umbraco.SimpleTreeMenu</AssemblyName>
+		<Authors>Dennis Öhman, David Sandström</Authors>
+		<Company>Björnmamman AB Sweden</Company>
+		
+		<Description>Typed Treemenu for Umbraco</Description>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageId>Our.Umbraco.SimpleTreeMenu</PackageId>
+		<Version>2.0-beta001</Version>
+		<PackageProjectUrl>https://our.umbraco.com/packages/website-utilities/simpletreemenu/</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/Bjornmamman/Our.Umbraco.SimpleTreeMenu</RepositoryUrl>
+		<Description>Typed Treemenu for Umbraco</Description>
+		<PackageTags>Umbraco,Menu,Treemenu</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	</PropertyGroup>
 
-  </PropertyGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net472'">
+		<PackageReference Include="UmbracoCms.Core" Version="8.7.1" />
+		<PackageReference Include="UmbracoCms.Web" Version="8.7.1" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
+		<PackageReference Include="Umbraco.Cms.Web.Website" Version="9.0.0" />
+		<PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="9.0.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="App_Plugins\**" Pack="true" PackagePath="">
-      <Pack>True</Pack>
-      <PackagePath>Content\App_Plugins\</PackagePath>
-    </None>
-    <None Include="icon.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		
+		<None Include="icon.png">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+		
+		<Content Include="App_Plugins\**\*.*">
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
+		</Content>
 
-  <ItemGroup>
-    <PackageReference Include="UmbracoCms.Core" Version="8.7.1" />
-    <PackageReference Include="UmbracoCms.Web" Version="8.7.1" />
-  </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="XCOPY $(TargetPath) $(SolutionDir)\Website\bin\ /y /q &#xD;&#xA;&#xD;&#xA;" />
-  </Target>
-
-  <ItemGroup>
-    <Content Include="App_Plugins\**\*" />
-    <Compile Remove="**\*" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="App_Plugins\**" Pack="true" PackagePath="">
-      <Pack>True</Pack>
-      <PackagePath>Content\App_Plugins\</PackagePath>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="ValueConverters\ISimpleTreeItem.cs" />
-    <Compile Include="ValueConverters\SimpleTreeItem.cs" />
-    <Compile Include="ValueConverters\SimpleTreeMenuConverter.cs" />
-  </ItemGroup>
+	</ItemGroup>
 </Project>

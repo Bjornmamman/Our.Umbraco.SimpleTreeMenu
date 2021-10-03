@@ -1,0 +1,36 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@using Our.Umbraco.SimpleTreeMenu
+@{
+	Layout = null;
+}
+
+@{
+
+  var navigationModel = Model.Value<IEnumerable<ISimpleTreeItem>>("navigation", defaultValue: new List<ISimpleTreeItem>());
+  
+   @:<ul>
+
+
+    foreach (var item in navigationModel)
+    {
+
+        var element = (IPublishedElement)item;
+        var url = "#";
+
+        @:<li><a class="nav-link" href="@url">@(element.Value<string>("title"))</a></li>
+
+        if (item.Children.Any())
+        {
+            @:<ul>
+                foreach (var child in item.Children)
+                {
+                    var cElement = (IPublishedElement)child;
+                    var cUrl = "#";
+                    @:<li><a class="nav-link" href="@cUrl">@(cElement.Value<string>("title"))</a></li>
+                }
+            @:</ul>
+        }
+    }
+
+    @:</ul>
+}

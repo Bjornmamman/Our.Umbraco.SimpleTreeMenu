@@ -1,0 +1,60 @@
+# Builds a library, and packages it up.
+#
+# Works on a release/version tag
+#   e.g release/1.0.2 will build v1.0.2
+#
+
+name: Build and Package
+
+env:
+  NAME: Our.Umbraco.SimpleTreeMenu
+  OUTPUT: ./Output
+  LIBRARY_FOLDER: ./src/Our.Umbraco.SimpleTreeMenu
+  CONFIG: release
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - "release/*"
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:      
+      - name: Get Version 
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\/release\//}
+        shell: bash
+      
+      - name: checkout
+        uses: actions/checkout@v2
+        
+      - name: Setup NuGet.exe for use with actions
+        uses: NuGet/setup-nuget@v1.0.2        
+        
+      - name: Setup .net core
+        uses: actions/setup-dotnet@v1.4.0
+      
+      - name: Setup UmbPack
+        run: dotnet tool install Umbraco.Tools.Packages --global
+
+      - name: Create NuGet package file
+        run: dotnet pack ${{ env.LIBRARY_FOLDER }} -c ${{ env.CONFIG }} -o ${{ env.OUTPUT }} /p:version=${{ steps.get_version.outputs.VERSION }} 
+      
+      #- name: Push NuGet package file
+      #  run: dotnet nuget push ${{ env.OUTPUT }}/${{ env.NAME }}.${{ steps.get_version.outputs.VERSION }}.nupkg --skip-duplicate -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+        
+      - name: Create Umbraco package file
+        run: UmbPack pack ./package.xml -n ${{ env.NAME }}_${{ steps.get_version.outputs.VERSION }}.zip -o ${{ env.OUTPUT }} -v ${{ steps.get_version.outputs.VERSION }}
+ 
+      #- name: Push Umbraco package file
+      #  run: UmbPack push "${{ env.OUTPUT }}/${{ env.NAME }}_${{ steps.get_version.outputs.VERSION }}.zip" -k ${{ secrets.UMB_API_KEY }}
+        
+      - name: upload-artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Build-Results-${{ steps.get_version.outputs.VERSION }}
+          path: ${{ env.OUTPUT }}/**/*

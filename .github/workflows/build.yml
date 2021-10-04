@@ -32,10 +32,10 @@ jobs:
         uses: actions/checkout@v2
         
       - name: Setup NuGet.exe for use with actions
-        uses: NuGet/setup-nuget@v1.0.2        
+        uses: NuGet/setup-nuget@v1      
         
       - name: Setup .net core
-        uses: actions/setup-dotnet@v1.4.0
+        uses: actions/setup-dotnet@v1
       
       - name: Setup UmbPack
         run: dotnet tool install Umbraco.Tools.Packages --global

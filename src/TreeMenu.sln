@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{CB8D8A8D
 	ProjectSection(SolutionItems) = preProject
 		TreeMenu\Properties\AssemblyInfo.cs = TreeMenu\Properties\AssemblyInfo.cs
 		..\build\build.bat = ..\build\build.bat
+		..\.github\workflows\build.yml = ..\.github\workflows\build.yml
 		..\build\package.nuspec = ..\build\package.nuspec
 		..\build\package.xml = ..\build\package.xml
 	EndProjectSection
@@ -21,7 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Develop", "Develop", "{6BD4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Website", "Website\Website.csproj", "{9D060B16-0914-43FE-90A1-930FC9D0E687}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebsiteV9", "WebsiteV9\WebsiteV9.csproj", "{0C72EBB0-7399-4BA4-88FA-697DCC60E43A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebsiteV9", "WebsiteV9\WebsiteV9.csproj", "{0C72EBB0-7399-4BA4-88FA-697DCC60E43A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

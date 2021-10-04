@@ -43,14 +43,14 @@ jobs:
       - name: Create NuGet package file
         run: dotnet pack ${{ env.LIBRARY_FOLDER }} -c ${{ env.CONFIG }} -o ${{ env.OUTPUT }} /p:version=${{ steps.get_version.outputs.VERSION }} 
       
-      #- name: Push NuGet package file
-      #  run: dotnet nuget push ${{ env.OUTPUT }}/${{ env.NAME }}.${{ steps.get_version.outputs.VERSION }}.nupkg --skip-duplicate -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+      - name: Push NuGet package file
+        run: dotnet nuget push ${{ env.OUTPUT }}/${{ env.NAME }}.${{ steps.get_version.outputs.VERSION }}.nupkg --skip-duplicate -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
         
       - name: Create Umbraco package file
         run: UmbPack pack ./package.xml -n ${{ env.NAME }}_${{ steps.get_version.outputs.VERSION }}.zip -o ${{ env.OUTPUT }} -v ${{ steps.get_version.outputs.VERSION }}
  
-      #- name: Push Umbraco package file
-      #  run: UmbPack push "${{ env.OUTPUT }}/${{ env.NAME }}_${{ steps.get_version.outputs.VERSION }}.zip" -k ${{ secrets.UMB_API_KEY }}
+      - name: Push Umbraco package file
+        run: UmbPack push "${{ env.OUTPUT }}/${{ env.NAME }}_${{ steps.get_version.outputs.VERSION }}.zip" -k ${{ secrets.UMB_API_KEY }}
         
       - name: upload-artifacts
         uses: actions/upload-artifact@v2

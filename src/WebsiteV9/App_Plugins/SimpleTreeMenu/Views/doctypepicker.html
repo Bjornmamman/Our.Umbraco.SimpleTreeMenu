@@ -1,0 +1,7 @@
+﻿<div ng-controller="SimpleTreeMenu.DoctypePicker as vm">
+
+    <select ng-if="vm.loaded" name="dropDownList" class="umb-property-editor umb-dropdown"  ng-options="p.alias as p.name for p in vm.items" ng-model="model.value">
+    </select>
+
+    <p ng-if="vm.loaded && vm.items.length == 0">No element types found</p>
+</div>

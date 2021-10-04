@@ -1,0 +1,52 @@
+﻿{
+    "propertyEditors": [
+        {
+			alias: "SimpleTreeMenu",
+			name: "SimpleTreeMenu",
+			icon: "icon-network-alt",
+			isParameterEditor: true,
+			editor: {
+				view: "~/App_Plugins/SimpleTreeMenu/Views/editor.html",
+				valueType: "JSON"
+			},
+			prevalues: {
+				fields: [
+					{
+						label: "Doctype",
+						description: "Allowed doctype",
+						key: "doctype",
+						view: "~/App_Plugins/SimpleTreeMenu/Views/doctypepicker.html",
+					},
+					{
+						label: "Name template",
+						description: "Enter an angular expression to evaluate against each item for its name.",
+						key: "nameTemplate",
+						view: "textstring"
+					},
+					{
+						label: "Levels",
+						description: "Max number of levels",
+						key: "levels",
+						view: "number"
+					}
+				]
+			},
+			defaultConfig: {
+				"levels": "3"
+			}
+		}
+
+    ],
+    "javascript": [
+        
+        "~/App_plugins/SimpleTreeMenu/Js/lib/treemenu.js",
+		"~/App_plugins/SimpleTreeMenu/Js/services.js",
+        "~/App_plugins/SimpleTreeMenu/Js/treemenueditor.controller.js",
+		"~/App_plugins/SimpleTreeMenu/Js/doctypepicker.controller.js",
+		"~/App_plugins/SimpleTreeMenu/Js/dialog.controller.js",
+        "~/App_plugins/SimpleTreeMenu/Js/treemenueditor.controller.js",
+    ],
+    "css": [ 
+        "~/App_plugins/SimpleTreeMenu/Css/treemenu.css",
+	]
+}

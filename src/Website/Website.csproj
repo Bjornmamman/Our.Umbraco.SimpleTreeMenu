@@ -292,10 +292,6 @@
     <Content Include="App_Plugins\OsmMaps\langs\zh-cn.js" />
     <Content Include="App_Plugins\OsmMaps\OsmMaps.controller.js" />
     <Content Include="App_Plugins\OsmMaps\OsmMaps.html" />
-    <Content Include="App_Plugins\SimpleTreeMenu\Css\treemenu.css" />
-    <Content Include="App_Plugins\SimpleTreeMenu\Views\dialog.html" />
-    <Content Include="App_Plugins\SimpleTreeMenu\Views\doctypepicker.html" />
-    <Content Include="App_Plugins\SimpleTreeMenu\Views\editor.html" />
     <Content Include="App_Plugins\StarterKit\lang\en-GB.xml" />
     <Content Include="App_Plugins\StarterKit\lang\en-US.xml" />
     <Content Include="App_Plugins\StarterKit\lessons.service.js" />
@@ -2071,7 +2067,6 @@
     <Content Include="App_Plugins\StarterKit\package.manifest" />
     <Content Include="config\umbracoSettings.config" />
     <Content Include="config\ClientDependency.config" />
-    <Content Include="App_Plugins\SimpleTreeMenu\package.manifest" />
     <Content Include="Media\Web.config" />
     <Content Include="config\tinyMceConfig.config" />
     <Content Include="config\serilog.user.config" />

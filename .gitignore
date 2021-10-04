@@ -20,3 +20,6 @@ src/Website/App_Data/TEMP
 !src/Website/bin/Our.Umbraco.SimpleTreeMenu.dll
 src/node_modules
 release
+src/WebsiteV9/wwwroot/App_Plugins
+src/WebsiteV9/umbraco
+src/Website/App_Data

@@ -10,13 +10,11 @@ env:
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
   NAME: Our.Umbraco.SimpleTreeMenu
   OUTPUT: ./Output
-  LIBRARY_FOLDER: ./src/Our.Umbraco.SimpleTreeMenu
+  LIBRARY_FOLDER: ./src/TreeMenu
   CONFIG: release
 
 on:
   push:
-    branches:
-      - master
     tags:
       - "release/*"
 

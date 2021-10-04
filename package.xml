@@ -20,8 +20,8 @@
     <readme><![CDATA[Typed Treemenu for Umbraco]]></readme>
   </info>
   <files>
-    <folder path="../src/Treemenu/App_Plugins/SimpleTreeMenu" orgPath="App_Plugins/SimpleTreeMenu" /> 
-    <file path="../src/Treemenu/bin/Release/net472/Our.Umbraco.SimpleTreeMenu.dll" orgPath="bin/Our.Umbraco.SimpleTreeMenu.dll" />
+    <folder path="src/Treemenu/App_Plugins/SimpleTreeMenu" orgPath="App_Plugins/SimpleTreeMenu" /> 
+    <file path="src/Treemenu/bin/Release/net472/Our.Umbraco.SimpleTreeMenu.dll" orgPath="bin/Our.Umbraco.SimpleTreeMenu.dll" />
   </files>
   <Actions />
   <control />

@@ -8,10 +8,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{CB8D8A8D-C066-4AB6-90B0-A87EC3B517E6}"
 	ProjectSection(SolutionItems) = preProject
 		TreeMenu\Properties\AssemblyInfo.cs = TreeMenu\Properties\AssemblyInfo.cs
-		..\build\build.bat = ..\build\build.bat
 		..\.github\workflows\build.yml = ..\.github\workflows\build.yml
-		..\build\package.nuspec = ..\build\package.nuspec
-		..\build\package.xml = ..\build\package.xml
+		..\package.xml = ..\package.xml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Develop", "Develop", "{6BD4BFC2-96DD-4774-8CBF-F38B4E9091FC}"

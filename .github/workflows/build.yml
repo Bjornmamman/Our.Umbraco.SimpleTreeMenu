@@ -9,6 +9,7 @@ name: Build and Package
 env:
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
   NAME: Our.Umbraco.SimpleTreeMenu
+  UMBNAME: SimpleTreeMenu
   OUTPUT: ./Output
   LIBRARY_FOLDER: ./src/TreeMenu
   CONFIG: release
@@ -47,10 +48,10 @@ jobs:
         run: dotnet nuget push ${{ env.OUTPUT }}/${{ env.NAME }}.${{ steps.get_version.outputs.VERSION }}.nupkg --skip-duplicate -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
         
       - name: Create Umbraco package file
-        run: UmbPack pack ./package.xml -n ${{ env.NAME }}_${{ steps.get_version.outputs.VERSION }}.zip -o ${{ env.OUTPUT }} -v ${{ steps.get_version.outputs.VERSION }}
+        run: UmbPack pack ./package.xml -n ${{ env.UMBNAME }}_${{ steps.get_version.outputs.VERSION }}.zip -o ${{ env.OUTPUT }} -v ${{ steps.get_version.outputs.VERSION }}
  
       - name: Push Umbraco package file
-        run: UmbPack push "${{ env.OUTPUT }}/${{ env.NAME }}_${{ steps.get_version.outputs.VERSION }}.zip" -k ${{ secrets.UMB_API_KEY }}
+        run: UmbPack push "${{ env.OUTPUT }}/${{ env.UMBNAME }}_${{ steps.get_version.outputs.VERSION }}.zip" -k ${{ secrets.UMB_API_KEY }}
         
       - name: upload-artifacts
         uses: actions/upload-artifact@v2

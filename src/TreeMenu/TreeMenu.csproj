@@ -36,12 +36,25 @@
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>
 		</None>
-		
+
 		<Content Include="App_Plugins\**\*.*">
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
 		</Content>
+		<Compile Remove="**\*" />
+		<None Include="build\**\*.*">
+			<Pack>True</Pack>
+			<PackagePath>buildTransitive</PackagePath>
+		</None>
 
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Include="ValueConverters\ISimpleTreeItem.cs" />
+	  <Compile Include="ValueConverters\ISimpleTreeMenu.cs" />
+	  <Compile Include="ValueConverters\SimpleTreeItem.cs" />
+	  <Compile Include="ValueConverters\SimpleTreeMenu.cs" />
+	  <Compile Include="ValueConverters\SimpleTreeMenuConverter.cs" />
 	</ItemGroup>
 <Target Name="RemoveLoggingAnalyzer" BeforeTargets="CoreCompile">
     <ItemGroup>

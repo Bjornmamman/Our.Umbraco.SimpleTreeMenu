@@ -23,3 +23,8 @@ release
 src/WebsiteV9/wwwroot/App_Plugins
 src/WebsiteV9/umbraco
 src/Website/App_Data
+src/WebsiteV8/App_Data
+src/WebsiteV8/Umbraco
+src/WebsiteV8/bin
+src/WebsiteV9/App_Plugins/UmbracoForms
+src/WebsiteV8/Views/MacroPartials

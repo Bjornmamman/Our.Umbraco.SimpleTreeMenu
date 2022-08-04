@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29306.81
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TreeMenu", "TreeMenu\TreeMenu.csproj", "{374B3770-B5F7-4CB0-981C-6B5CD94593F9}"
 EndProject
@@ -18,9 +18,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Develop", "Develop", "{6BD4
 		webpack.config.js = webpack.config.js
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Website", "Website\Website.csproj", "{9D060B16-0914-43FE-90A1-930FC9D0E687}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebsiteV8", "WebsiteV8\WebsiteV8.csproj", "{9D060B16-0914-43FE-90A1-930FC9D0E687}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebsiteV9", "WebsiteV9\WebsiteV9.csproj", "{0C72EBB0-7399-4BA4-88FA-697DCC60E43A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebsiteV10", "WebsiteV10\WebsiteV10.csproj", "{962F90BA-D601-4490-ABC8-0293554FAD32}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +42,10 @@ Global
 		{0C72EBB0-7399-4BA4-88FA-697DCC60E43A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C72EBB0-7399-4BA4-88FA-697DCC60E43A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C72EBB0-7399-4BA4-88FA-697DCC60E43A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{962F90BA-D601-4490-ABC8-0293554FAD32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{962F90BA-D601-4490-ABC8-0293554FAD32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{962F90BA-D601-4490-ABC8-0293554FAD32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{962F90BA-D601-4490-ABC8-0293554FAD32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

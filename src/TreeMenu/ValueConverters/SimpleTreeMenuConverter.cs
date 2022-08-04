@@ -64,6 +64,9 @@ namespace Our.Umbraco.SimpleTreeMenu.ValueConverters
         /// <inheritdoc />
         public override object ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel referenceCacheLevel, object inter, bool preview)
         {
+            if(inter == null)
+                return Enumerable.Empty<SimpleTreeItem>();
+                
             var jsonObject = JsonConvert.DeserializeObject<JObject>((string)inter);
 
             if (jsonObject == null)

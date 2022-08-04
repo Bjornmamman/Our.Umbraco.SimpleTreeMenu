@@ -5,17 +5,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-#if NET472
-#elif NET5_0
+#if NETFRAMEWORK
+#else
 #endif
 
-#if NET472
+#if NETFRAMEWORK
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Core.PropertyEditors;
 using Umbraco.Web.PropertyEditors;
 using Umbraco.Web.PropertyEditors.ValueConverters;
 using Umbraco.Web.PublishedCache;
-#elif NET5_0
+using Umbraco.Core;
+using UmbracoCore = Umbraco.Core;
+
+#else
 using Umbraco.Cms.Core.Logging;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.PropertyEditors;
@@ -23,23 +26,20 @@ using Umbraco.Cms.Core.PublishedCache;
 #endif
 
 
-using Umbraco.Core;
-using UmbracoCore = Umbraco.Core;
-
 namespace Our.Umbraco.SimpleTreeMenu.ValueConverters
 {
-#if NET472
+#if NETFRAMEWORK
     public class SimpleTreeMenuConverter : NestedContentValueConverterBase, IPropertyValueConverter
-#elif NET5_0
+#else
     public class SimpleTreeMenuConverter : global::Umbraco.Cms.Core.PropertyEditors.ValueConverters.NestedContentValueConverterBase, IPropertyValueConverter
 #endif
 
     {
         private readonly IPublishedSnapshotAccessor _publishedSnapshotAccessor;
 
-#if NET472
+#if NETFRAMEWORK
         public SimpleTreeMenuConverter(IPublishedSnapshotAccessor publishedSnapshotAccessor, IPublishedModelFactory publishedModelFactory) : base(publishedSnapshotAccessor, publishedModelFactory)
-#elif NET5_0
+#else
         public SimpleTreeMenuConverter(IPublishedSnapshotAccessor publishedSnapshotAccessor, IPublishedModelFactory publishedModelFactory, IProfilingLogger proflog) : base(publishedSnapshotAccessor, publishedModelFactory)
 #endif
         {

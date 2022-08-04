@@ -1,0 +1,38 @@
+﻿@using Our.Umbraco.SimpleTreeMenu
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Content>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = null;
+}
+
+@{
+
+  var navigationModel = Model.Value<IEnumerable<ISimpleTreeItem>>("navigation", defaultValue: new List<ISimpleTreeItem>());
+  
+   @:<ul>
+
+
+    foreach (var item in navigationModel)
+    {
+
+        var element = (IPublishedElement)item;
+        var url = "#";
+
+        @:<li><a class="nav-link" href="@url">@(element.Value<string>("headline"))</a></li>
+
+        if (item.Children.Any())
+        {
+            @:<ul>
+                foreach (var child in item.Children)
+                {
+                    var cElement = (IPublishedElement)child;
+                    var cUrl = "#";
+                    @:<li><a class="nav-link" href="@cUrl">@(cElement.Value<string>("headline"))</a></li>
+                }
+            @:</ul>
+        }
+    }
+
+    @:</ul>
+}

@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-#if NET472
+#if NETFRAMEWORK
 using Umbraco.Core.Models.PublishedContent;
-#elif NET5_0
+#else
 using Umbraco.Cms.Core.Models.PublishedContent;
 #endif
 

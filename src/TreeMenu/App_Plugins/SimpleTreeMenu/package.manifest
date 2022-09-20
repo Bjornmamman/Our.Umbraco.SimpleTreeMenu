@@ -39,14 +39,14 @@
     ],
     "javascript": [
         
-        "~/App_plugins/SimpleTreeMenu/Js/lib/treemenu.js",
-		"~/App_plugins/SimpleTreeMenu/Js/services.js",
-        "~/App_plugins/SimpleTreeMenu/Js/treemenueditor.controller.js",
-		"~/App_plugins/SimpleTreeMenu/Js/doctypepicker.controller.js",
-		"~/App_plugins/SimpleTreeMenu/Js/dialog.controller.js",
-        "~/App_plugins/SimpleTreeMenu/Js/treemenueditor.controller.js",
+        "~/App_Plugins/SimpleTreeMenu/Js/lib/treemenu.js",
+        "~/App_Plugins/SimpleTreeMenu/Js/services.js",
+        "~/App_Plugins/SimpleTreeMenu/Js/treemenueditor.controller.js",
+        "~/App_Plugins/SimpleTreeMenu/Js/doctypepicker.controller.js",
+        "~/App_Plugins/SimpleTreeMenu/Js/dialog.controller.js",
+        "~/App_Plugins/SimpleTreeMenu/Js/treemenueditor.controller.js",
     ],
     "css": [ 
-        "~/App_plugins/SimpleTreeMenu/Css/treemenu.css",
-	]
+        "~/App_Plugins/SimpleTreeMenu/Css/treemenu.css",
+    ]
 }

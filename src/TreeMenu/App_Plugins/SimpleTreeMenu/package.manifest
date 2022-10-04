@@ -1,52 +1,50 @@
 ﻿{
-    "propertyEditors": [
+   "propertyEditors": [
         {
-			alias: "SimpleTreeMenu",
-			name: "SimpleTreeMenu",
-			icon: "icon-network-alt",
-			isParameterEditor: true,
-			editor: {
-				view: "~/App_Plugins/SimpleTreeMenu/Views/editor.html",
-				valueType: "JSON"
+			"alias": "SimpleTreeMenu",
+			"name": "SimpleTreeMenu",
+			"icon": "icon-network-alt",
+			"isParameterEditor": true,
+			"editor": {
+				"view": "~/App_Plugins/SimpleTreeMenu/views/editor.html",
+				"valueType": "JSON"
 			},
-			prevalues: {
-				fields: [
+			"prevalues": {
+				"fields": [
 					{
-						label: "Doctype",
-						description: "Allowed doctype",
-						key: "doctype",
-						view: "~/App_Plugins/SimpleTreeMenu/Views/doctypepicker.html",
+						"label": "Doctype",
+						"description": "Allowed doctype",
+						"key": "doctype",
+						"view": "~/App_Plugins/SimpleTreeMenu/views/doctypepicker.html"
 					},
 					{
-						label: "Name template",
-						description: "Enter an angular expression to evaluate against each item for its name.",
-						key: "nameTemplate",
-						view: "textstring"
+						"label": "Name template",
+						"description": "Enter an angular expression to evaluate against each item for its name.",
+						"key": "nameTemplate",
+						"view": "textstring"
 					},
 					{
-						label: "Levels",
-						description: "Max number of levels",
-						key: "levels",
-						view: "number"
+						"label": "Levels",
+						"description": "Max number of levels",
+						"key": "levels",
+						"view": "number"
 					}
 				]
 			},
-			defaultConfig: {
+			"defaultConfig": {
 				"levels": "3"
 			}
 		}
 
     ],
     "javascript": [
-        
         "~/App_Plugins/SimpleTreeMenu/Js/lib/treemenu.js",
         "~/App_Plugins/SimpleTreeMenu/Js/services.js",
         "~/App_Plugins/SimpleTreeMenu/Js/treemenueditor.controller.js",
         "~/App_Plugins/SimpleTreeMenu/Js/doctypepicker.controller.js",
-        "~/App_Plugins/SimpleTreeMenu/Js/dialog.controller.js",
-        "~/App_Plugins/SimpleTreeMenu/Js/treemenueditor.controller.js",
+        "~/App_Plugins/SimpleTreeMenu/Js/dialog.controller.js"
     ],
     "css": [ 
-        "~/App_Plugins/SimpleTreeMenu/Css/treemenu.css",
+        "~/App_Plugins/SimpleTreeMenu/Css/treemenu.css"
     ]
 }

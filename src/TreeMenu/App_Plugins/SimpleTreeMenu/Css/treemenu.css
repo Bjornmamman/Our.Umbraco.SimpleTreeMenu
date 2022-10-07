@@ -3,8 +3,12 @@
     background: #f6f4f4;
     border: 1px solid #f6f4f4;
     color: #7c9eb2;
-    padding: 10px 10px;
+    padding: 7px;
     margin: 5px 0;
+}
+
+.treemenu-editor .has-no-children {
+    padding-left: 40px;
 }
 
 .angular-ui-tree-handle .nodename {
@@ -33,9 +37,9 @@
     list-style: none;
 }
 
-.angular-ui-tree-nodes .angular-ui-tree-nodes {
-    padding-left: 20px;
-}
+    .angular-ui-tree-nodes .angular-ui-tree-nodes {
+        padding-left: 20px;
+    }
 
 .angular-ui-tree-node, .angular-ui-tree-placeholder {
     display: block;
@@ -46,9 +50,9 @@
     line-height: 20px;
 }
 
-.angular-ui-tree-node.selected > .angular-ui-tree-handle {
-    border-color: #e1e1e1;
-}
+    .angular-ui-tree-node.selected > .angular-ui-tree-handle {
+        border-color: #e1e1e1;
+    }
 
 
 .angular-ui-tree-hidden {
@@ -82,4 +86,17 @@
 .treemenu-editor span.nodename {
     padding: 10px 20px;
     color: #000;
+}
+
+
+.collapse-toggle {
+    width: 30px;
+    height: 30px;
+    margin-right: 0;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 5px;
+    background: #fff;
 }

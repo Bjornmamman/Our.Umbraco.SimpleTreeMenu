@@ -120,13 +120,6 @@
         $scope.umbProperty.setPropertyActions([copyItemsAction,
             pasteItemsAction,
             insertItemsAction,
-            {
-                labelKey: '',
-                labelTokens: [""],
-                method: function () {
-                },
-                isDisabled: true
-            },
             clearItemsAction
         ]);
     }
@@ -175,6 +168,13 @@
             var meth = arguments.callee;
             for (var i = 0; i < list.length; i++) {
                 list[i].level = depth;
+
+                if (list[i].key == undefined)
+                    list[i].key = String.CreateGuid();
+
+                if (list[i].contentTypeAlias == undefined)
+                    list[i].contentTypeAlias = doctype;
+                
                 if (list[i].items && list[i].items.length > 0) meth(list[i].items, depth + 1);
             }
         })($scope.items, 0);
@@ -351,9 +351,12 @@
         return false;
         
     }
-
+  
     vm.toggle = function (node) {
-        //node.collapsed = node.collapsed == undefined ? false : !node.collapsed;
+      if (node.collapsed == undefined)
+        node.collapsed = false;
+      
+      node.collapsed = node.collapsed == undefined ? false : !node.collapsed;
     }
 
     vm.nextId = function () {

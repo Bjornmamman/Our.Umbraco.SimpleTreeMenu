@@ -1,4 +1,4 @@
-﻿{
+{
    "propertyEditors": [
         {
 			"alias": "SimpleTreeMenu",
@@ -6,7 +6,7 @@
 			"icon": "icon-network-alt",
 			"isParameterEditor": true,
 			"editor": {
-				"view": "~/App_Plugins/SimpleTreeMenu/views/editor.html",
+				"view": "~/App_Plugins/SimpleTreeMenu/Views/editor.html",
 				"valueType": "JSON"
 			},
 			"prevalues": {
@@ -15,7 +15,7 @@
 						"label": "Doctype",
 						"description": "Allowed doctype",
 						"key": "doctype",
-						"view": "~/App_Plugins/SimpleTreeMenu/views/doctypepicker.html"
+						"view": "~/App_Plugins/SimpleTreeMenu/Views/doctypepicker.html"
 					},
 					{
 						"label": "Name template",

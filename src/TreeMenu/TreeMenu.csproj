@@ -13,11 +13,11 @@
 		<Description>Typed Treemenu for Umbraco</Description>
 		<PackageIcon>icon.png</PackageIcon>
 		<PackageId>Our.Umbraco.SimpleTreeMenu</PackageId>
-		<Version>2.0-beta001</Version>
+		<Version>3.0.0</Version>
 		<PackageProjectUrl>https://our.umbraco.com/packages/website-utilities/simpletreemenu/</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/Bjornmamman/Our.Umbraco.SimpleTreeMenu</RepositoryUrl>
 		<Description>Typed Treemenu for Umbraco</Description>
-		<PackageTags>Umbraco,Menu,Treemenu</PackageTags>
+		<PackageTags>umbraco,menu,treemenu,umbraco-marketplace</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	</PropertyGroup>
 

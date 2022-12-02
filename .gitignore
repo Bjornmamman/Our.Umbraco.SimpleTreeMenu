@@ -67,3 +67,6 @@ src/.vs
 
 #include default location for packages
 !**/umbraco/Data/packages
+src/WebsiteV8/App_Data
+src/WebsiteV8/bin
+src/WebsiteV10/umbraco/Data

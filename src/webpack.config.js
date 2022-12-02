@@ -9,9 +9,10 @@ module.exports = {
     plugins: [
         new CopyPlugin({
             patterns: [
-                { from: 'TreeMenu/App_Plugins/SimpleTreeMenu/', to: 'WebsiteV8/App_Plugins/SimpleTreeMenu/' },
+                { from: 'TreeMenu/App_Plugins/SimpleTreeMenu/', to: 'Website*/App_Plugins/SimpleTreeMenu/' },
                 { from: 'TreeMenu/App_Plugins/SimpleTreeMenu/', to: 'WebsiteV9/App_Plugins/SimpleTreeMenu/' },
                 { from: 'TreeMenu/App_Plugins/SimpleTreeMenu/', to: 'WebsiteV10/App_Plugins/SimpleTreeMenu/' },
+                { from: 'TreeMenu/App_Plugins/SimpleTreeMenu/', to: 'WebsiteV11/App_Plugins/SimpleTreeMenu/' },
             ],
         }),
     ],

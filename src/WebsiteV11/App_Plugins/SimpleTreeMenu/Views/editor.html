@@ -1,0 +1,62 @@
+<div class="treemenu-editor" ng-controller="SimpleTreeMenu.EditorController as vm">
+
+    <umb-load-indicator class="mt2 mb2" ng-if="!vm.inited"></umb-load-indicator>
+
+    <div class="dd" id="treemenu" ng-show="vm.inited">
+        <script type="text/ng-template" id="items_renderer.html">
+
+            <div ui-tree-handle ng-class="{'has-children' : item.items && item.items.length, 'has-no-children' : !item.items || item.items.length == 0 }">
+
+                <a class="collapse-toggle" ng-class="{ 'disabled' : item.items && item.items.length > 0 }" ng-if="item.items && item.items.length > 0" data-nodrag ng-click="vm.toggle(item)">
+                    <i ng-class="{'icon-add': item.items && item.items.length > 0 && item.collapsed, 'icon-remove': item.items && item.items.length > 0 && !item.collapsed }"></i>
+                </a>
+
+                <span class="nodename textstring disabled" ng-if="vm.nameExp" ng-bind="vm.getName(item, $index)" /></span>
+                <input ng-if="!vm.nameExp" type="text" class="nodename textstring" ng-model="item.name" localize="placeholder" placeholder="@placeholders_entername" />
+
+
+                <umb-button action="vm.openEditor(item)" button-style="info" type="button" label-key="general_edit"></umb-button>
+                <umb-button action="vm.duplicate(item, items)" button-style="info" type="button" label-key="general_copy"></umb-button>
+                <umb-button action="vm.addNode(item)" ng-if="item.level < model.config.levels - 1" button-style="info" type="button" label-key="shortcuts_addChild"></umb-button>
+
+
+
+                <div class="settings pull-right">
+
+
+
+                    <umb-badge size="xs" color="white">
+                        Level {{item.level + 1}} of {{model.config.levels}}
+                    </umb-badge>
+
+
+                    <umb-badge ng-if="item.items && item.items.length > 0" size="xs" color="white">
+                        {{item.items.length}} children
+                    </umb-badge>
+
+
+
+                    <umb-button action="vm.requestDeleteNode(item)" button-style="danger" type="button" size="s" label-key="general_delete"></umb-button>
+
+                </div>
+
+            </div>
+
+            <ol ui-tree-nodes="treeOptions" ng-model="item.items" ng-class="{hidden: item.collapsed}">
+                <li ng-repeat="item in item.items" ui-tree-node ng-include="'items_renderer.html'"></li>
+            </ol>
+
+        </script>
+
+        <div ui-tree="treeOptions" class="angular-ui-tree" data-max-depth="model.config.levels">
+            <ol ui-tree-nodes ng-model="items" id="tree-root">
+                <li ng-repeat="item in items" ui-tree-node ng-class="{ 'selected': item.selected }" ng-include="'items_renderer.html'"></li>
+            </ol>
+        </div>
+
+        <a class="btn-reset umb-nested-content__add-content umb-focus" ng-click="vm.addNode()" prevent-default>
+            <localize key="grid_addElement"></localize>
+        </a>
+
+    </div>
+</div>

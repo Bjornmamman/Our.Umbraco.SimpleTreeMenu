@@ -9,12 +9,12 @@
 		<AssemblyName>Our.Umbraco.SimpleTreeMenu</AssemblyName>
 		<Authors>Dennis Öhman, David Sandström</Authors>
 		<Company>Björnmamman AB Sweden</Company>
-		
+
 		<Description>Typed Treemenu for Umbraco</Description>
 		<PackageIcon>icon.png</PackageIcon>
 		<PackageId>Our.Umbraco.SimpleTreeMenu</PackageId>
 		<Version>4.0.0</Version>
-		<PackageProjectUrl>https://our.umbraco.com/packages/website-utilities/simpletreemenu/</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/Bjornmamman/Our.Umbraco.SimpleTreeMenu</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/Bjornmamman/Our.Umbraco.SimpleTreeMenu</RepositoryUrl>
 		<Description>Typed Treemenu for Umbraco</Description>
 		<PackageTags>umbraco,menu,treemenu,umbraco-marketplace</PackageTags>
@@ -34,14 +34,14 @@
 		<PackageReference Include="Umbraco.Cms.Web.Website" Version="10.0.0" />
 		<PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="10.0.0" />
 	</ItemGroup>
-	
+
 	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
 		<PackageReference Include="Umbraco.Cms.Web.Website" Version="11.0.0" />
 		<PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="11.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-		
+
 		<None Include="icon.png">
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>

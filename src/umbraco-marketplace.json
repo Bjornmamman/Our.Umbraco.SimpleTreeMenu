@@ -1,0 +1,6 @@
+{
+    "Category": "Developer Tools",
+    "LicenseTypes": [ "Free" ],
+    "PackageType": "Package",
+    "Description": "A simple treemenu propertyeditor that uses a doc-type (element) for menu items."
+  }

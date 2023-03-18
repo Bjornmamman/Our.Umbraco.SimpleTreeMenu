@@ -1,0 +1,50 @@
+{
+  "$schema": "https://marketplace.umbraco.com/umbraco-marketplace-schema.json", 
+  "AddOnPackagesRequiredForUmbracoCloud": [],
+  "AlternatePackageNames": [],
+  "AuthorDetails": {
+    "Name": "Björnmamman AB",
+    "Description": "An experienced Swedish web agency",
+    "Url": "https://bjornmamman.se/",
+    "ImageUrl": "https://bjornmamman.se/icon.png",
+    "Contributors": [
+      {
+        "Name": "Dennis Öhman",
+        "Url": "https://github.com/madsoulswe/"
+      }
+    ],
+    "SyncContributorsFromRepository": true
+  },
+  "Screenshots": [
+    {
+      "ImageUrl": "https://raw.githubusercontent.com/Bjornmamman/Our.Umbraco.SimpleTreeMenu/master/menu%20preview-1.PNG"
+    },
+    {
+      "ImageUrl": "https://raw.githubusercontent.com/Bjornmamman/Our.Umbraco.SimpleTreeMenu/master/menu%20preview-2.PNG"
+    },
+    {
+      "ImageUrl": "https://raw.githubusercontent.com/Bjornmamman/Our.Umbraco.SimpleTreeMenu/master/menu%20preview-3.PNG"
+    },
+    {
+      "ImageUrl": "https://raw.githubusercontent.com/Bjornmamman/Our.Umbraco.SimpleTreeMenu/master/menu%20preview-4.PNG"
+    },
+    {
+      "ImageUrl": "https://raw.githubusercontent.com/Bjornmamman/Our.Umbraco.SimpleTreeMenu/master/menu%20preview-5.PNG"
+    },
+    {
+      "ImageUrl": "https://raw.githubusercontent.com/Bjornmamman/Our.Umbraco.SimpleTreeMenu/master/menu%20preview-6.PNG"
+    }
+  ],
+  "Category": "Developer Tools",
+  "Description": "A simple treemenu propertyeditor that uses a doc-type (element) for menu items",
+  "DiscussionForumUrl": "https://github.com/Bjornmamman/Our.Umbraco.SimpleTreeMenu/issues",
+  "DocumentationUrl": "https://github.com/Bjornmamman/Our.Umbraco.SimpleTreeMenu",
+  "LicenseTypes": [ "Free" ],
+  "IssueTrackerUrl": "https://github.com/Bjornmamman/Our.Umbraco.SimpleTreeMenu/issues",
+  "IsSubPackageOf": "",
+  "PackageType": "Package",
+  "PackagesByAuthor": ["Our.Umbraco.SimpleTreeMenu", "Our.Umbraco.AnimateOnScroll"],
+  "Tags": ["Menu", "Navigation", "Treemenu",],
+  "Title": "Simple Treemenu",
+  "VideoUrl": ""
+}

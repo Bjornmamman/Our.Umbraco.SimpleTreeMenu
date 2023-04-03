@@ -10,7 +10,7 @@
                     <umb-box-content>
 
                         <div ng-repeat="tab in model.node.variants[0].tabs">
-                            <h4>{{tab.alias}}</h4>
+                            <h4>{{tab.label}}</h4>
 
                             <umb-property data-element="property-{{property.alias}}" ng-repeat="property in tab.properties" property="property">
                                 <umb-property-editor model="property"></umb-property-editor>

@@ -125,9 +125,20 @@
     }
 
     eventsService.on("simpletreemenu.copy", function () {
-        pasteItemsAction.isDisabled = false;
-        insertItemsAction.isDisabled = false;
+        checkStorage();
     });
+
+    var checkStorage = function () {
+        if (localStorageService.isSupported) {
+            if (localStorageService.get(STORAGE_KEY) != null) {
+                pasteItemsAction.isDisabled = false;
+                insertItemsAction.isDisabled = false;
+            } else {
+                pasteItemsAction.isDisabled = true;
+                insertItemsAction.isDisabled = true;
+            }
+        }
+    }
 
     var getCopy = function () {
         var dataString = localStorageService.get(STORAGE_KEY);
@@ -149,6 +160,8 @@
         setLevels();
 
         vm.inited = true;
+
+        checkStorage();
     }
 
     
@@ -227,7 +240,8 @@
     }
 
     vm.openEditor = function (node) {
-
+        
+        
         vm.setDirty();
 
         node.selected = true;
@@ -246,6 +260,8 @@
                 node.selected = false;
 
                 editorService.close();
+
+                checkStorage();
             },
             close: function () {
                 editorService.close();
@@ -258,7 +274,6 @@
     }
 
     vm.addNode = function (node) {
-
         var newNode = cleanItem();
 
         if (node) {
@@ -276,6 +291,8 @@
         }
 
         vm.setDirty();
+
+        checkStorage();
     }
 
     vm.requestDeleteNode = function (node) {
@@ -292,6 +309,7 @@
                 submit: function () {
                     vm.deleteNode(node);
                     overlayService.close();
+                    checkStorage();
                 }
             };
 
@@ -314,6 +332,7 @@
                     
                     $scope.items = [];
                     overlayService.close();
+                    checkStorage();
                 }
             };
 
@@ -353,10 +372,12 @@
     }
   
     vm.toggle = function (node) {
-      if (node.collapsed == undefined)
-        node.collapsed = false;
+        if (node.collapsed == undefined)
+            node.collapsed = false;
       
-      node.collapsed = node.collapsed == undefined ? false : !node.collapsed;
+        node.collapsed = node.collapsed == undefined ? false : !node.collapsed;
+
+        checkStorage();
     }
 
     vm.nextId = function () {
@@ -434,6 +455,8 @@
         items.push(clone);
 
         vm.setDirty();
+
+        checkStorage();
     }
 
 

@@ -43,7 +43,7 @@
   "IssueTrackerUrl": "https://github.com/Bjornmamman/Our.Umbraco.SimpleTreeMenu/issues",
   "IsSubPackageOf": "",
   "PackageType": "Package",
-  "PackagesByAuthor": ["Our.Umbraco.SimpleTreeMenu", "Our.Umbraco.AnimateOnScroll"],
+  "PackagesByAuthor": ["Our.Umbraco.SimpleTreeMenu", "Our.Umbraco.AnimateOnScroll", "Our.Umbraco.MailSettings", "Our.Umbraco.Honeypot"],
   "Tags": ["Menu", "Navigation", "Treemenu",],
   "Title": "Simple Treemenu",
   "VideoUrl": ""

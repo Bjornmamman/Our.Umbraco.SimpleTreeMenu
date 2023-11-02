@@ -1,24 +1,20 @@
 <div class="doctyperender-dialog umb-panel" ng-controller="SimpleTreeMenu.DialogController as vm">
 
     <form name="doctyperender" novalidate val-form-manager>
-        <umb-editor-view>
+
+        <umb-editor-view ng-if="!vm.loadingNode">
             <umb-editor-container class="no-header">
-                <umb-load-indicator ng-if="vm.loadingNode">
-                </umb-load-indicator>
 
-                <umb-box ng-if="!vm.loadingNode">
+                <umb-box ng-repeat="tab in model.node.variants[0].tabs">
+                    <umb-box-header title="{{tab.label}}"></umb-box-header>
                     <umb-box-content>
-
-                        <div ng-repeat="tab in model.node.variants[0].tabs">
-                            <h4>{{tab.label}}</h4>
-
-                            <umb-property data-element="property-{{property.alias}}" ng-repeat="property in tab.properties" property="property">
-                                <umb-property-editor model="property"></umb-property-editor>
-                            </umb-property>
-
-                        </div>
+                        <umb-property data-element="property-{{property.alias}}" ng-repeat="property in tab.properties" property="property">
+                            <umb-property-editor model="property"></umb-property-editor>
+                        </umb-property>
                     </umb-box-content>
                 </umb-box>
+
+
             </umb-editor-container>
 
             <umb-editor-footer>
@@ -31,8 +27,7 @@
                                 action="vm.close()">
                     </umb-button>
 
-                    <umb-button
-                                type="button"
+                    <umb-button type="button"
                                 button-style="success"
                                 label-key="buttons_save"
                                 action="vm.save()">
@@ -41,5 +36,7 @@
                 </umb-editor-footer-content-right>
             </umb-editor-footer>
         </umb-editor-view>
+        <umb-load-indicator ng-if="vm.loadingNode">
+        </umb-load-indicator>
     </form>
 </div>

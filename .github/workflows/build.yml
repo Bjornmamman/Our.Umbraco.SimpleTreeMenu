@@ -4,7 +4,7 @@
 #   e.g release/1.0.2 will build v1.0.2
 #
 
-name: Build and Package - v2 - v4
+name: Build and Package
 
 env:
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
@@ -17,9 +17,7 @@ env:
 on:
   push:
     tags:
-      - "release/v4.*"
-      - "release/v3.*"
-      - "release/v2.*"
+      - "release/*"
 
 jobs:
   build:
@@ -29,6 +27,17 @@ jobs:
       - name: Get Version 
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\/release\//}
+        shell: bash
+
+      - name: Compare version with 5.0.0
+        id: compare_versions
+        run: |
+          VERSION=${{ steps.get_version.outputs.VERSION }}
+          if [[ "$(printf '%s\n' "$VERSION" "5.0.0" | sort -V | head -n1)" == "$VERSION" && "$VERSION" != "5.0.0" ]]; then
+            echo "::set-output name=is_lower_than_v5::true"
+          else
+            echo "::set-output name=is_lower_than_v5::false"
+          fi
         shell: bash
       
       - name: checkout
@@ -48,11 +57,15 @@ jobs:
       
       - name: Push NuGet package file
         run: dotnet nuget push ${{ env.OUTPUT }}/${{ env.NAME }}.${{ steps.get_version.outputs.VERSION }}.nupkg --skip-duplicate -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+
+
         
       - name: Create Umbraco package file
+        if: steps.compare_versions.outputs.is_lower_than_v5 == 'true'
         run: UmbPack pack ./package.xml -n ${{ env.UMBNAME }}_${{ steps.get_version.outputs.VERSION }}.zip -o ${{ env.OUTPUT }} -v ${{ steps.get_version.outputs.VERSION }}
  
       - name: Push Umbraco package file
+        if: steps.compare_versions.outputs.is_lower_than_v5 == 'true'
         run: UmbPack push "${{ env.OUTPUT }}/${{ env.UMBNAME }}_${{ steps.get_version.outputs.VERSION }}.zip" -k ${{ secrets.UMB_API_KEY }}
         
       - name: upload-artifacts

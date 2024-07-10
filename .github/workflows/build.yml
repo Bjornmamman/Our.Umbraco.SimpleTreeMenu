@@ -60,13 +60,13 @@ jobs:
 
 
         
-      - name: Create Umbraco package file
-        if: steps.compare_versions.outputs.is_lower_than_v5 == 'true'
-        run: UmbPack pack ./package.xml -n ${{ env.UMBNAME }}_${{ steps.get_version.outputs.VERSION }}.zip -o ${{ env.OUTPUT }} -v ${{ steps.get_version.outputs.VERSION }}
+#      - name: Create Umbraco package file
+#        if: steps.compare_versions.outputs.is_lower_than_v5 == 'true'
+#        run: UmbPack pack ./package.xml -n ${{ env.UMBNAME }}_${{ steps.get_version.outputs.VERSION }}.zip -o ${{ env.OUTPUT }} -v ${{ steps.get_version.outputs.VERSION }}
  
-      - name: Push Umbraco package file
-        if: steps.compare_versions.outputs.is_lower_than_v5 == 'true'
-        run: UmbPack push "${{ env.OUTPUT }}/${{ env.UMBNAME }}_${{ steps.get_version.outputs.VERSION }}.zip" -k ${{ secrets.UMB_API_KEY }}
+#      - name: Push Umbraco package file
+#        if: steps.compare_versions.outputs.is_lower_than_v5 == 'true'
+#        run: UmbPack push "${{ env.OUTPUT }}/${{ env.UMBNAME }}_${{ steps.get_version.outputs.VERSION }}.zip" -k ${{ secrets.UMB_API_KEY }}
         
       - name: upload-artifacts
         uses: actions/upload-artifact@v2

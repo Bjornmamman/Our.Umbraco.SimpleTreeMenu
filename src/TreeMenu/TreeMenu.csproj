@@ -13,7 +13,7 @@
 		<Description>Typed Treemenu for Umbraco</Description>
 		<PackageIcon>icon.png</PackageIcon>
 		<PackageId>Our.Umbraco.SimpleTreeMenu</PackageId>
-		<Version>5.0.0</Version>
+		<Version>4.0.0</Version>
 		<PackageProjectUrl>https://github.com/Bjornmamman/Our.Umbraco.SimpleTreeMenu</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/Bjornmamman/Our.Umbraco.SimpleTreeMenu</RepositoryUrl>
 		<Description>Typed Treemenu for Umbraco</Description>
@@ -22,21 +22,21 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net472' and '$(Version)' &lt; '5.0.0'">
+	<ItemGroup Condition="'$(TargetFramework)' == 'net472'">
 		<PackageReference Include="UmbracoCms.Core" Version="8.7.1" />
 		<PackageReference Include="UmbracoCms.Web" Version="8.7.1" />
 	</ItemGroup>
-	<ItemGroup Condition="'$(TargetFramework)' == 'net5.0' and '$(Version)' &lt; '5.0.0'">
+	<ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
 		<PackageReference Include="Umbraco.Cms.Web.Website" Version="9.0.0" />
 		<PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="9.0.0" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0' and '$(Version)' &lt; '5.0.0'">
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
 		<PackageReference Include="Umbraco.Cms.Web.Website" Version="10.0.0" />
 		<PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="10.0.0" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0' and '$(Version)' &lt; '5.0.0'">
+	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
 		<PackageReference Include="Umbraco.Cms.Web.Website" Version="11.0.0" />
 		<PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="11.0.0," />
 	</ItemGroup>
@@ -46,7 +46,7 @@
 		<PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="[13.0.0,14.0.0)" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0' and '$(Version)' &lt;= '5.0.0'">
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0' and '$(Version)' &gt;= '5.0.0'">
 		<PackageReference Include="Umbraco.Cms.Web.Website" Version="[14.0.0,15.0.0)" />
 		<PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="[14.0.0,15.0.0)" />
 	</ItemGroup>

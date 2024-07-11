@@ -1,0 +1,13 @@
+{
+  "$schema": "../../umbraco-package-schema.json",
+  "name": "SimpleTreeMenu",
+  "version": "0.1.0",
+  "extensions": [
+    {
+      "type": "bundle",
+      "alias": "Our.Umbraco.SimpleTreeMenu",
+      "name": "SimpleTreeMenu Bundle",
+      "js": "/App_Plugins/SimpleTreeMenu/index.js"
+    }
+  ]
+}

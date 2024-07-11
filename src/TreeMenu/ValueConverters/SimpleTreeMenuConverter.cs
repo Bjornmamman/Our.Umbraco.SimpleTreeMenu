@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+
 #if NETFRAMEWORK
 #else
 #endif
@@ -20,9 +21,11 @@ using UmbracoCore = Umbraco.Core;
 
 #else
 using Umbraco.Cms.Core.Logging;
+using Umbraco.Cms.Core.Models.Blocks;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.PropertyEditors;
 using Umbraco.Cms.Core.PublishedCache;
+using Umbraco.Extensions;
 #endif
 
 
@@ -30,21 +33,37 @@ namespace Our.Umbraco.SimpleTreeMenu.ValueConverters
 {
 #if NETFRAMEWORK
     public class SimpleTreeMenuConverter : NestedContentValueConverterBase, IPropertyValueConverter
-#else
-    public class SimpleTreeMenuConverter : global::Umbraco.Cms.Core.PropertyEditors.ValueConverters.NestedContentValueConverterBase, IPropertyValueConverter
-#endif
-
     {
         private readonly IPublishedSnapshotAccessor _publishedSnapshotAccessor;
-
-#if NETFRAMEWORK
         public SimpleTreeMenuConverter(IPublishedSnapshotAccessor publishedSnapshotAccessor, IPublishedModelFactory publishedModelFactory) : base(publishedSnapshotAccessor, publishedModelFactory)
-#else
-        public SimpleTreeMenuConverter(IPublishedSnapshotAccessor publishedSnapshotAccessor, IPublishedModelFactory publishedModelFactory, IProfilingLogger proflog) : base(publishedSnapshotAccessor, publishedModelFactory)
-#endif
         {
             _publishedSnapshotAccessor = publishedSnapshotAccessor;
         }
+
+#elif NET8_0_OR_GREATER
+    public class SimpleTreeMenuConverter : PropertyValueConverterBase, IPropertyValueConverter
+    {
+
+        private readonly IPublishedSnapshotAccessor _publishedSnapshotAccessor;
+        private readonly IPublishedModelFactory _publishedModelFactory;
+
+        public SimpleTreeMenuConverter(
+            IPublishedSnapshotAccessor publishedSnapshotAccessor, 
+            IPublishedModelFactory publishedModelFactory)
+        {
+            _publishedSnapshotAccessor = publishedSnapshotAccessor;
+            _publishedModelFactory = publishedModelFactory;
+        }
+#else
+    
+        public class SimpleTreeMenuConverter : global::Umbraco.Cms.Core.PropertyEditors.ValueConverters.NestedContentValueConverterBase, IPropertyValueConverter
+    {
+        private readonly IPublishedSnapshotAccessor _publishedSnapshotAccessor;
+        public SimpleTreeMenuConverter(IPublishedSnapshotAccessor publishedSnapshotAccessor, IPublishedModelFactory publishedModelFactory, IProfilingLogger proflog) : base(publishedSnapshotAccessor, publishedModelFactory)
+        {
+            _publishedSnapshotAccessor = publishedSnapshotAccessor;
+        }
+#endif
 
         public override PropertyCacheLevel GetPropertyCacheLevel(IPublishedPropertyType propertyType)
             => PropertyCacheLevel.Element;
@@ -61,7 +80,6 @@ namespace Our.Umbraco.SimpleTreeMenu.ValueConverters
             return source?.ToString();
         }
 
-        /// <inheritdoc />
         public override object ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel referenceCacheLevel, object inter, bool preview)
         {
             if(inter == null)
@@ -82,6 +100,7 @@ namespace Our.Umbraco.SimpleTreeMenu.ValueConverters
         }
         public override Type GetPropertyValueType(IPublishedPropertyType propertyType)
             => typeof (IEnumerable<SimpleTreeItem>);
+
         private IEnumerable<SimpleTreeItem> convertToItem(List<JObject> objects, PropertyCacheLevel referenceCacheLevel, bool preview)    
         {
             if (!objects.Any())
@@ -120,6 +139,36 @@ namespace Our.Umbraco.SimpleTreeMenu.ValueConverters
             return items;
         }
 
-    }
+#if NET8_0_OR_GREATER
+        protected IPublishedElement ConvertToElement(JObject sourceObject, PropertyCacheLevel referenceCacheLevel, bool preview)
+        {
+            var elementTypeAlias = sourceObject["ncContentTypeAlias"]?.ToObject<string>();
+            if (string.IsNullOrEmpty(elementTypeAlias))
+            {
+                return null;
+            }
 
+            IPublishedSnapshot publishedSnapshot = _publishedSnapshotAccessor.GetRequiredPublishedSnapshot();
+
+            // Only convert element types - content types will cause an exception when PublishedModelFactory creates the model
+            IPublishedContentType? publishedContentType = publishedSnapshot.Content?.GetContentType(elementTypeAlias);
+            if (publishedContentType is null || publishedContentType.IsElement == false)
+            {
+                return null;
+            }
+
+            Dictionary<string, object?>? propertyValues = sourceObject.ToObject<Dictionary<string, object?>>();
+            if (propertyValues is null || !propertyValues.TryGetValue("key", out var keyo) ||
+                !Guid.TryParse(keyo?.ToString(), out Guid key))
+            {
+                key = Guid.Empty;
+            }
+
+            IPublishedElement element = new PublishedElement(publishedContentType, key, propertyValues, preview, referenceCacheLevel, _publishedSnapshotAccessor);
+            element = _publishedModelFactory.CreateModel(element);
+
+            return element;
+        }
+#endif
+    }
 }

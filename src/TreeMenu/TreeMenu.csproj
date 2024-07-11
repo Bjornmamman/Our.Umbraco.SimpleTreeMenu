@@ -4,8 +4,6 @@
 		<TargetFrameworks>net472;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
 		<RootNamespace>Our.Umbraco.SimpleTreeMenu</RootNamespace>
 
-		<IncludeContentInPack>true</IncludeContentInPack>
-		<ContentTargetFolders>content</ContentTargetFolders>
 		<AssemblyName>Our.Umbraco.SimpleTreeMenu</AssemblyName>
 		<Authors>Dennis Öhman, David Sandström</Authors>
 		<Company>Björnmamman AB Sweden</Company>
@@ -13,13 +11,24 @@
 		<Description>Typed Treemenu for Umbraco</Description>
 		<PackageIcon>icon.png</PackageIcon>
 		<PackageId>Our.Umbraco.SimpleTreeMenu</PackageId>
-		<Version>4.0.0</Version>
+		<Version>5.0.0</Version>
 		<PackageProjectUrl>https://github.com/Bjornmamman/Our.Umbraco.SimpleTreeMenu</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/Bjornmamman/Our.Umbraco.SimpleTreeMenu</RepositoryUrl>
 		<Description>Typed Treemenu for Umbraco</Description>
 		<PackageTags>umbraco,menu,treemenu,umbraco-marketplace</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Version)' &lt; '5.0.0'">
+		<IncludeContentInPack>true</IncludeContentInPack>
+		<ContentTargetFolders>content</ContentTargetFolders>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Version)' &gt;= '5.0.0'">
+		<StaticWebAssetBasePath>/</StaticWebAssetBasePath>
+		<ContentTargetFolders>.</ContentTargetFolders>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net472'">
@@ -48,10 +57,9 @@
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0' and '$(Version)' &gt;= '5.0.0'">
 		<PackageReference Include="Umbraco.Cms.Web.Website" Version="[14.0.0,15.0.0)" />
-		<PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="[14.0.0,15.0.0)" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(Version)' &lt; '5.0.0'">
+	<ItemGroup>
 		<None Include="..\..\README.md">
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>
@@ -61,7 +69,11 @@
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>
 		</None>
+	</ItemGroup>
 
+	<ItemGroup Condition="'$(Version)' &lt; '5.0.0'">
+		<Content Remove="wwwroot\App_Plugins\**\*.*" />
+		<None Remove="wwwroot\App_Plugins\**\*.*" />
 		<Content Include="App_Plugins\**\*.*">
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
@@ -71,7 +83,11 @@
 			<Pack>True</Pack>
 			<PackagePath>buildTransitive</PackagePath>
 		</None>
-
+	</ItemGroup>
+	
+	<ItemGroup Condition="'$(Version)' &gt;= '5.0.0'">
+		<Content Remove="App_Plugins\**\*.*" />
+		<None Remove="App_Plugins\**\*.*" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -24,7 +24,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebsiteV9", "WebsiteV9\Webs
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebsiteV10", "WebsiteV10\WebsiteV10.csproj", "{962F90BA-D601-4490-ABC8-0293554FAD32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebsiteV11", "WebsiteV11\WebsiteV11.csproj", "{2D267437-6A23-4BAC-823B-E8C1AED7C11C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebsiteV11", "WebsiteV11\WebsiteV11.csproj", "{2D267437-6A23-4BAC-823B-E8C1AED7C11C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebsiteV14", "WebsiteV14\WebsiteV14.csproj", "{9A69B067-0947-49B3-AF2B-CE2547C8429F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,11 +54,16 @@ Global
 		{2D267437-6A23-4BAC-823B-E8C1AED7C11C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D267437-6A23-4BAC-823B-E8C1AED7C11C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D267437-6A23-4BAC-823B-E8C1AED7C11C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A69B067-0947-49B3-AF2B-CE2547C8429F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A69B067-0947-49B3-AF2B-CE2547C8429F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A69B067-0947-49B3-AF2B-CE2547C8429F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A69B067-0947-49B3-AF2B-CE2547C8429F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+		FileExplorer = ..\|Our.Umbraco.SimpleTreeMenu.LitClient\
 		SolutionGuid = {F5ABEF72-1A26-4322-BE48-93779BB97C83}
 	EndGlobalSection
 EndGlobal

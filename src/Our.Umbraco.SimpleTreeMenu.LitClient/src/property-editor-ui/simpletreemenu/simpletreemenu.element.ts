@@ -1,10 +1,11 @@
-import { html, css, customElement, property, state } from "@umbraco-cms/backoffice/external/lit";
+import { html, css, customElement, property, state, LitElement } from "@umbraco-cms/backoffice/external/lit";
 import type { UmbPropertyEditorUiElement } from "@umbraco-cms/backoffice/extension-registry";
 import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
 import { UmbPropertyEditorConfigCollection } from "@umbraco-cms/backoffice/property-editor";
 import { UMB_MODAL_MANAGER_CONTEXT, UmbModalManagerContext } from "@umbraco-cms/backoffice/modal";
 import { TREE_ITEM_EDITOR_MODAL_TOKEN } from "../../dialogs/treeitemeditor/treeitemeditor.token";
-import { UmbModalRouteRegistrationController } from "@umbraco-cms/backoffice/router";
+import { UmbModalRouteBuilder, UmbModalRouteRegistrationController } from "@umbraco-cms/backoffice/router";
+import { UmbElementMixin } from "@umbraco-cms/backoffice/element-api";
 
 
 const ELEMENT_NAME = 'simpletreemenu-list';
@@ -25,7 +26,7 @@ interface TreeNode {
  * @csspart button - The button
  */
 @customElement(ELEMENT_NAME)
-export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyEditorUiElement {
+export class SimpleTreeMenuElement extends UmbElementMixin(LitElement) {
 
     editModal:UmbModalRouteRegistrationController;
 
@@ -152,18 +153,9 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
             <div class="draggable-tree">
                 ${this.treeData.map((node) => this.renderTreeNode(node, null, 0))}
 
-                <uui-button class="add-new" look="primary" color="default" label="Add" @click=${() => this.addNodeToTree()}>
-                    <uui-icon name="add"></uui-icon>
+                <uui-button class="add-new" look="placeholder" color="default" label=${this.localize.term('general_add')} title=${this.localize.term('general_add')} @click=${() => this.addNodeToTree()}>
                 </uui-button>
 
-                <umb-property-dataset .value=${{ }}>
-					<umb-property
-						label="test"
-						description="test"
-						alias="test"
-						.config=${[]}
-						property-editor-ui-alias="Umb.PropertyEditorUi.MultiUrlPicker"></umb-property>
-				</umb-property-dataset>
             </div>
         `
     }
@@ -247,7 +239,11 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
 
 
         .add-new {
-            margin-top:  var(--uui-size-6)
+            width: 100%;
+        }
+
+        .add-new:not(:first-child) {
+            margin-top:  var(--uui-size-6);
         }
     `
 

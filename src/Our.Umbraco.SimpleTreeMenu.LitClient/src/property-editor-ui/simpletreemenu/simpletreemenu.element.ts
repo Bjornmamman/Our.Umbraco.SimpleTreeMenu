@@ -2,6 +2,9 @@ import { html, css, customElement, property, state } from "@umbraco-cms/backoffi
 import type { UmbPropertyEditorUiElement } from "@umbraco-cms/backoffice/extension-registry";
 import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
 import { UmbPropertyEditorConfigCollection } from "@umbraco-cms/backoffice/property-editor";
+import { UMB_MODAL_MANAGER_CONTEXT, UmbModalManagerContext } from "@umbraco-cms/backoffice/modal";
+import { TREE_ITEM_EDITOR_MODAL_TOKEN } from "../../dialogs/treeitemeditor/treeitemeditor.token";
+import { UmbModalRouteRegistrationController } from "@umbraco-cms/backoffice/router";
 
 
 const ELEMENT_NAME = 'simpletreemenu-list';
@@ -11,7 +14,8 @@ interface TreeNode {
     name: string,
     oldKey?: string,
     level: number,
-    items?: TreeNode[]
+    properties?: object,
+    items: TreeNode[]
 }
 
 /**
@@ -23,17 +27,35 @@ interface TreeNode {
 @customElement(ELEMENT_NAME)
 export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyEditorUiElement {
 
-    @property({ type: String })
-    public value = "";
+    editModal:UmbModalRouteRegistrationController;
 
     @state()
-    _doctype?: string;
+    _dragging: boolean = false;
+    
+    @state()
+    private _modalRoute?: UmbModalRouteBuilder;
+
+    @state()
+    _doctype: string = "MenuNode";
 
     @state()
     _nameTemplate?: string;
 
     @state()
     _levels?: number;
+
+    @property({ type: String })
+    public value = "";
+
+    @property()
+    public set alias(value: string | undefined) {
+        this.editModal.setUniquePathValue('propertyAlias', value);
+    }
+
+    @property()
+    public set variantId(value: string | UmbVariantId | undefined) {
+        this.editModal.setUniquePathValue('variantId', value?.toString());
+    }
 
     @property({ attribute: false })
     public set config(config: UmbPropertyEditorConfigCollection | undefined) {
@@ -42,28 +64,76 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
         this._levels = parseInt(config?.getValueByAlias('levels') ?? '5', 10);
     }
 
+    private _modalContext?: UmbModalManagerContext;
+
+    constructor() {
+        super();
+        this.consumeContext(UMB_MODAL_MANAGER_CONTEXT, (_instance) => {
+            this._modalContext = _instance;
+        });
+
+        this.editModal = new UmbModalRouteRegistrationController(
+            this,
+            TREE_ITEM_EDITOR_MODAL_TOKEN
+        )
+            .addAdditionalPath(`:key`)
+            .addUniquePaths(['propertyAlias', 'variantId'])
+            .onSetup((params) => {
+                let node = this.findNodeById(params.key)
+                console.log(node);
+                return {
+                    data: {
+                        doctype: this._doctype,
+                        key: params.key,
+                    },
+                    value: node?.properties ?? {}
+                };
+            })
+            .onSubmit((value) => {
+                if (!value) return;
+
+                let node = this.findNodeById(this.editModal.modalContext?.data.key);
+                console.log("SUBMITVALUE", value);
+                if (node)
+                    node.properties = value as object;
+            })
+            .observeRouteBuilder((routeBuilder) => {
+                this._modalRoute = routeBuilder;
+            });
+        
+    }
+
     treeData: TreeNode[] = [
         {
             key: '00000000-0000-0000-0000-000000000001',
             level: 0,
             name: 'test',
+            properties: {},
             items: [
                 {
                     key: '00000000-0000-0000-0000-000000000002',
                     name: 'child1',
+                    properties: {},
+                    items:[],
                     level: 1
                 },
                 {
                     key: '00000000-0000-0000-0000-000000000003',
                     name: 'child2',
+                    properties: {},
+                    items: [],
                     level: 1
                 }, {
                     key: '00000000-0000-0000-0000-000000000004',
                     name: 'child3',
+                    properties: {},
+                    items: [],
                     level: 1
                 }, {
                     key: '00000000-0000-0000-0000-000000000005',
                     name: 'child4',
+                    properties: {},
+                    items: [],
                     level: 1
                 }
             ]
@@ -71,6 +141,8 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
         {
             key: '00000000-0000-0000-0000-000000000010',
             name: 'test2',
+            properties: {},
+            items: [],
             level: 0
         }
     ];
@@ -79,6 +151,19 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
         return html`
             <div class="draggable-tree">
                 ${this.treeData.map((node) => this.renderTreeNode(node, null, 0))}
+
+                <uui-button class="add-new" look="primary" color="default" label="Add" @click=${() => this.addNodeToTree()}>
+                    <uui-icon name="add"></uui-icon>
+                </uui-button>
+
+                <umb-property-dataset .value=${{ }}>
+					<umb-property
+						label="test"
+						description="test"
+						alias="test"
+						.config=${[]}
+						property-editor-ui-alias="Umb.PropertyEditorUi.MultiUrlPicker"></umb-property>
+				</umb-property-dataset>
             </div>
         `
     }
@@ -96,6 +181,11 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
             cursor: pointer;
             //background: rgb(0 0 0 / 4%);
             border-radius: var(--uui-border-radius);
+            margin: 3px 0;
+        }
+
+        .draggable-tree > .tree-node {
+            padding-left: 0;
         }
 
         h1 {
@@ -103,8 +193,12 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
             margin: 0;
         }
       
-        .tree-node:not(:last-child) >.drop-zone.after {
+        .tree-node:not(:last-child) > .drop-zone.after {
             display:none;
+        }
+
+        .draggable-tree > .tree-node:last-of-type > .drop-zone.after {
+            display:block !important;
         }
       
         .tree-node .node-handle {
@@ -116,6 +210,7 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
+             transition: background-color 0.3s;
         }
 
         .tree-node .node-settings {
@@ -128,21 +223,31 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
 
         .drop-zone {
             //margin-left: -20px;
-            min-height: 10px;
+            height: 0px;
             border-radius: 3px;
+            margin: 0;
+            transition: background-color 0.3s, height 0.3s;
         }
 
         .tree-node > .node-children:has( > .tree-node > .drop-zone.drag-over) {
             //background-color: var(--uui-palette-spanish-pink-dimmed) !important;
-            outline: dashed 2px var(--uui-palette-spanish-pink-dimmed);
+            outline: dashed 1px var(--uui-palette-spanish-pink-dimmed);
         }
       
         .tree-node .drop-zone.drag-over, .tree-node .node-handle.drag-over {
             background-color: var(--uui-color-current) !important;
         }
 
-        .tree-node .node-handle.drag-over {
-            outline: dashed 2px var(--uui-palette-spanish-pink-dimmed);
+        .draggable-tree.dragging .drop-zone {
+            background-color: var(--uui-palette-white-dark);
+            height: 10px;
+            margin: 3px 0;
+        }
+
+
+
+        .add-new {
+            margin-top:  var(--uui-size-6)
         }
     `
 
@@ -170,15 +275,15 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
                 <uui-icon-registry-essential>
                   <uui-action-bar>
 
-                    <uui-button look="primary" color="default" label="Edit">
+                    <uui-button look="primary" color="default" label="Edit" href=${this._modalRoute?.({ key: node.key })}>
                       <uui-icon name="edit"></uui-icon>
                     </uui-button>
 
-                    <uui-button look="primary" color="default" label="Add">
+                    <uui-button look="primary" color="default" label="Add" @click=${() =>this.addNodeToTree(node)}>
                       <uui-icon name="add"></uui-icon>
                     </uui-button>
 
-                    <uui-button look="primary" color="default" label="Delete">
+                    <uui-button look="primary" color="default" label="Delete" @click=${() => this.removeNodeFromTree(node.key)}>
                       <uui-icon name="delete"></uui-icon>
                     </uui-button>
 
@@ -206,7 +311,7 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
     }
 
     handleDragStart(event: DragEvent, node: TreeNode) {
-
+        this.shadowRoot?.querySelector('.draggable-tree')?.classList.add("dragging");
         if (event.dataTransfer && !event.dataTransfer.getData('text/plain')) {
             const draggedData = {
                 key: this.generateGUID(),
@@ -214,9 +319,7 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
                 name: node.name,
                 items: node.items || []
             };
-
-            console.log(draggedData);
-
+            
             event.dataTransfer.setData('text/plain', JSON.stringify(draggedData));
         }
     }
@@ -248,6 +351,7 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
     }
 
     handleDragEnd(event: DragEvent) {
+        this.shadowRoot?.querySelector('.draggable-tree')?.classList.remove("dragging");
         this.dragClean(event);
     }
 
@@ -262,7 +366,7 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
             event.dataTransfer.clearData();
     }
 
-    findNodeById(tree: TreeNode[], key: string): TreeNode | null {
+    findNodeById(key: string, tree = this.treeData): TreeNode | null {
         if (!tree || !key) {
             return null;
         }
@@ -273,7 +377,7 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
             }
 
             if (node.items) {
-                const foundNode = this.findNodeById(node.items, key);
+                const foundNode = this.findNodeById(key, node.items);
                 if (foundNode) {
                     return foundNode;
                 }
@@ -379,44 +483,70 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
         } else {
             targetList.splice(index + 1, 0, draggedData);
         }
+        
+        this.removeNodeFromTree(draggedData.oldKey, this.treeData);
+    }
 
-        console.log("REMOVE", draggedData.oldKey);
-        // Remove dragged node from its original position
-        const removeNode = (node: TreeNode, tree: TreeNode[]) => {
-            console.log("TREE", tree);            
-            for (let i = 0; i < tree.length; i++) {
-                console.log(tree[i].key, draggedData.oldKey, tree[i].key === draggedData.oldKe);
-                if (tree[i].key === draggedData.oldKey) {
-                    tree.splice(i, 1);
-                    return true;
-                    console.log("REMOVED", i, tree[i].key, draggedData.oldKey, tree[i].key === draggedData.oldKe);
-                }
-                if (tree[i].items && removeNode(node, tree[i].items)) {
-                    return true;
-                }
+    removeNodeFromTree(key: string, tree = this.treeData) {
+        tree.forEach((node, index) => {
+            if (node.key === key) {
+                tree.splice(index, 1);
+
+                this.requestUpdate();
+
+                return true;
             }
+            if (node.items && this.removeNodeFromTree(key, node.items)) {
+                return true;
+            }
+        });
 
-            return false;
-        };
-        console.log(this.treeData);
-        removeNode(draggedData, this.treeData);
+        return false;
+    }
 
+    addNodeToTreeKey(key: string) {
+        var parentNode = this.findNodeById(key);
+
+        if (parentNode == null) {
+            return;
+        }
+
+        this.addNodeToTree(parentNode);
+    }
+
+    addNodeToTree(parentNode?: TreeNode) {
+        console.log("ADD");
+        if (parentNode && !parentNode.items)
+            parentNode.items = [];
+
+        (parentNode ? parentNode.items : this.treeData)?.push(<TreeNode>{
+            key: this.generateGUID(),
+            name: "Item",
+            level: parentNode ? parentNode.level + 1 : 0,
+        });
 
         this.requestUpdate();
     }
 
-    removeNodeFromTree(nodeToRemove: TreeNode, tree = this.treeData) {
-        tree.forEach((node, index) => {
-            if (node === nodeToRemove) {
-                tree.splice(index, 1);
-                return;
-            }
-            if (node.items) {
-                this.removeNodeFromTree(nodeToRemove, node.items);
+    async editNode(node?: TreeNode) {
+        if (!node) {
+            return;
+        }
+
+        const customContext = this._modalContext?.open(this, TREE_ITEM_EDITOR_MODAL_TOKEN, {
+            data: {
+                headline: 'A Custom modal',
+                doctype: this._doctype,
+                data: node.properties ?? {}
             }
         });
+
+        const data = await customContext?.onSubmit();
+
+        if (!data) return;
+
+        console.log('data', data);
     }
-    
 }
 
 export { SimpleTreeMenuElement as element };

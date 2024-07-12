@@ -71,3 +71,4 @@ src/WebsiteV8/App_Data
 src/WebsiteV8/bin
 src/WebsiteV10/umbraco/Data
 obj
+src/WebsiteV14/wwwroot/App_Plugins

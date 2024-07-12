@@ -1,5 +1,8 @@
 import { UmbEntryPointOnInit } from '@umbraco-cms/backoffice/extension-api';
 import { ManifestModal, ManifestPropertyEditorSchema, ManifestPropertyEditorUi, ManifestTypes } from '@umbraco-cms/backoffice/extension-registry';
+import { UMB_AUTH_CONTEXT } from '@umbraco-cms/backoffice/auth';
+import { OpenAPI } from '@umbraco-cms/backoffice/external/backend-api';
+
 
 const modal: ManifestModal = {
     type: 'modal',
@@ -100,4 +103,11 @@ export const onInit: UmbEntryPointOnInit = (_host, extensionRegistry) => {
         //schema,
         editorUi,
     ]);
+
+    _host.consumeContext(UMB_AUTH_CONTEXT, (_auth) => {
+        const umbOpenApi = _auth.getOpenApiConfiguration();
+        OpenAPI.TOKEN = umbOpenApi.token;
+        OpenAPI.BASE = umbOpenApi.base;
+        OpenAPI.WITH_CREDENTIALS = umbOpenApi.withCredentials;
+    });
 };

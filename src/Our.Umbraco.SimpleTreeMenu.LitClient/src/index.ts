@@ -1,5 +1,5 @@
 import { UmbEntryPointOnInit } from '@umbraco-cms/backoffice/extension-api';
-import { ManifestModal, ManifestPropertyEditorSchema, ManifestPropertyEditorUi, ManifestTypes } from '@umbraco-cms/backoffice/extension-registry';
+import { ManifestModal, ManifestPropertyEditorSchema, ManifestPropertyEditorUi } from '@umbraco-cms/backoffice/extension-registry';
 import { UMB_AUTH_CONTEXT } from '@umbraco-cms/backoffice/auth';
 import { OpenAPI } from '@umbraco-cms/backoffice/external/backend-api';
 
@@ -14,80 +14,46 @@ const modal: ManifestModal = {
 const schema: ManifestPropertyEditorSchema = {
     type: 'propertyEditorSchema',
     name: 'SimpleTreeMenu Schema',
-    alias: 'SimpleTreeMenu',
+    alias: 'Simple Tree Menu',
     meta: {
-        defaultPropertyEditorUiAlias: 'SimpleTreeMenu.Ui',
-        settings: {
-            properties: [
-                {
-                    alias: 'doctype',
-                    label: 'Doctype',
-                    description: 'Allowed doctype',
-                    propertyEditorUiAlias: 'Umb.PropertyEditorUi.TextArea'
-                },
-                {
-                    alias: 'nameTemplate',
-                    label: 'nameTemplate',
-                    description: '',
-                    propertyEditorUiAlias: 'Umb.PropertyEditorUi.TextArea'
-                },
-                {
-                    alias: 'Levels',
-                    label: 'levels',
-                    description: 'Max number of levels',
-                    propertyEditorUiAlias: 'Umb.PropertyEditorUi.TextArea'
-                }
-            ],
-            defaultData: [
-                {
-                    alias: 'doctype',
-                    value: 'MenuNode'
-                },
-                {
-                    alias: 'levels',
-                    value: '3'
-                }
-            ]
-        }
+        defaultPropertyEditorUiAlias: 'SimpleTreeMenu.PropertyEditorUi',
+        
     }
 }
-const editorUi: ManifestPropertyEditorUi =
+
+const editorUi: UmbExtensionManifest =
 {
     type: 'propertyEditorUi',
-    alias: 'SimpleTreeMenu',
-    name: 'SimpleTreeMenu',
+    alias: 'SimpleTreeMenu.PropertyEditorUi',
+    name: 'SimpleTreeMenu Editor UI',
     element: () => import('./property-editor-ui/simpletreemenu/simpletreemenu.element'),
     meta: {
         label: 'SimpleTreeMenu',
         icon: 'icon-network-alt',
         group: 'common',
-        propertyEditorSchemaAlias: 'Umbraco.Plain.Json',
+        propertyEditorSchemaAlias: 'SimpleTreeMenu',
         settings: {
             properties: [
                 {
                     alias: 'doctype',
                     label: 'Doctype',
                     description: 'Allowed doctype',
-                    propertyEditorUiAlias: 'Umb.PropertyEditorUi.TextArea'
+                    propertyEditorUiAlias: 'SimpleTreeMenu.ElementTypePicker'
                 },
                 {
                     alias: 'nameTemplate',
-                    label: 'nameTemplate',
+                    label: 'Name template',
                     description: '',
                     propertyEditorUiAlias: 'Umb.PropertyEditorUi.TextArea'
                 },
                 {
-                    alias: 'Levels',
-                    label: 'levels',
+                    alias: 'levels',
+                    label: 'Levels',
                     description: 'Max number of levels',
-                    propertyEditorUiAlias: 'Umb.PropertyEditorUi.TextArea'
+                    propertyEditorUiAlias: 'Umb.PropertyEditorUi.Integer'
                 }
             ],
             defaultData: [
-                {
-                    alias: 'doctype',
-                    value: 'MenuNode'
-                },
                 {
                     alias: 'levels',
                     value: '3'
@@ -97,11 +63,26 @@ const editorUi: ManifestPropertyEditorUi =
     }
 
 }
+
+const elementTypePickerUi: UmbExtensionManifest =
+{
+    type: 'propertyEditorUi',
+    alias: 'SimpleTreeMenu.ElementTypePicker',
+    name: 'SimpleTreeMenuElementTypePicker',
+    element: () => import('./property-editor-ui/element-type-picker/element-type-picker.element'),
+    meta: {
+        label: 'ElementTypePicker',
+        icon: 'icon-network-alt',
+        group: 'common',
+    }
+
+}
 export const onInit: UmbEntryPointOnInit = (_host, extensionRegistry) => {
     extensionRegistry.registerMany([
         modal,
-        //schema,
         editorUi,
+        elementTypePickerUi,
+        schema
     ]);
 
     _host.consumeContext(UMB_AUTH_CONTEXT, (_auth) => {

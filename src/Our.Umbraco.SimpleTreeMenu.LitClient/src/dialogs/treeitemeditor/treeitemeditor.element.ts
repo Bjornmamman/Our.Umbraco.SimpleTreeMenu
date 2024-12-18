@@ -20,22 +20,31 @@ export class ItemEditorModalElement extends UmbModalBaseElement<TreeItemEditorMo
     override async connectedCallback() {
         super.connectedCallback();
         
-        const doctypeAlias = this.data?.doctype ?? "";
-        
-        let doctypes = await DocumentTypeService.getItemDocumentTypeSearch({ query: doctypeAlias });
-        let doctype = doctypes.items.find((x) => x.isElement && x.name.toLowerCase() === doctypeAlias.toLowerCase());
-        
-        if (!doctype) {
-            console.error(`Document type with alias ${doctypeAlias} not found.`);
-            return;
+        const doctypeKey = this.data?.doctype ?? "";
+        let doctypeData;
+
+        //If doctypeKey is guid, then we need to get the alias
+        if (doctypeKey.length === 36) {
+            doctypeData = await DocumentTypeService.getDocumentTypeById({ id: doctypeKey });
+        } else {
+            let doctypes = await DocumentTypeService.getItemDocumentTypeSearch({ query: doctypeKey });
+
+            let doctype = doctypes.items.find((x) => x.isElement && (x.id == doctypeKey || x.name.toLowerCase() === doctypeKey.toLowerCase()));
+
+            if (!doctype) {
+                console.error(`Document type with alias ${doctypeKey} not found.`);
+                return;
+            }
+
+            doctypeData = await DocumentTypeService.getDocumentTypeById({ id: doctype.id });
+
+            if (doctypeData.id == doctypeKey || doctypeData.alias.toLowerCase() !== doctypeKey.toLowerCase()) {
+                console.error(`Document type with alias ${doctypeKey} is invalid.`);
+                return;
+            }
         }
 
-        let doctypeData = await DocumentTypeService.getDocumentTypeById({ id: doctype.id });
         
-        if (doctypeData.alias.toLowerCase() !== doctypeAlias.toLowerCase()) {
-            console.error(`Document type with alias ${doctypeAlias} is invalid.`);
-            return;
-        }
         let datatypeIds = doctypeData.properties.map(x => x.dataType.id);
 
         for (let datatypeId of datatypeIds) {
@@ -66,7 +75,6 @@ export class ItemEditorModalElement extends UmbModalBaseElement<TreeItemEditorMo
     dataValue: any = {};
 
     #handleConfirm() {
-        console.log("DATA VALUE", this.dataValue);
         this.value = this.dataValue ?? {};
         this.modalContext?.submit();
     }

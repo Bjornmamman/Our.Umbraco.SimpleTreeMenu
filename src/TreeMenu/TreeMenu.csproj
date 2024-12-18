@@ -24,11 +24,13 @@
 	<PropertyGroup Condition="'$(Version)' &lt; '5.0.0'">
 		<IncludeContentInPack>true</IncludeContentInPack>
 		<ContentTargetFolders>content</ContentTargetFolders>
+		<DefineConstants>ISNOTBELLISSIMA</DefineConstants>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Version)' &gt;= '5.0.0'">
 		<StaticWebAssetBasePath>/</StaticWebAssetBasePath>
 		<ContentTargetFolders>.</ContentTargetFolders>
+		<DefineConstants>ISBELLISSIMA</DefineConstants>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net472'">
@@ -91,6 +93,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Compile Include="SimpleTreeMenuPropertyEditor.cs" />
 		<Compile Include="ValueConverters\ISimpleTreeItem.cs" />
 		<Compile Include="ValueConverters\ISimpleTreeMenu.cs" />
 		<Compile Include="ValueConverters\SimpleTreeItem.cs" />

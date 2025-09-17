@@ -6,7 +6,7 @@ export default defineConfig({
             entry: ["src/index.ts"],
             formats: ["es"],
         },
-        outDir: "../WebsiteV14/wwwroot/App_Plugins/SimpleTreeMenu/",
+        outDir: "../WebsiteV16/wwwroot/App_Plugins/SimpleTreeMenu/",
         emptyOutDir: true,
         sourcemap: true,
         rollupOptions: {

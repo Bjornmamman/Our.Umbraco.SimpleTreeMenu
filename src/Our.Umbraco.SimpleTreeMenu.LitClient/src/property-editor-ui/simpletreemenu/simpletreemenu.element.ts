@@ -1,10 +1,17 @@
 import { html, css, customElement, property, state, LitElement } from "@umbraco-cms/backoffice/external/lit";
-import { UmbPropertyEditorConfigCollection, UmbPropertyValueChangeEvent } from "@umbraco-cms/backoffice/property-editor";
+import { UmbPropertyValueChangeEvent } from "@umbraco-cms/backoffice/property-editor";
 import { UMB_MODAL_MANAGER_CONTEXT, UmbModalManagerContext } from "@umbraco-cms/backoffice/modal";
 import { TREE_ITEM_EDITOR_MODAL_TOKEN, TreeItemEditorModalValue } from "../../dialogs/treeitemeditor/treeitemeditor.token";
 import { UmbModalRouteBuilder, UmbModalRouteRegistrationController } from "@umbraco-cms/backoffice/router";
 import { UmbElementMixin } from "@umbraco-cms/backoffice/element-api";
 import { UmbVariantId } from "@umbraco-cms/backoffice/variant";
+import { UmbLitElement } from '@umbraco-cms/backoffice/lit-element';
+
+import type {
+    UmbPropertyEditorConfigCollection,
+    UmbPropertyEditorUiElement,
+} from '@umbraco-cms/backoffice/property-editor';
+
 
 
 const ELEMENT_NAME = 'simpletreemenu-list';
@@ -25,7 +32,7 @@ interface TreeNode {
  * @csspart button - The button
  */
 @customElement(ELEMENT_NAME)
-export class SimpleTreeMenuElement extends UmbElementMixin(LitElement) {
+export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyEditorUiElement {
 
     treeData: TreeNode[] = [];
 
@@ -49,7 +56,6 @@ export class SimpleTreeMenuElement extends UmbElementMixin(LitElement) {
 
     @property({ type: Object })
     public set value(value: TreeNode | string | undefined) {
-        console.log("SETVALUE", value, typeof (value));
         if (typeof value === "string")
             this._value = JSON.parse(value);
         else if (typeof value == "object")
@@ -58,7 +64,6 @@ export class SimpleTreeMenuElement extends UmbElementMixin(LitElement) {
             this._value = {} as TreeNode;
     }
     public get value(): TreeNode | undefined {
-        console.log("GETVALUE", this._value);
         return this._value;
     }
 
@@ -102,21 +107,23 @@ export class SimpleTreeMenuElement extends UmbElementMixin(LitElement) {
             .addUniquePaths(['propertyAlias', 'variantId'])
             .onSetup((params) => {
                 let node = this.findNodeById(params.key)
+                console.log(node);
                 return {
                     data: {
                         doctype: this._doctype,
                         key: params.key,
-                    },
-                    value: node?.properties ?? {}
-                } as TreeItemEditorModalValue;
+                        properties: node?.properties ?? {},
+                    }
+                };
             })
-            .onSubmit((value) => {
-                if (!value) return;
+            .onSubmit((submit) => {
+                if (!submit || !submit.value) return;
+
 
                 let node = this.findNodeById(this.editModal.modalContext?.data.key);
-                console.log(value, typeof value);
+
                 if (node)
-                    node.properties = value as object;
+                    node.properties = submit.value as object;
 
                 this.#onChange();
             })
@@ -400,6 +407,10 @@ export class SimpleTreeMenuElement extends UmbElementMixin(LitElement) {
             return;
         }
 
+        //Reursive loop throught dropNode.items and check level
+        const checkLevels = this.#checkLevels(dropNode);
+
+
         const draggedData = event.dataTransfer != null ? JSON.parse(event.dataTransfer.getData('text/plain')) : {};
         const isDescendantOrSelf = this.isDescendantOrSelf(draggedData, dropNode.key);
 
@@ -407,6 +418,9 @@ export class SimpleTreeMenuElement extends UmbElementMixin(LitElement) {
             this.requestUpdate();
             return;
         }
+
+        
+
         const eventTarget = (event.target as Element);
         const isDropZone = eventTarget.classList.contains("drop-zone") ?? false;
         const target = eventTarget.closest('.tree-node');
@@ -498,6 +512,23 @@ export class SimpleTreeMenuElement extends UmbElementMixin(LitElement) {
         return false;
     }
 
+    #checkLevels(node: TreeNode): boolean {
+        if (this._levels === undefined) return false;
+        if (node.level >= this._levels) {
+            return true;
+        }
+        if (node.items) {
+            
+            for (const child of node.items) {
+                if (this.#checkLevels(child)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+
+    }
+
     #setLevels() {
         const setLevelsRecursive = (list: TreeNode[], depth: number) => {
             for (let i = 0; i < list.length; i++) {
@@ -545,30 +576,28 @@ export class SimpleTreeMenuElement extends UmbElementMixin(LitElement) {
         this.#onChange();
     }
 
-    async editNode(node?: TreeNode) {
-        if (!node) {
-            return;
-        }
+    //async editNode(node?: TreeNode) {
+    //    if (!node) {
+    //        return;
+    //    }
 
-        const customContext = this._modalContext?.open(this, TREE_ITEM_EDITOR_MODAL_TOKEN, {
-            data: {
-                doctype: this._doctype,
-                data: node.properties ?? {}
-            }
-        });
+    //    const customContext = this._modalContext?.open(this, TREE_ITEM_EDITOR_MODAL_TOKEN, {
+    //        data: {
+    //            doctype: this._doctype,
+    //            data: node.properties ?? {}
+    //        }
+    //    });
 
-        const data = await customContext?.onSubmit();
+    //    const data = await customContext?.onSubmit();
 
-        this.#setLevels();
-        this.#onChange();
+    //    this.#setLevels();
+    //    this.#onChange();
 
-        if (!data) return;
+    //    if (!data) return;
 
-    }
+    //}
 
     #onChange() {
-
-        console.log("CHANGE", this.treeData);
 
         const item = {
             items: JSON.parse(JSON.stringify(this.treeData)) 

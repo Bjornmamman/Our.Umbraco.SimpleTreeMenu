@@ -1,18 +1,30 @@
-import { customElement, html, repeat, state } from "@umbraco-cms/backoffice/external/lit";
-import { UmbModalBaseElement } from "@umbraco-cms/backoffice/modal";
-import { TreeItemEditorModalData} from "./treeitemeditor.token";
+import { customElement, html, repeat, property, state } from "@umbraco-cms/backoffice/external/lit";
+import { UmbModalBaseElement, UmbModalExtensionElement } from "@umbraco-cms/backoffice/modal";
+import { TreeItemEditorModalData, TreeItemEditorModalValue } from "./treeitemeditor.token";
 import { DataTypeService, DocumentTypeResponseModel, DocumentTypeService } from "@umbraco-cms/backoffice/external/backend-api";
 import { UmbPropertyDatasetElement, UmbPropertyValueData } from "@umbraco-cms/backoffice/property";
 import { UmbPropertyEditorConfigCollection } from "@umbraco-cms/backoffice/property-editor";
+import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
+import type { UmbModalContext } from '@umbraco-cms/backoffice/modal';
 
 //import { UUIInputEvent } from "@umbraco-cms/backoffice/external/uui";
 
 @customElement('item-editor-modal')
-export class ItemEditorModalElement extends UmbModalBaseElement<TreeItemEditorModalData, TreeItemEditorModalData>
+export class ItemEditorModalElement extends UmbLitElement
+    implements UmbModalExtensionElement<TreeItemEditorModalData, TreeItemEditorModalValue>
 {
+
+    @property({ attribute: false })
+    modalContext?: UmbModalContext<TreeItemEditorModalData, TreeItemEditorModalValue>;
+
+
+    @property({ attribute: false })
+    data?: TreeItemEditorModalData;
+
+
     constructor() {
         super();
-        console.log(this.data)
+        
     }
 
 
@@ -21,13 +33,18 @@ export class ItemEditorModalElement extends UmbModalBaseElement<TreeItemEditorMo
         super.connectedCallback();
         
         const doctypeKey = this.data?.doctype ?? "";
+        let doctypeRequest;
         let doctypeData;
+
+        console.log(this.data)
 
         //If doctypeKey is guid, then we need to get the alias
         if (doctypeKey.length === 36) {
-            doctypeData = await DocumentTypeService.getDocumentTypeById({ id: doctypeKey });
+            doctypeRequest = await DocumentTypeService.getDocumentTypeById({ path: { id: doctypeKey } });
+            doctypeData = doctypeRequest.data;
         } else {
-            let doctypes = await DocumentTypeService.getItemDocumentTypeSearch({ query: doctypeKey });
+            let doctypesRequest = await DocumentTypeService.getItemDocumentTypeSearch({ query: doctypeKey });
+            let doctypes = doctypesRequest.data;
 
             let doctype = doctypes.items.find((x) => x.isElement && (x.id == doctypeKey || x.name.toLowerCase() === doctypeKey.toLowerCase()));
 
@@ -36,7 +53,8 @@ export class ItemEditorModalElement extends UmbModalBaseElement<TreeItemEditorMo
                 return;
             }
 
-            doctypeData = await DocumentTypeService.getDocumentTypeById({ id: doctype.id });
+            doctypeRequest = await DocumentTypeService.getDocumentTypeById({ id: doctype.id });
+            doctypeData = doctypeRequest.data;
 
             if (doctypeData.id == doctypeKey || doctypeData.alias.toLowerCase() !== doctypeKey.toLowerCase()) {
                 console.error(`Document type with alias ${doctypeKey} is invalid.`);
@@ -44,21 +62,22 @@ export class ItemEditorModalElement extends UmbModalBaseElement<TreeItemEditorMo
             }
         }
 
+        console.log(doctypeData);
         
         let datatypeIds = doctypeData.properties.map(x => x.dataType.id);
 
         for (let datatypeId of datatypeIds) {
-            let datatype = await DataTypeService.getDataTypeById({ id: datatypeId });
+            let datatypeRequest = await DataTypeService.getDataTypeById({ path: { id: datatypeId } });
+            let datatype = datatypeRequest.data;
             this._dataTypes[datatypeId] = datatype;
             
         }
 
         this._doctype = doctypeData;
 
-        const values = this.value as any;
-        
+        const values = this.data?.properties as any;
         this._values = Object.keys(values).map(key => ({ alias: key, value: values[key] }));
-        console.log("IN VALUE", this._values);
+        
 
         this.dataValue = values;
     }
@@ -75,7 +94,7 @@ export class ItemEditorModalElement extends UmbModalBaseElement<TreeItemEditorMo
     dataValue: any = {};
 
     #handleConfirm() {
-        this.value = this.dataValue ?? {};
+        this.modalContext?.updateValue({ value: this.dataValue ?? {} });
         this.modalContext?.submit();
     }
 
@@ -86,6 +105,7 @@ export class ItemEditorModalElement extends UmbModalBaseElement<TreeItemEditorMo
     #onPropertyDataChange(e: Event) {
         const value = (e.target as UmbPropertyDatasetElement).value;
         this.dataValue = value.reduce((acc, curr) => ({ ...acc, [curr.alias]: curr.value }), {});
+        this.modalContext?.updateValue({ value: this.dataValue ?? {} });
     }
     
     render() {

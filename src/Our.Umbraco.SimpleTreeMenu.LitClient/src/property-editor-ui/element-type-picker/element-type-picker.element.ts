@@ -1,8 +1,12 @@
 import { UmbInputDocumentTypeElement } from '@umbraco-cms/backoffice/document-type';
-import { UmbPropertyEditorUiElement } from '@umbraco-cms/backoffice/extension-registry';
 import { html, customElement, property, state } from '@umbraco-cms/backoffice/external/lit';
 import { UmbLitElement } from '@umbraco-cms/backoffice/lit-element';
 import { UmbPropertyValueChangeEvent } from '@umbraco-cms/backoffice/property-editor';
+
+import type {
+    UmbPropertyEditorConfigCollection,
+    UmbPropertyEditorUiElement,
+} from '@umbraco-cms/backoffice/property-editor';
 
 const ELEMENT_NAME = 'simpletreemenu-doctype-picker';
 @customElement(ELEMENT_NAME)

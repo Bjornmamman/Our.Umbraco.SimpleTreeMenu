@@ -3,10 +3,11 @@ import { UmbModalToken } from "@umbraco-cms/backoffice/modal";
 export interface TreeItemEditorModalData {
     doctype: string;
     data: any;
+    properties: any;
 }
 
 export interface TreeItemEditorModalValue {
-    data: any
+    value: any
 }
 
 export const TREE_ITEM_EDITOR_MODAL_TOKEN = new UmbModalToken<TreeItemEditorModalData, TreeItemEditorModalValue>(

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net472;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
+		<TargetFrameworks>net472;net5.0;net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
 		<RootNamespace>Our.Umbraco.SimpleTreeMenu</RootNamespace>
 
 		<AssemblyName>Our.Umbraco.SimpleTreeMenu</AssemblyName>
@@ -52,13 +52,13 @@
 		<PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="11.0.0" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0' and '$(Version)' &lt; '5.0.0'">
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
 		<PackageReference Include="Umbraco.Cms.Web.Website" Version="[13.0.0,14.0.0)" />
 		<PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="[13.0.0,14.0.0)" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0' and '$(Version)' &gt;= '5.0.0'">
-		<PackageReference Include="Umbraco.Cms.Web.Website" Version="[14.0.0,15.0.0)" />
+	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
+		<PackageReference Include="Umbraco.Cms.Web.Website" Version="[16.0.0,17.0.0)" />
 	</ItemGroup>
 
 	<ItemGroup>

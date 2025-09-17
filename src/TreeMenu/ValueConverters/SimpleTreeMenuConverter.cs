@@ -6,10 +6,13 @@ using System.Linq;
 using System.Web;
 
 
+
+
+
 #if NETFRAMEWORK
+
 #else
 #endif
-
 #if NETFRAMEWORK
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Core.PropertyEditors;
@@ -20,6 +23,7 @@ using Umbraco.Core;
 using UmbracoCore = Umbraco.Core;
 
 #else
+using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Logging;
 using Umbraco.Cms.Core.Models.Blocks;
 using Umbraco.Cms.Core.Models.PublishedContent;
@@ -40,7 +44,28 @@ namespace Our.Umbraco.SimpleTreeMenu.ValueConverters
             _publishedSnapshotAccessor = publishedSnapshotAccessor;
         }
 
-#elif NET8_0_OR_GREATER
+#elif NET9_0_OR_GREATER
+	public class SimpleTreeMenuConverter : PropertyValueConverterBase, IPropertyValueConverter
+	{
+
+		private readonly IPublishedContentTypeCache _publishedContentTypeCache;
+		private readonly IPublishedModelFactory _publishedModelFactory;
+		private readonly ICacheManager _cacheManager;
+		private readonly IVariationContextAccessor _variationContextAccessor;
+
+		public SimpleTreeMenuConverter(
+			IPublishedContentTypeCache publishedContentTypeCache,
+			IPublishedModelFactory publishedModelFactory,
+			ICacheManager cacheManager,
+			IVariationContextAccessor variationContextAccessor
+			)
+		{
+			_publishedContentTypeCache = publishedContentTypeCache;
+			_publishedModelFactory = publishedModelFactory;
+			_cacheManager = cacheManager;
+			_variationContextAccessor = variationContextAccessor;
+		}
+#elif NET8_0_OR_GREATER                  
     public class SimpleTreeMenuConverter : PropertyValueConverterBase, IPropertyValueConverter
     {
 
@@ -65,7 +90,7 @@ namespace Our.Umbraco.SimpleTreeMenu.ValueConverters
         }
 #endif
 
-        public override PropertyCacheLevel GetPropertyCacheLevel(IPublishedPropertyType propertyType)
+		public override PropertyCacheLevel GetPropertyCacheLevel(IPublishedPropertyType propertyType)
             => PropertyCacheLevel.Element;
 
         public override bool IsConverter(IPublishedPropertyType publishedProperty)
@@ -149,7 +174,8 @@ namespace Our.Umbraco.SimpleTreeMenu.ValueConverters
                 return null;
             }
 
-            IPublishedSnapshot publishedSnapshot = _publishedSnapshotAccessor.GetRequiredPublishedSnapshot();
+#if NET8_0
+			IPublishedSnapshot publishedSnapshot = _publishedSnapshotAccessor.GetRequiredPublishedSnapshot();
 
             // Only convert element types - content types will cause an exception when PublishedModelFactory creates the model
             IPublishedContentType? publishedContentType = publishedSnapshot.Content?.GetContentType(elementTypeAlias);
@@ -157,19 +183,33 @@ namespace Our.Umbraco.SimpleTreeMenu.ValueConverters
             {
                 return null;
             }
+#elif NET9_0_OR_GREATER
 
-            Dictionary<string, object?>? propertyValues = sourceObject.ToObject<Dictionary<string, object?>>();
+			IPublishedContentType? publishedContentType = _publishedContentTypeCache.Get(PublishedItemType.Element, elementTypeAlias);
+			if (publishedContentType is null || publishedContentType.IsElement == false)
+			{
+				return null;
+			}
+#endif
+
+			Dictionary<string, object?>? propertyValues = sourceObject.ToObject<Dictionary<string, object?>>();
             if (propertyValues is null || !propertyValues.TryGetValue("key", out var keyo) ||
                 !Guid.TryParse(keyo?.ToString(), out Guid key))
             {
                 key = Guid.Empty;
             }
+#if NET9_0_OR_GREATER
+			VariationContext variationContext = _variationContextAccessor.VariationContext ?? new VariationContext();
 
+			IPublishedElement element = new PublishedElement(publishedContentType, key, propertyValues, preview, referenceCacheLevel, variationContext, _cacheManager);
+            element = _publishedModelFactory.CreateModel(element);
+#else
             IPublishedElement element = new PublishedElement(publishedContentType, key, propertyValues, preview, referenceCacheLevel, _publishedSnapshotAccessor);
             element = _publishedModelFactory.CreateModel(element);
+#endif
 
-            return element;
+			return element;
         }
 #endif
-    }
+        }
 }

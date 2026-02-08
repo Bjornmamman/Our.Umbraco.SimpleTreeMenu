@@ -20,24 +20,6 @@
                 }
             ]
         },
-        "CollectionBulkActionPermissionConditionConfig": {
-            "allOf": [
-                {
-                    "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.CollectionBulkActionPermission\">"
-                },
-                {
-                    "properties": {
-                        "match": {
-                            "type": "object"
-                        }
-                    },
-                    "required": [
-                        "match"
-                    ],
-                    "type": "object"
-                }
-            ]
-        },
         "ManifestAppEntryPoint": {
             "description": "Manifest for an `appEntryPoint`, which is loaded up front when the app starts.\n\nThis type of extension gives full control and will simply load the specified JS file.\nYou could have custom logic to decide which extensions to load/register by using extensionRegistry.\nThis is useful for extensions that need to be loaded up front, like an `authProvider`.",
             "properties": {
@@ -65,7 +47,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -120,7 +102,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -159,7 +141,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -191,7 +173,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -229,7 +211,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -255,6 +237,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -273,13 +261,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -366,7 +354,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -394,6 +382,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -412,13 +406,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -505,7 +499,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -532,6 +526,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -550,13 +550,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -642,7 +642,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -650,6 +650,115 @@
                 "alias",
                 "kind",
                 "meta",
+                "name",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ManifestCollectionMenu": {
+            "properties": {
+                "alias": {
+                    "description": "The alias of the extension, ensure it is unique",
+                    "type": "string"
+                },
+                "api": {
+                    "description": "The file location of the api javascript file to load",
+                    "type": "string"
+                },
+                "element": {
+                    "description": "The file location of the element javascript file to load",
+                    "type": "string"
+                },
+                "elementName": {
+                    "description": "The HTML web component name to use such as 'my-dashboard'\nNote it is NOT <my-dashboard></my-dashboard>, just the element name.",
+                    "type": "string"
+                },
+                "js": {
+                    "description": "The file location of the javascript file to load",
+                    "type": "string"
+                },
+                "kind": {
+                    "description": "The kind of the extension, used to group extensions together",
+                    "examples": [
+                        "button"
+                    ]
+                },
+                "meta": {
+                    "$ref": "#/definitions/MetaCollectionMenu"
+                },
+                "name": {
+                    "description": "The friendly name of the extension",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "collectionMenu",
+                    "description": "The type of extension such as dashboard etc...",
+                    "type": "string"
+                },
+                "weight": {
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
+                    "type": "number"
+                }
+            },
+            "required": [
+                "alias",
+                "meta",
+                "name",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ManifestCollectionMenuItem": {
+            "properties": {
+                "alias": {
+                    "description": "The alias of the extension, ensure it is unique",
+                    "type": "string"
+                },
+                "api": {
+                    "description": "The file location of the api javascript file to load",
+                    "type": "string"
+                },
+                "element": {
+                    "description": "The file location of the element javascript file to load",
+                    "type": "string"
+                },
+                "elementName": {
+                    "description": "The HTML web component name to use such as 'my-dashboard'\nNote it is NOT <my-dashboard></my-dashboard>, just the element name.",
+                    "type": "string"
+                },
+                "forEntityTypes": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "js": {
+                    "description": "The file location of the javascript file to load",
+                    "type": "string"
+                },
+                "kind": {
+                    "description": "The kind of the extension, used to group extensions together",
+                    "examples": [
+                        "button"
+                    ]
+                },
+                "name": {
+                    "description": "The friendly name of the extension",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "collectionMenuItem",
+                    "description": "The type of extension such as dashboard etc...",
+                    "type": "string"
+                },
+                "weight": {
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
+                    "type": "number"
+                }
+            },
+            "required": [
+                "alias",
+                "forEntityTypes",
                 "name",
                 "type"
             ],
@@ -665,6 +774,12 @@
                     "description": "Set the conditions for when the extension should be loaded",
                     "items": {
                         "anyOf": [
+                            {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
                             {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
@@ -684,13 +799,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -778,7 +893,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -820,7 +935,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -846,6 +961,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -864,13 +985,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -957,7 +1078,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -980,6 +1101,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -998,13 +1125,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -1092,7 +1219,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -1142,7 +1269,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -1172,6 +1299,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -1190,13 +1323,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -1289,7 +1422,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -1317,6 +1450,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -1335,13 +1474,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -1433,7 +1572,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -1462,6 +1601,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -1480,13 +1625,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -1578,7 +1723,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -1607,6 +1752,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -1625,13 +1776,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -1723,7 +1874,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -1752,6 +1903,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -1770,13 +1927,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -1868,7 +2025,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -1897,6 +2054,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -1915,13 +2078,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -2013,7 +2176,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -2042,6 +2205,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -2060,13 +2229,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -2158,7 +2327,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -2187,6 +2356,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -2205,13 +2380,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -2303,7 +2478,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -2332,6 +2507,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -2350,13 +2531,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -2448,7 +2629,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -2477,6 +2658,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -2495,13 +2682,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -2593,7 +2780,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -2622,6 +2809,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -2640,13 +2833,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -2738,7 +2931,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -2767,6 +2960,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -2785,13 +2984,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -2883,7 +3082,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -2913,6 +3112,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -2931,13 +3136,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -3030,7 +3235,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -3058,6 +3263,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -3076,13 +3287,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -3174,7 +3385,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -3203,6 +3414,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -3221,13 +3438,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -3319,7 +3536,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -3348,6 +3565,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -3366,13 +3589,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -3464,7 +3687,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -3493,6 +3716,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -3511,13 +3740,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -3609,7 +3838,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -3638,6 +3867,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -3656,13 +3891,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -3754,7 +3989,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -3768,19 +4003,22 @@
             ],
             "type": "object"
         },
-        "ManifestEntityCreateOptionAction<MetaEntityCreateOptionAction>": {
+        "ManifestEntityCollectionItemCard<MetaEntityCollectionItemCard>": {
             "properties": {
                 "alias": {
                     "description": "The alias of the extension, ensure it is unique",
-                    "type": "string"
-                },
-                "api": {
                     "type": "string"
                 },
                 "conditions": {
                     "description": "Set the conditions for when the extension should be loaded",
                     "items": {
                         "anyOf": [
+                            {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
                             {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
@@ -3800,13 +4038,312 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/CollectionAliasConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbCurrentUserGroupIdConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbIsAdminConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowChangePassword\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowDeleteAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowDisableAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowEnableAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowExternalLoginAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowMfaAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowUnlockAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/SwitchConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<string>"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "element": {
+                    "description": "The file location of the element javascript file to load",
+                    "type": "string"
+                },
+                "elementName": {
+                    "description": "The HTML web component name to use such as 'my-dashboard'\nNote it is NOT <my-dashboard></my-dashboard>, just the element name.",
+                    "type": "string"
+                },
+                "forEntityTypes": {
+                    "description": "The entity types this collection item supports.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "js": {
+                    "description": "The file location of the javascript file to load",
+                    "type": "string"
+                },
+                "kind": {
+                    "description": "The kind of the extension, used to group extensions together",
+                    "examples": [
+                        "button"
+                    ]
+                },
+                "meta": {
+                    "$ref": "#/definitions/MetaEntityCollectionItemCard",
+                    "description": "Additional metadata for the collection item."
+                },
+                "name": {
+                    "description": "The friendly name of the extension",
+                    "type": "string"
+                },
+                "overwrites": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "Define one or more extension aliases that this extension should overwrite."
+                },
+                "type": {
+                    "const": "entityCollectionItemCard",
+                    "description": "The type of extension such as dashboard etc...",
+                    "type": "string"
+                },
+                "weight": {
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
+                    "type": "number"
+                }
+            },
+            "required": [
+                "alias",
+                "forEntityTypes",
+                "name",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ManifestEntityCollectionItemRef<MetaEntityCollectionItemRef>": {
+            "properties": {
+                "alias": {
+                    "description": "The alias of the extension, ensure it is unique",
+                    "type": "string"
+                },
+                "conditions": {
+                    "description": "Set the conditions for when the extension should be loaded",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/WorkspaceAliasConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbWorkspaceEntityIsNewConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbWorkspaceEntityTypeConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbPropertyHasValueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/SectionAliasConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/CollectionAliasConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbCurrentUserGroupIdConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbIsAdminConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowChangePassword\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowDeleteAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowDisableAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowEnableAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowExternalLoginAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowMfaAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowUnlockAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/SwitchConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<string>"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "element": {
+                    "description": "The file location of the element javascript file to load",
+                    "type": "string"
+                },
+                "elementName": {
+                    "description": "The HTML web component name to use such as 'my-dashboard'\nNote it is NOT <my-dashboard></my-dashboard>, just the element name.",
+                    "type": "string"
+                },
+                "forEntityTypes": {
+                    "description": "The entity types this collection item supports.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "js": {
+                    "description": "The file location of the javascript file to load",
+                    "type": "string"
+                },
+                "kind": {
+                    "description": "The kind of the extension, used to group extensions together",
+                    "examples": [
+                        "button"
+                    ]
+                },
+                "meta": {
+                    "$ref": "#/definitions/MetaEntityCollectionItemRef",
+                    "description": "Additional metadata for the collection item."
+                },
+                "name": {
+                    "description": "The friendly name of the extension",
+                    "type": "string"
+                },
+                "overwrites": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "Define one or more extension aliases that this extension should overwrite."
+                },
+                "type": {
+                    "const": "entityCollectionItemRef",
+                    "description": "The type of extension such as dashboard etc...",
+                    "type": "string"
+                },
+                "weight": {
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
+                    "type": "number"
+                }
+            },
+            "required": [
+                "alias",
+                "forEntityTypes",
+                "name",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ManifestEntityCreateOptionAction<MetaEntityCreateOptionAction>": {
+            "properties": {
+                "alias": {
+                    "description": "The alias of the extension, ensure it is unique",
+                    "type": "string"
+                },
+                "api": {
+                    "type": "string"
+                },
+                "conditions": {
+                    "description": "Set the conditions for when the extension should be loaded",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/WorkspaceAliasConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbWorkspaceEntityIsNewConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbWorkspaceEntityTypeConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbPropertyHasValueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/SectionAliasConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -3891,7 +4428,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -3915,6 +4452,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -3933,13 +4476,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -4033,7 +4576,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -4077,7 +4620,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -4117,7 +4660,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -4166,7 +4709,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -4207,7 +4750,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -4232,6 +4775,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -4250,13 +4799,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -4335,7 +4884,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -4361,6 +4910,12 @@
                     "description": "The HTML web component name to use such as 'my-dashboard'\nNote it is NOT <my-dashboard></my-dashboard>, just the element name.",
                     "type": "string"
                 },
+                "forEntityTypes": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
                 "js": {
                     "description": "The file location of the javascript file to load",
                     "type": "string"
@@ -4385,7 +4940,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -4409,6 +4964,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -4427,13 +4988,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -4520,7 +5081,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -4542,6 +5103,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -4560,13 +5127,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -4653,7 +5220,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -4692,7 +5259,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -4732,7 +5299,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -4772,7 +5339,52 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
+                    "type": "number"
+                }
+            },
+            "required": [
+                "alias",
+                "meta",
+                "name",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ManifestMarkedExtension": {
+            "description": "The `markedExtension` extension-type is currently for internal use and should be considered experimental.",
+            "properties": {
+                "alias": {
+                    "description": "The alias of the extension, ensure it is unique",
+                    "type": "string"
+                },
+                "api": {
+                    "type": "string"
+                },
+                "js": {
+                    "description": "The file location of the javascript file to load",
+                    "type": "string"
+                },
+                "kind": {
+                    "description": "The kind of the extension, used to group extensions together",
+                    "examples": [
+                        "button"
+                    ]
+                },
+                "meta": {
+                    "$ref": "#/definitions/MetaMarkedExtension"
+                },
+                "name": {
+                    "description": "The friendly name of the extension",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "markedExtension",
+                    "description": "The type of extension such as dashboard etc...",
+                    "type": "string"
+                },
+                "weight": {
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -4821,7 +5433,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -4843,6 +5455,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -4861,13 +5479,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -4955,7 +5573,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -4967,16 +5585,26 @@
             ],
             "type": "object"
         },
-        "ManifestMenuItemLinkKind": {
+        "ManifestMenuItemActionKind": {
             "properties": {
                 "alias": {
                     "description": "The alias of the extension, ensure it is unique",
+                    "type": "string"
+                },
+                "api": {
+                    "description": "The file location of the api javascript file to load",
                     "type": "string"
                 },
                 "conditions": {
                     "description": "Set the conditions for when the extension should be loaded",
                     "items": {
                         "anyOf": [
+                            {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
                             {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
@@ -4996,13 +5624,153 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/CollectionAliasConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbCurrentUserGroupIdConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbIsAdminConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowChangePassword\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowDeleteAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowDisableAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowEnableAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowExternalLoginAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowMfaAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowUnlockAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/SwitchConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<string>"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "element": {
+                    "description": "The file location of the element javascript file to load",
+                    "type": "string"
+                },
+                "elementName": {
+                    "description": "The HTML web component name to use such as 'my-dashboard'\nNote it is NOT <my-dashboard></my-dashboard>, just the element name.",
+                    "type": "string"
+                },
+                "js": {
+                    "description": "The file location of the javascript file to load",
+                    "type": "string"
+                },
+                "kind": {
+                    "const": "action",
+                    "description": "The kind of the extension, used to group extensions together",
+                    "type": "string"
+                },
+                "meta": {
+                    "$ref": "#/definitions/MetaMenuItemActionKind"
+                },
+                "name": {
+                    "description": "The friendly name of the extension",
+                    "type": "string"
+                },
+                "overwrites": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "Define one or more extension aliases that this extension should overwrite."
+                },
+                "type": {
+                    "const": "menuItem",
+                    "description": "The type of extension such as dashboard etc...",
+                    "type": "string"
+                },
+                "weight": {
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
+                    "type": "number"
+                }
+            },
+            "required": [
+                "alias",
+                "kind",
+                "meta",
+                "name",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ManifestMenuItemLinkKind": {
+            "properties": {
+                "alias": {
+                    "description": "The alias of the extension, ensure it is unique",
+                    "type": "string"
+                },
+                "conditions": {
+                    "description": "Set the conditions for when the extension should be loaded",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/WorkspaceAliasConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbWorkspaceEntityIsNewConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbWorkspaceEntityTypeConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbPropertyHasValueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/SectionAliasConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -5089,7 +5857,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -5113,6 +5881,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -5131,13 +5905,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -5224,7 +5998,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -5280,7 +6054,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -5329,7 +6103,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -5385,7 +6159,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -5435,7 +6209,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -5460,6 +6234,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -5478,13 +6258,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -5569,13 +6349,61 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
             "required": [
                 "alias",
                 "forPropertyEditorUis",
+                "meta",
+                "name",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ManifestPropertyEditorDataSource": {
+            "properties": {
+                "alias": {
+                    "description": "The alias of the extension, ensure it is unique",
+                    "type": "string"
+                },
+                "api": {
+                    "type": "string"
+                },
+                "dataSourceType": {
+                    "type": "string"
+                },
+                "js": {
+                    "description": "The file location of the javascript file to load",
+                    "type": "string"
+                },
+                "kind": {
+                    "description": "The kind of the extension, used to group extensions together",
+                    "examples": [
+                        "button"
+                    ]
+                },
+                "meta": {
+                    "$ref": "#/definitions/MetaPropertyEditorDataSource"
+                },
+                "name": {
+                    "description": "The friendly name of the extension",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "propertyEditorDataSource",
+                    "description": "The type of extension such as dashboard etc...",
+                    "type": "string"
+                },
+                "weight": {
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
+                    "type": "number"
+                }
+            },
+            "required": [
+                "alias",
+                "dataSourceType",
                 "meta",
                 "name",
                 "type"
@@ -5607,7 +6435,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -5657,7 +6485,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -5701,7 +6529,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -5745,7 +6573,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -5792,7 +6620,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -5838,7 +6666,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -5864,6 +6692,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -5882,13 +6716,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -5964,7 +6798,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -6008,7 +6842,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -6063,7 +6897,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -6081,10 +6915,20 @@
                     "description": "The alias of the extension, ensure it is unique",
                     "type": "string"
                 },
+                "api": {
+                    "description": "The file location of the api javascript file to load",
+                    "type": "string"
+                },
                 "conditions": {
                     "description": "Set the conditions for when the extension should be loaded",
                     "items": {
                         "anyOf": [
+                            {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
                             {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
@@ -6104,13 +6948,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -6171,8 +7015,7 @@
                     ]
                 },
                 "meta": {
-                    "$ref": "#/definitions/MetaSection",
-                    "description": "This contains properties specific to the type of extension"
+                    "$ref": "#/definitions/MetaSection"
                 },
                 "name": {
                     "description": "The friendly name of the extension",
@@ -6198,7 +7041,142 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
+                    "type": "number"
+                }
+            },
+            "required": [
+                "alias",
+                "meta",
+                "name",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ManifestSectionContext<MetaSectionContext>": {
+            "properties": {
+                "alias": {
+                    "description": "The alias of the extension, ensure it is unique",
+                    "type": "string"
+                },
+                "api": {
+                    "type": "string"
+                },
+                "conditions": {
+                    "description": "Set the conditions for when the extension should be loaded",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/WorkspaceAliasConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbWorkspaceEntityIsNewConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbWorkspaceEntityTypeConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbPropertyHasValueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/SectionAliasConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/CollectionAliasConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbCurrentUserGroupIdConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbIsAdminConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowChangePassword\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowDeleteAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowDisableAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowEnableAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowExternalLoginAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowMfaAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowUnlockAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/SwitchConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<string>"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "js": {
+                    "description": "The file location of the javascript file to load",
+                    "type": "string"
+                },
+                "kind": {
+                    "description": "The kind of the extension, used to group extensions together",
+                    "examples": [
+                        "button"
+                    ]
+                },
+                "meta": {
+                    "$ref": "#/definitions/MetaSectionContext"
+                },
+                "name": {
+                    "description": "The friendly name of the extension",
+                    "type": "string"
+                },
+                "overwrites": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "Define one or more extension aliases that this extension should overwrite."
+                },
+                "type": {
+                    "const": "sectionContext",
+                    "description": "The type of extension such as dashboard etc...",
+                    "type": "string"
+                },
+                "weight": {
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -6251,7 +7229,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -6274,6 +7252,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -6292,13 +7276,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -6385,7 +7369,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -6407,6 +7391,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -6425,13 +7415,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -6519,7 +7509,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -6560,7 +7550,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -6586,6 +7576,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -6604,13 +7600,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -6697,7 +7693,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -6753,7 +7749,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -6766,6 +7762,7 @@
             "type": "object"
         },
         "ManifestTreeStore": {
+            "description": "Manifest for a tree store.",
             "properties": {
                 "alias": {
                     "description": "The alias of the extension, ensure it is unique",
@@ -6794,7 +7791,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -6837,7 +7834,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -6881,7 +7878,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -6931,7 +7928,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -6984,7 +7981,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -7011,6 +8008,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -7029,13 +8032,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -7122,7 +8125,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -7149,6 +8152,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -7167,13 +8176,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -7259,7 +8268,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -7287,6 +8296,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -7305,13 +8320,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -7413,7 +8428,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -7441,6 +8456,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -7459,13 +8480,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -7566,7 +8587,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -7594,6 +8615,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -7612,13 +8639,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -7694,12 +8721,147 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
             "required": [
                 "alias",
+                "name",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ManifestWorkspaceContextMenuStructureKind": {
+            "properties": {
+                "alias": {
+                    "description": "The alias of the extension, ensure it is unique",
+                    "type": "string"
+                },
+                "api": {
+                    "type": "string"
+                },
+                "conditions": {
+                    "description": "Set the conditions for when the extension should be loaded",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/WorkspaceAliasConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbWorkspaceEntityIsNewConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbWorkspaceEntityTypeConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbPropertyHasValueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/SectionAliasConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/CollectionAliasConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbCurrentUserGroupIdConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbIsAdminConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowChangePassword\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowDeleteAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowDisableAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowEnableAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowExternalLoginAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowMfaAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.User.AllowUnlockAction\">"
+                            },
+                            {
+                                "$ref": "#/definitions/SwitchConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbConditionConfigBase<string>"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "js": {
+                    "description": "The file location of the javascript file to load",
+                    "type": "string"
+                },
+                "kind": {
+                    "const": "menuStructure",
+                    "description": "The kind of the extension, used to group extensions together",
+                    "type": "string"
+                },
+                "meta": {
+                    "$ref": "#/definitions/MetaWorkspaceContextMenuStructureKind"
+                },
+                "name": {
+                    "description": "The friendly name of the extension",
+                    "type": "string"
+                },
+                "overwrites": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "Define one or more extension aliases that this extension should overwrite."
+                },
+                "type": {
+                    "const": "workspaceContext",
+                    "description": "The type of extension such as dashboard etc...",
+                    "type": "string"
+                },
+                "weight": {
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
+                    "type": "number"
+                }
+            },
+            "required": [
+                "alias",
+                "kind",
+                "meta",
                 "name",
                 "type"
             ],
@@ -7745,7 +8907,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -7773,6 +8935,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -7791,13 +8959,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -7881,7 +9049,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -7907,6 +9075,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -7925,13 +9099,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -8014,7 +9188,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -8041,6 +9215,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -8059,13 +9239,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -8148,7 +9328,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -8171,6 +9351,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -8189,13 +9375,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -8283,7 +9469,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -8335,7 +9521,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -8359,6 +9545,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -8377,13 +9569,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -8471,7 +9663,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -8494,6 +9686,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -8512,13 +9710,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -8605,7 +9803,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -8629,6 +9827,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -8647,13 +9851,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -8740,7 +9944,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -8764,6 +9968,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -8782,13 +9992,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -8875,7 +10085,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -8995,6 +10205,17 @@
             },
             "required": [
                 "label"
+            ],
+            "type": "object"
+        },
+        "MetaCollectionMenu": {
+            "properties": {
+                "collectionRepositoryAlias": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "collectionRepositoryAlias"
             ],
             "type": "object"
         },
@@ -9419,6 +10640,12 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/definitions/UmbEntityUniqueConditionConfig"
+                            },
+                            {
+                                "$ref": "#/definitions/UmbEntityTypeConditionConfig"
+                            },
+                            {
                                 "$ref": "#/definitions/UmbLanguageUserPermissionConditionConfig"
                             },
                             {
@@ -9437,13 +10664,13 @@
                                 "$ref": "#/definitions/UmbWorkspaceContentTypeAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbWorkspaceContentTypeUniqueConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/SectionAliasConditionConfig"
                             },
                             {
-                                "$ref": "#/definitions/CollectionBulkActionPermissionConditionConfig"
+                                "$ref": "#/definitions/UmbSectionUserPermissionConditionConfig"
                             },
                             {
                                 "$ref": "#/definitions/CollectionAliasConditionConfig"
@@ -9545,7 +10772,7 @@
                     "type": "string"
                 },
                 "weight": {
-                    "description": "Extensions such as dashboards are ordered by weight with lower numbers being first in the list",
+                    "description": "Extensions such as dashboards are ordered by weight with higher numbers being first in the list",
                     "type": "number"
                 }
             },
@@ -9624,6 +10851,12 @@
                 "bulkTrashRepositoryAlias",
                 "icon"
             ],
+            "type": "object"
+        },
+        "MetaEntityCollectionItemCard": {
+            "type": "object"
+        },
+        "MetaEntityCollectionItemRef": {
             "type": "object"
         },
         "MetaEntityCreateOptionAction": {
@@ -9786,7 +11019,42 @@
             ],
             "type": "object"
         },
+        "MetaMarkedExtension": {
+            "properties": {
+                "alias": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "alias"
+            ],
+            "type": "object"
+        },
         "MetaMenuItem": {
+            "properties": {
+                "entityType": {
+                    "type": "string"
+                },
+                "icon": {
+                    "type": "string"
+                },
+                "label": {
+                    "type": "string"
+                },
+                "menus": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "label",
+                "menus"
+            ],
+            "type": "object"
+        },
+        "MetaMenuItemActionKind": {
             "properties": {
                 "entityType": {
                     "type": "string"
@@ -9880,6 +11148,26 @@
         "MetaPropertyContext": {
             "type": "object"
         },
+        "MetaPropertyEditorDataSource": {
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "icon": {
+                    "type": "string"
+                },
+                "label": {
+                    "type": "string"
+                },
+                "settings": {
+                    "$ref": "#/definitions/PropertyEditorSettings"
+                }
+            },
+            "required": [
+                "label"
+            ],
+            "type": "object"
+        },
         "MetaPropertyEditorSchema": {
             "properties": {
                 "defaultPropertyEditorUiAlias": {
@@ -9914,6 +11202,26 @@
                 "settings": {
                     "$ref": "#/definitions/PropertyEditorSettings"
                 },
+                "supportsDataSource": {
+                    "properties": {
+                        "enabled": {
+                            "description": "Whether the property editor UI is enabled for use with data sources.",
+                            "type": "{boolean}"
+                        },
+                        "forDataSourceTypes": {
+                            "description": "A list of allowed property editor data source kinds that can be used with this property editor UI.\nIf not specified, any data sources can be used.",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "enabled",
+                        "forDataSourceTypes"
+                    ],
+                    "type": "object"
+                },
                 "supportsReadOnly": {
                     "type": "boolean"
                 }
@@ -9926,11 +11234,6 @@
             "type": "object"
         },
         "MetaPropertyValueResolver": {
-            "properties": {
-                "editorAlias": {
-                    "type": "string"
-                }
-            },
             "type": "object"
         },
         "MetaSearchProvider": {
@@ -9949,12 +11252,18 @@
                 },
                 "pathname": {
                     "type": "string"
+                },
+                "preventUrlRetention": {
+                    "type": "boolean"
                 }
             },
             "required": [
                 "label",
                 "pathname"
             ],
+            "type": "object"
+        },
+        "MetaSectionContext": {
             "type": "object"
         },
         "MetaSectionRoute": {
@@ -10120,6 +11429,17 @@
             ],
             "type": "object"
         },
+        "MetaWorkspaceContextMenuStructureKind": {
+            "properties": {
+                "menuItemAlias": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "menuItemAlias"
+            ],
+            "type": "object"
+        },
         "MetaWorkspaceDefaultKind": {
             "properties": {
                 "entityType": {
@@ -10272,8 +11592,28 @@
                 "label": {
                     "type": "string"
                 },
+                "propertyEditorDataSourceAlias": {
+                    "type": "string"
+                },
                 "propertyEditorUiAlias": {
                     "type": "string"
+                },
+                "validation": {
+                    "properties": {
+                        "mandatory": {
+                            "type": "boolean"
+                        },
+                        "mandatoryMessage": {
+                            "type": [
+                                "null",
+                                "string"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "mandatory"
+                    ],
+                    "type": "object"
                 },
                 "weight": {
                     "type": "number"
@@ -10342,10 +11682,22 @@
             ],
             "type": "object"
         },
-        "UmbConditionConfigBase<\"Umb.Condition.CollectionBulkActionPermission\">": {
+        "UmbConditionConfigBase<\"Umb.Condition.Entity.Type\">": {
             "properties": {
                 "alias": {
-                    "const": "Umb.Condition.CollectionBulkActionPermission",
+                    "const": "Umb.Condition.Entity.Type",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "alias"
+            ],
+            "type": "object"
+        },
+        "UmbConditionConfigBase<\"Umb.Condition.Entity.Unique\">": {
+            "properties": {
+                "alias": {
+                    "const": "Umb.Condition.Entity.Unique",
                     "type": "string"
                 }
             },
@@ -10498,6 +11850,18 @@
             ],
             "type": "object"
         },
+        "UmbConditionConfigBase<\"Umb.Condition.WorkspaceContentTypeUnique\">": {
+            "properties": {
+                "alias": {
+                    "const": "Umb.Condition.WorkspaceContentTypeUnique",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "alias"
+            ],
+            "type": "object"
+        },
         "UmbConditionConfigBase<\"Umb.Condition.WorkspaceEntityType\">": {
             "properties": {
                 "alias": {
@@ -10561,6 +11925,60 @@
                 "alias"
             ],
             "type": "object"
+        },
+        "UmbEntityTypeConditionConfig": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.Entity.Type\">"
+                },
+                {
+                    "properties": {
+                        "match": {
+                            "type": "string"
+                        },
+                        "oneOf": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "match"
+                    ],
+                    "type": "object"
+                }
+            ]
+        },
+        "UmbEntityUnique": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "UmbEntityUniqueConditionConfig": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.Entity.Unique\">"
+                },
+                {
+                    "properties": {
+                        "match": {
+                            "type": [
+                                "null",
+                                "string"
+                            ]
+                        },
+                        "oneOf": {
+                            "items": {
+                                "$ref": "#/definitions/UmbEntityUnique"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                }
+            ]
         },
         "UmbIsAdminConditionConfig": {
             "properties": {
@@ -10652,6 +12070,29 @@
                         },
                         "oneOf": {
                             "description": "Define one or more content type aliases in which workspace this extension should be available",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                }
+            ]
+        },
+        "UmbWorkspaceContentTypeUniqueConditionConfig": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/UmbConditionConfigBase<\"Umb.Condition.WorkspaceContentTypeUnique\">"
+                },
+                {
+                    "properties": {
+                        "match": {
+                            "description": "Define a content type unique (GUID) in which workspace this extension should be available",
+                            "type": "string"
+                        },
+                        "oneOf": {
+                            "description": "Define one or more content type unique (GUIDs) in which workspace this extension should be available",
                             "items": {
                                 "type": "string"
                             },
@@ -10794,9 +12235,6 @@
                         "$ref": "#/definitions/ManifestAuthProvider"
                     },
                     {
-                        "$ref": "#/definitions/ManifestModal"
-                    },
-                    {
                         "$ref": "#/definitions/ManifestWorkspaceDefaultKind"
                     },
                     {
@@ -10839,10 +12277,13 @@
                         "$ref": "#/definitions/ManifestPropertyValueResolver"
                     },
                     {
+                        "$ref": "#/definitions/ManifestUfmFilter"
+                    },
+                    {
                         "$ref": "#/definitions/ManifestUfmComponent"
                     },
                     {
-                        "$ref": "#/definitions/ManifestUfmFilter"
+                        "$ref": "#/definitions/ManifestMarkedExtension"
                     },
                     {
                         "$ref": "#/definitions/ManifestEntityActionDeleteKind"
@@ -10857,6 +12298,9 @@
                         "$ref": "#/definitions/ManifestIcons"
                     },
                     {
+                        "$ref": "#/definitions/ManifestModal"
+                    },
+                    {
                         "$ref": "#/definitions/ManifestEntityActionDuplicateToKind"
                     },
                     {
@@ -10867,9 +12311,6 @@
                     },
                     {
                         "$ref": "#/definitions/ManifestEntityActionSortChildrenOfKind"
-                    },
-                    {
-                        "$ref": "#/definitions/ManifestTreeItem"
                     },
                     {
                         "$ref": "#/definitions/ManifestSectionRoute"
@@ -10887,7 +12328,7 @@
                         "$ref": "#/definitions/ManifestDashboard"
                     },
                     {
-                        "$ref": "#/definitions/ManifestMenu"
+                        "$ref": "#/definitions/ManifestTreeItem"
                     },
                     {
                         "$ref": "#/definitions/ManifestTree"
@@ -10902,25 +12343,28 @@
                         "$ref": "#/definitions/ManifestEntityActionUpdateFolderKind"
                     },
                     {
+                        "$ref": "#/definitions/ManifestMenu"
+                    },
+                    {
                         "$ref": "#/definitions/ManifestMenuItem"
+                    },
+                    {
+                        "$ref": "#/definitions/ManifestMenuItemActionKind"
                     },
                     {
                         "$ref": "#/definitions/ManifestMenuItemLinkKind"
                     },
                     {
+                        "$ref": "#/definitions/ManifestWorkspaceContextMenuStructureKind"
+                    },
+                    {
                         "$ref": "#/definitions/ManifestMenuItemTreeKind"
                     },
                     {
-                        "$ref": "#/definitions/ManifestWorkspaceViewContentCollectionKind"
-                    },
-                    {
-                        "$ref": "#/definitions/ManifestEntityActionSortChildrenOfContentKind"
+                        "$ref": "#/definitions/ManifestCollectionView"
                     },
                     {
                         "$ref": "#/definitions/ManifestCollectionAction"
-                    },
-                    {
-                        "$ref": "#/definitions/ManifestCollectionView"
                     },
                     {
                         "$ref": "#/definitions/ManifestCollection"
@@ -10929,19 +12373,16 @@
                         "$ref": "#/definitions/ManifestCollectionActionCreateKind"
                     },
                     {
+                        "$ref": "#/definitions/ManifestCollectionMenu"
+                    },
+                    {
                         "$ref": "#/definitions/ManifestWorkspaceViewCollectionKind"
                     },
                     {
-                        "$ref": "#/definitions/ManifestSearchProvider"
+                        "$ref": "#/definitions/ManifestWorkspaceViewContentCollectionKind"
                     },
                     {
-                        "$ref": "#/definitions/ManifestSearchResultItem"
-                    },
-                    {
-                        "$ref": "#/definitions/ManifestGlobalSearch"
-                    },
-                    {
-                        "$ref": "#/definitions/ManifestPickerSearchResultItem"
+                        "$ref": "#/definitions/ManifestEntityActionSortChildrenOfContentKind"
                     },
                     {
                         "$ref": "#/definitions/ManifestUserProfileApp"
@@ -10954,6 +12395,24 @@
                     },
                     {
                         "$ref": "#/definitions/ManifestLocalization"
+                    },
+                    {
+                        "$ref": "#/definitions/ManifestPickerSearchResultItem"
+                    },
+                    {
+                        "$ref": "#/definitions/ManifestCollectionMenuItem"
+                    },
+                    {
+                        "$ref": "#/definitions/ManifestPropertyEditorDataSource"
+                    },
+                    {
+                        "$ref": "#/definitions/ManifestSearchProvider"
+                    },
+                    {
+                        "$ref": "#/definitions/ManifestSearchResultItem"
+                    },
+                    {
+                        "$ref": "#/definitions/ManifestGlobalSearch"
                     },
                     {
                         "$ref": "#/definitions/ManifestAppEntryPoint"
@@ -10998,10 +12457,19 @@
                         "$ref": "#/definitions/ManifestEntityItemRef<MetaEntityItemRef>"
                     },
                     {
-                        "$ref": "#/definitions/ManifestPropertyValidationPathTranslator<any>"
+                        "$ref": "#/definitions/ManifestSectionContext<MetaSectionContext>"
+                    },
+                    {
+                        "$ref": "#/definitions/ManifestEntityCollectionItemCard<MetaEntityCollectionItemCard>"
+                    },
+                    {
+                        "$ref": "#/definitions/ManifestEntityCollectionItemRef<MetaEntityCollectionItemRef>"
                     },
                     {
                         "$ref": "#/definitions/ManifestCurrentUserAction<MetaCurrentUserAction>"
+                    },
+                    {
+                        "$ref": "#/definitions/ManifestPropertyValidationPathTranslator<any>"
                     },
                     {
                         "$ref": "#/definitions/ManifestEntityBulkActionDeleteKind"

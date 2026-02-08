@@ -1,5 +1,5 @@
 ﻿
-#if NET9_0
+#if NET9_0_OR_GREATER
 using Umbraco.Cms.Core.IO;
 using Umbraco.Cms.Core.PropertyEditors;
 using Umbraco.Cms.Core.Serialization;

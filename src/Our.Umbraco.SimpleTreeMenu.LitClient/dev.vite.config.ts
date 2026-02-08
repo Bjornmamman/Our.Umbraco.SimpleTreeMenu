@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import fs from "fs-extra";
 
 export default defineConfig({
     build: {
@@ -6,7 +7,7 @@ export default defineConfig({
             entry: ["src/index.ts"],
             formats: ["es"],
         },
-        outDir: "../WebsiteV16/wwwroot/App_Plugins/SimpleTreeMenu/",
+        outDir: "./build/",
         emptyOutDir: true,
         sourcemap: true,
         rollupOptions: {
@@ -17,4 +18,23 @@ export default defineConfig({
         },
     },
     base: "/App_Plugins/SimpleTreeMenu/",
+    plugins: [
+        {
+            name: 'copy-to-multiple-dirs',
+            closeBundle: async () => {
+                await fs.copy(
+                    "./build/",
+                    '../WebsiteV16/wwwroot/App_Plugins/SimpleTreeMenu/'
+                );
+                await fs.copy(
+                    "./build/",
+                    '../TreeMenu/wwwroot/App_Plugins/SimpleTreeMenu/'
+                );
+                await fs.copy(
+                    "./build/",
+                    '../WebsiteV17/wwwroot/App_Plugins/SimpleTreeMenu/',
+                );
+            }
+        }
+    ]
 });

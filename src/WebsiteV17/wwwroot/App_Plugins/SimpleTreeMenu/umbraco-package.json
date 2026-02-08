@@ -1,0 +1,13 @@
+{
+  "$schema": "../../umbraco-package-schema.json",
+  "name": "SimpleTreeMenu",
+  "version": "0.1.0",
+  "extensions": [
+    {
+      "type": "entryPoint",
+      "alias": "Our.Umbraco.SimpleTreeMenu.EntryPoint",
+      "name": "Our.Umbraco.SimpleTreeMenu.EntryPoint",
+      "js": "/App_Plugins/SimpleTreeMenu/index.js"
+    }
+  ]
+}

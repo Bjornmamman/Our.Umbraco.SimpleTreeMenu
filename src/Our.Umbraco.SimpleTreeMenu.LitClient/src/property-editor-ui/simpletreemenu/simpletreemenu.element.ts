@@ -34,6 +34,7 @@ interface TreeNode {
 @customElement(ELEMENT_NAME)
 export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyEditorUiElement {
 
+    @state()
     treeData: TreeNode[] = [];
 
     _value: TreeNode = {} as TreeNode;
@@ -215,6 +216,10 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
             //background-color: var(--uui-palette-spanish-pink-dimmed) !important;
             outline: dashed 1px var(--uui-palette-spanish-pink-dimmed);
         }
+
+        .tree-node:has(> .node-children > .tree-node > .drop-zone.drag-over) > .node-handle {
+            background-color: var(--uui-color-current) !important;
+        }
       
         .tree-node .drop-zone.drag-over, .tree-node .node-handle.drag-over {
             background-color: var(--uui-color-current) !important;
@@ -272,7 +277,7 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
                       <uui-icon name="add"></uui-icon>
                     </uui-button>
 
-                    <uui-button look="primary" color="default" label="Delete" @click=${() => this.removeNodeFromTree(node.key)}>
+                    <uui-button look="primary" color="default" label="Delete" @click=${() => this.deleteNode(node.key)}>
                       <uui-icon name="delete"></uui-icon>
                     </uui-button>
 
@@ -488,8 +493,7 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
         }
         
         this.removeNodeFromTree(draggedData.oldKey, this.treeData);
-        this.#setLevels();
-        this.#onChange();
+        this.build();
     }
 
     removeNodeFromTree(key: string, tree = this.treeData) {
@@ -506,10 +510,18 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
             }
         });
 
-        this.#setLevels();
-        this.#onChange();
-
         return false;
+    }
+
+    build() {
+        this.#setLevels();
+        this.requestUpdate();
+        this.#onChange();
+    }
+
+    deleteNode(key: string) {
+        this.removeNodeFromTree(key);
+        this.build();
     }
 
     #checkLevels(node: TreeNode): boolean {
@@ -570,10 +582,8 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
         } else {
             this.treeData.push(newNode);
         }
-        this.#setLevels();
-        this.requestUpdate();
 
-        this.#onChange();
+        this.build();
     }
 
     //async editNode(node?: TreeNode) {
@@ -598,13 +608,7 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
     //}
 
     #onChange() {
-
-        const item = {
-            items: JSON.parse(JSON.stringify(this.treeData)) 
-        } as TreeNode
-
-        this.value = item;
-
+        this._value = { items: structuredClone(this.treeData) } as TreeNode;
         this.dispatchEvent(new UmbPropertyValueChangeEvent());
     }
 }

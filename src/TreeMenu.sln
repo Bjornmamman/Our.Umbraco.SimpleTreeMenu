@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.2.32519.379
+# Visual Studio Version 18
+VisualStudioVersion = 18.3.11429.125 d18.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TreeMenu", "TreeMenu\TreeMenu.csproj", "{374B3770-B5F7-4CB0-981C-6B5CD94593F9}"
 EndProject
@@ -29,6 +29,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebsiteV14", "WebsiteV14\WebsiteV14.csproj", "{9A69B067-0947-49B3-AF2B-CE2547C8429F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebsiteV16", "WebsiteV16\WebsiteV16.csproj", "{985DF697-F41F-1930-0A49-687C5F60983B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebsiteV17", "WebsiteV17\WebsiteV17.csproj", "{3FC7250F-E410-7D06-AC7D-5013CC24C061}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,12 +66,16 @@ Global
 		{985DF697-F41F-1930-0A49-687C5F60983B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{985DF697-F41F-1930-0A49-687C5F60983B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{985DF697-F41F-1930-0A49-687C5F60983B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FC7250F-E410-7D06-AC7D-5013CC24C061}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FC7250F-E410-7D06-AC7D-5013CC24C061}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FC7250F-E410-7D06-AC7D-5013CC24C061}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FC7250F-E410-7D06-AC7D-5013CC24C061}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {F5ABEF72-1A26-4322-BE48-93779BB97C83}
 		FileExplorer = ..\|Our.Umbraco.SimpleTreeMenu.LitClient\
+		SolutionGuid = {F5ABEF72-1A26-4322-BE48-93779BB97C83}
 	EndGlobalSection
 EndGlobal

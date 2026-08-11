@@ -49,8 +49,8 @@ jobs:
       - name: Setup .net core
         uses: actions/setup-dotnet@v1
       
-      - name: Setup UmbPack
-        run: dotnet tool install Umbraco.Tools.Packages --global
+#      - name: Setup UmbPack
+#        run: dotnet tool install Umbraco.Tools.Packages --global
 
       - name: Create NuGet package file
         run: dotnet pack ${{ env.LIBRARY_FOLDER }} -c ${{ env.CONFIG }} -o ${{ env.OUTPUT }} /p:version=${{ steps.get_version.outputs.VERSION }} 

@@ -1,5 +1,4 @@
 import { UmbEntryPointOnInit } from '@umbraco-cms/backoffice/extension-api';
-import { UMB_AUTH_CONTEXT } from '@umbraco-cms/backoffice/auth';
 import { ManifestModal } from '@umbraco-cms/backoffice/modal';
 import { ManifestPropertyEditorSchema } from '@umbraco-cms/backoffice/property-editor';
 

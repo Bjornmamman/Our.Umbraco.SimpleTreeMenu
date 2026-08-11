@@ -1,9 +1,9 @@
-import { html, css, customElement, property, state, LitElement } from "@umbraco-cms/backoffice/external/lit";
+import { html, css, customElement, property, state/*, LitElement*/ } from "@umbraco-cms/backoffice/external/lit";
 import { UmbPropertyValueChangeEvent } from "@umbraco-cms/backoffice/property-editor";
-import { UMB_MODAL_MANAGER_CONTEXT, UmbModalManagerContext } from "@umbraco-cms/backoffice/modal";
-import { TREE_ITEM_EDITOR_MODAL_TOKEN, TreeItemEditorModalValue } from "../../dialogs/treeitemeditor/treeitemeditor.token";
+//import { UMB_MODAL_MANAGER_CONTEXT, UmbModalManagerContext } from "@umbraco-cms/backoffice/modal";
+import { TREE_ITEM_EDITOR_MODAL_TOKEN/*, TreeItemEditorModalValue*/ } from "../../dialogs/treeitemeditor/treeitemeditor.token";
 import { UmbModalRouteBuilder, UmbModalRouteRegistrationController } from "@umbraco-cms/backoffice/router";
-import { UmbElementMixin } from "@umbraco-cms/backoffice/element-api";
+//import { UmbElementMixin } from "@umbraco-cms/backoffice/element-api";
 import { UmbVariantId } from "@umbraco-cms/backoffice/variant";
 import { UmbLitElement } from '@umbraco-cms/backoffice/lit-element';
 
@@ -92,13 +92,13 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
         
     }
 
-    private _modalContext?: UmbModalManagerContext;
+    //private _modalContext?: UmbModalManagerContext;
 
     constructor() {
         super();
-        this.consumeContext(UMB_MODAL_MANAGER_CONTEXT, (_instance) => {
-            this._modalContext = _instance;
-        });
+        // this.consumeContext(UMB_MODAL_MANAGER_CONTEXT, (_instance) => {
+        //     this._modalContext = _instance;
+        // });
 
         this.editModal = new UmbModalRouteRegistrationController(
             this,
@@ -113,8 +113,10 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
                     data: {
                         doctype: this._doctype,
                         key: params.key,
+                        data: node?.properties ?? {},
                         properties: node?.properties ?? {},
-                    }
+                    },
+                    value: { value: node?.properties ?? {} }
                 };
             })
             .onSubmit((submit) => {
@@ -413,7 +415,7 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
         }
 
         //Reursive loop throught dropNode.items and check level
-        const checkLevels = this.#checkLevels(dropNode);
+        //const checkLevels = this.#checkLevels(dropNode);
 
 
         const draggedData = event.dataTransfer != null ? JSON.parse(event.dataTransfer.getData('text/plain')) : {};
@@ -522,23 +524,6 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
     deleteNode(key: string) {
         this.removeNodeFromTree(key);
         this.build();
-    }
-
-    #checkLevels(node: TreeNode): boolean {
-        if (this._levels === undefined) return false;
-        if (node.level >= this._levels) {
-            return true;
-        }
-        if (node.items) {
-            
-            for (const child of node.items) {
-                if (this.#checkLevels(child)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-
     }
 
     #setLevels() {

@@ -1,0 +1,76 @@
+# Test build of the library across all target frameworks.
+#
+# Triggered manually with a version number so you can test
+# different versions without creating a release tag or
+# pushing anything to NuGet.
+#
+#   e.g. version 4.3.0  -> exercises the pre-v5 (content) packing path
+#        version 5.0.0  -> exercises the v5+ (static web assets) path
+#
+
+name: Test Build
+
+env:
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+  NAME: Our.Umbraco.SimpleTreeMenu
+  OUTPUT: ./Output
+  LIBRARY_FOLDER: ./src/TreeMenu
+  CONFIG: release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to build (e.g. 4.3.0 or 5.0.0)"
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        dotnet-version: ["net472", "net5.0", "net6.0", "net7.0", "net8.0", "net9.0", "net10.0"]
+
+    steps:
+      - name: Compare version with 5.0.0
+        id: compare_versions
+        run: |
+          VERSION="${{ inputs.version }}"
+          if [[ "$(printf '%s\n' "$VERSION" "5.0.0" | sort -V | head -n1)" == "$VERSION" && "$VERSION" != "5.0.0" ]]; then
+            echo "is_lower_than_v5=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "is_lower_than_v5=false" >> "$GITHUB_OUTPUT"
+          fi
+        shell: bash
+
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: Setup NuGet.exe for use with actions
+        uses: NuGet/setup-nuget@v2
+
+      - name: Setup .NET SDKs
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            5.0.x
+            6.0.x
+            7.0.x
+            8.0.x
+            9.0.x
+            10.0.x
+
+      - name: Build (${{ matrix.dotnet-version }})
+        run: dotnet build ${{ env.LIBRARY_FOLDER }} -c ${{ env.CONFIG }} -f ${{ matrix.dotnet-version }} /p:version=${{ inputs.version }}
+
+      - name: Pack (${{ matrix.dotnet-version }})
+        run: dotnet pack ${{ env.LIBRARY_FOLDER }} -c ${{ env.CONFIG }} -f ${{ matrix.dotnet-version }} -o "${{ env.OUTPUT }}/${{ matrix.dotnet-version }}" /p:version=${{ inputs.version }} --no-build
+
+      - name: upload-artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: TestBuild-${{ inputs.version }}-${{ matrix.dotnet-version }}
+          path: ${{ env.OUTPUT }}/${{ matrix.dotnet-version }}/**/*

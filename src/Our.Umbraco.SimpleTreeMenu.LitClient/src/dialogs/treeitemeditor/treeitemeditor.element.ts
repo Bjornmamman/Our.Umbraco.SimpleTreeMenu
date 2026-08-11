@@ -1,5 +1,5 @@
 import { customElement, html, repeat, property, state } from "@umbraco-cms/backoffice/external/lit";
-import { UmbModalBaseElement, UmbModalExtensionElement } from "@umbraco-cms/backoffice/modal";
+import { UmbModalExtensionElement } from "@umbraco-cms/backoffice/modal";
 import { TreeItemEditorModalData, TreeItemEditorModalValue } from "./treeitemeditor.token";
 import { DataTypeService, DocumentTypeResponseModel, DocumentTypeService } from "@umbraco-cms/backoffice/external/backend-api";
 import { UmbPropertyDatasetElement, UmbPropertyValueData } from "@umbraco-cms/backoffice/property";
@@ -43,7 +43,12 @@ export class ItemEditorModalElement extends UmbLitElement
             doctypeRequest = await DocumentTypeService.getDocumentTypeById({ path: { id: doctypeKey } });
             doctypeData = doctypeRequest.data;
         } else {
-            let doctypesRequest = await DocumentTypeService.getItemDocumentTypeSearch({ query: doctypeKey });
+            let doctypesRequest = await DocumentTypeService.getItemDocumentTypeSearch({
+                query: {
+                    query: doctypeKey,
+                    isElement: true
+                }
+            });
             let doctypes = doctypesRequest.data;
 
             let doctype = doctypes.items.find((x) => x.isElement && (x.id == doctypeKey || x.name.toLowerCase() === doctypeKey.toLowerCase()));
@@ -53,7 +58,7 @@ export class ItemEditorModalElement extends UmbLitElement
                 return;
             }
 
-            doctypeRequest = await DocumentTypeService.getDocumentTypeById({ id: doctype.id });
+            doctypeRequest = await DocumentTypeService.getDocumentTypeById({ path: { id: doctype.id } });
             doctypeData = doctypeRequest.data;
 
             if (doctypeData.id == doctypeKey || doctypeData.alias.toLowerCase() !== doctypeKey.toLowerCase()) {

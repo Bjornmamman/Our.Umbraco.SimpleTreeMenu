@@ -1,7 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFrameworks>net472;net5.0;net6.0;net7.0;net8.0;net9.0;net10.0</TargetFrameworks>
+		<!-- v4 (AngularJS) targets Umbraco 8-13; v5 (Lit) targets Umbraco 16+ -->
+		<TargetFrameworks Condition="'$(Version)' &lt; '5.0.0'">net472;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
+		<TargetFrameworks Condition="'$(Version)' &gt;= '5.0.0'">net9.0;net10.0</TargetFrameworks>
 		<RootNamespace>Our.Umbraco.SimpleTreeMenu</RootNamespace>
 
 		<AssemblyName>Our.Umbraco.SimpleTreeMenu</AssemblyName>
@@ -109,5 +111,18 @@
 		<ItemGroup>
 			<Analyzer Remove="@(Analyzer)" Condition="%(FileName) == 'Lucene.Net.CodeAnalysis.CSharp'" />
 		</ItemGroup>
+	</Target>
+
+	<!-- Build the Lit client (v5+) so wwwroot\App_Plugins\SimpleTreeMenu is up to date before packing. -->
+	<PropertyGroup Condition="'$(Version)' &gt;= '5.0.0'">
+		<LitClientFolder>$(MSBuildProjectDirectory)\..\Our.Umbraco.SimpleTreeMenu.LitClient</LitClientFolder>
+	</PropertyGroup>
+
+	<!-- Run only during dotnet pack, once for the whole multi-targeted build (not per-TFM), to avoid parallel npm collisions. -->
+	<Target Name="BuildLitClient" BeforeTargets="GenerateNuspec" Condition="'$(Version)' &gt;= '5.0.0' and '$(SkipLitClientBuild)' != 'true' and ('$(IsCrossTargetingBuild)' == 'true' or '$(TargetFrameworks)' == '')">
+		<Message Text="Building SimpleTreeMenu Lit client in $(LitClientFolder)" Importance="high" />
+		<!-- Restore deps only when node_modules is missing: npm ci wipes node_modules and is prone to transient EPERM file locks, so skip it on repeat/local builds. -->
+		<Exec Command="npm ci" WorkingDirectory="$(LitClientFolder)" Condition="!Exists('$(LitClientFolder)\node_modules')" />
+		<Exec Command="npm run build" WorkingDirectory="$(LitClientFolder)" />
 	</Target>
 </Project>

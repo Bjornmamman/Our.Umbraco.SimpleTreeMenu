@@ -2,6 +2,7 @@ import { UmbModalToken } from "@umbraco-cms/backoffice/modal";
 
 export interface TreeItemEditorModalData {
     doctype: string;
+    key: string;
     data: any;
     properties: any;
 }

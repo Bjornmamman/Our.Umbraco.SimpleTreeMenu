@@ -1,0 +1,50 @@
+﻿@using Our.Umbraco.SimpleTreeMenu
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+	Layout = null;
+}
+
+
+@{
+
+    var navigationModel = Model.Value<IEnumerable<ISimpleTreeItem>>("navigation", defaultValue: new List<ISimpleTreeItem>());
+
+    if(navigationModel == null)
+    {
+        return;
+    }
+
+    @RenderItems(navigationModel)
+}
+
+@functions {
+    private Microsoft.AspNetCore.Html.IHtmlContent RenderItems(IEnumerable<ISimpleTreeItem> items)
+    {
+        return new Microsoft.AspNetCore.Html.HtmlString(RenderItemsString(items));
+    }
+
+    private string RenderItemsString(IEnumerable<ISimpleTreeItem> items)
+    {
+        var sb = new System.Text.StringBuilder();
+        sb.Append("<ul>");
+        foreach (var item in items)
+        {
+            var element = (IPublishedElement)item;
+            var url = element.Value<Link>("link")?.Url ?? "#";
+            var headline = System.Net.WebUtility.HtmlEncode(element.Value<string>("headline"));
+
+            sb.Append($"<li><a class=\"nav-link\" href=\"{url}\">{headline}</a>");
+
+            if (item.Children.Any())
+            {
+                sb.Append(RenderItemsString(item.Children));
+            }
+
+            sb.Append("</li>");
+        }
+        sb.Append("</ul>");
+        return sb.ToString();
+    }
+}

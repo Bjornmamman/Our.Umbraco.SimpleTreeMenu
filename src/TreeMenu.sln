@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.3.11429.125 d18.3
+VisualStudioVersion = 18.3.11429.125
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TreeMenu", "TreeMenu\TreeMenu.csproj", "{374B3770-B5F7-4CB0-981C-6B5CD94593F9}"
 EndProject
@@ -10,6 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{CB8D8A8D
 		TreeMenu\Properties\AssemblyInfo.cs = TreeMenu\Properties\AssemblyInfo.cs
 		..\.github\workflows\build.yml = ..\.github\workflows\build.yml
 		..\package.xml = ..\package.xml
+		..\test-build.ps1 = ..\test-build.ps1
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Develop", "Develop", "{6BD4BFC2-96DD-4774-8CBF-F38B4E9091FC}"
@@ -75,7 +76,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		FileExplorer = ..\|Our.Umbraco.SimpleTreeMenu.LitClient\
 		SolutionGuid = {F5ABEF72-1A26-4322-BE48-93779BB97C83}
+		FileExplorer = ..\|Our.Umbraco.SimpleTreeMenu.LitClient\
 	EndGlobalSection
 EndGlobal

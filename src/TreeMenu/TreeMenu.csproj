@@ -1,23 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<!-- Default version when none is supplied (e.g. building via a ProjectReference). -->
-		<Version Condition="'$(Version)' == ''">5.0.0</Version>
-
-		<!--
-			Decide the variant from the target framework: net9.0/net10.0 are the Lit (v5+) build,
-			everything older (net472-net8.0) is the AngularJS (v4) build. Using TargetFramework
-			keeps this correct when the project is built via a ProjectReference (where $(Version)
-			is empty). At pack time (no single TargetFramework yet) fall back to the version number.
-		-->
-		<TreeMenuIsV5OrHigher Condition="'$(TargetFramework)' == 'net9.0' or '$(TargetFramework)' == 'net10.0'">true</TreeMenuIsV5OrHigher>
-		<TreeMenuIsV5OrHigher Condition="'$(TreeMenuIsV5OrHigher)' == '' and '$(TargetFramework)' != ''">false</TreeMenuIsV5OrHigher>
-		<TreeMenuIsV5OrHigher Condition="'$(TreeMenuIsV5OrHigher)' == '' and '$(TargetFramework)' == '' and $([MSBuild]::VersionGreaterThanOrEquals('$(Version)', '5.0.0'))">true</TreeMenuIsV5OrHigher>
-		<TreeMenuIsV5OrHigher Condition="'$(TreeMenuIsV5OrHigher)' == ''">false</TreeMenuIsV5OrHigher>
-
 		<!-- v4 (AngularJS) targets Umbraco 8-13; v5 (Lit) targets Umbraco 16+ -->
-		<TargetFrameworks Condition="'$(TreeMenuIsV5OrHigher)' != 'true'">net472;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
-		<TargetFrameworks Condition="'$(TreeMenuIsV5OrHigher)' == 'true'">net9.0;net10.0</TargetFrameworks>
+		<TargetFrameworks Condition="'$(Version)' &lt; '5.0.0'">net472;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
+		<TargetFrameworks Condition="'$(Version)' &gt;= '5.0.0'">net9.0;net10.0</TargetFrameworks>
 		<RootNamespace>Our.Umbraco.SimpleTreeMenu</RootNamespace>
 
 		<AssemblyName>Our.Umbraco.SimpleTreeMenu</AssemblyName>
@@ -27,6 +13,7 @@
 		<Description>Typed Treemenu for Umbraco</Description>
 		<PackageIcon>icon.png</PackageIcon>
 		<PackageId>Our.Umbraco.SimpleTreeMenu</PackageId>
+		<Version>5.0.0</Version>
 		<PackageProjectUrl>https://github.com/Bjornmamman/Our.Umbraco.SimpleTreeMenu</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/Bjornmamman/Our.Umbraco.SimpleTreeMenu</RepositoryUrl>
 		<Description>Typed Treemenu for Umbraco</Description>
@@ -36,13 +23,13 @@
 		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(TreeMenuIsV5OrHigher)' != 'true'">
+	<PropertyGroup Condition="'$(Version)' &lt; '5.0.0'">
 		<IncludeContentInPack>true</IncludeContentInPack>
 		<ContentTargetFolders>content</ContentTargetFolders>
 		<DefineConstants>ISNOTBELLISSIMA</DefineConstants>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(TreeMenuIsV5OrHigher)' == 'true'">
+	<PropertyGroup Condition="'$(Version)' &gt;= '5.0.0'">
 		<StaticWebAssetBasePath>/</StaticWebAssetBasePath>
 		<ContentTargetFolders>.</ContentTargetFolders>
 		<DefineConstants>ISBELLISSIMA</DefineConstants>
@@ -92,7 +79,7 @@
 		</None>
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TreeMenuIsV5OrHigher)' != 'true'">
+	<ItemGroup Condition="'$(Version)' &lt; '5.0.0'">
 		<Content Remove="wwwroot\App_Plugins\**\*.*" />
 		<None Remove="wwwroot\App_Plugins\**\*.*" />
 		<Content Include="App_Plugins\**\*.*">
@@ -106,7 +93,7 @@
 		</None>
 	</ItemGroup>
 	
-	<ItemGroup Condition="'$(TreeMenuIsV5OrHigher)' == 'true'">
+	<ItemGroup Condition="'$(Version)' &gt;= '5.0.0'">
 		<Content Remove="App_Plugins\**\*.*" />
 		<None Remove="App_Plugins\**\*.*" />
 	</ItemGroup>
@@ -127,12 +114,12 @@
 	</Target>
 
 	<!-- Build the Lit client (v5+) so wwwroot\App_Plugins\SimpleTreeMenu is up to date before packing. -->
-	<PropertyGroup Condition="'$(TreeMenuIsV5OrHigher)' == 'true'">
+	<PropertyGroup Condition="'$(Version)' &gt;= '5.0.0'">
 		<LitClientFolder>$(MSBuildProjectDirectory)\..\Our.Umbraco.SimpleTreeMenu.LitClient</LitClientFolder>
 	</PropertyGroup>
 
 	<!-- Run only during dotnet pack, once for the whole multi-targeted build (not per-TFM), to avoid parallel npm collisions. -->
-	<Target Name="BuildLitClient" BeforeTargets="GenerateNuspec" Condition="'$(TreeMenuIsV5OrHigher)' == 'true' and '$(SkipLitClientBuild)' != 'true' and ('$(IsCrossTargetingBuild)' == 'true' or '$(TargetFrameworks)' == '')">
+	<Target Name="BuildLitClient" BeforeTargets="GenerateNuspec" Condition="'$(Version)' &gt;= '5.0.0' and '$(SkipLitClientBuild)' != 'true' and ('$(IsCrossTargetingBuild)' == 'true' or '$(TargetFrameworks)' == '')">
 		<Message Text="Building SimpleTreeMenu Lit client in $(LitClientFolder)" Importance="high" />
 		<!-- Restore deps only when node_modules is missing: npm ci wipes node_modules and is prone to transient EPERM file locks, so skip it on repeat/local builds. -->
 		<Exec Command="npm ci" WorkingDirectory="$(LitClientFolder)" Condition="!Exists('$(LitClientFolder)\node_modules')" />

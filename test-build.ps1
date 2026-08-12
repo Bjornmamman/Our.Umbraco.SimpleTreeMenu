@@ -48,20 +48,26 @@ Write-Host "Building $Version ($(if ($isLowerThanV5) { 'pre-v5 AngularJS content
 
 $failed = @()
 
+# Validate that each target framework builds. A NuGet package is a single artifact
+# containing ALL TFMs plus the Lit static web assets, so we pack once below rather
+# than per-TFM (a single-TFM pack runs an inner build, which neither triggers the
+# Lit client build nor collects the static web assets).
 foreach ($tfm in $frameworks) {
-	Write-Host "`n=== $tfm ===" -ForegroundColor Cyan
-
+	Write-Host "`n=== build $tfm ===" -ForegroundColor Cyan
 	dotnet build $LibraryFolder -c $Config -f $tfm /p:version=$Version
-	if ($LASTEXITCODE -ne 0) { $failed += $tfm; continue }
-
-	dotnet pack $LibraryFolder -c $Config -f $tfm -o "$Output/$tfm" /p:version=$Version --no-build
 	if ($LASTEXITCODE -ne 0) { $failed += $tfm }
+}
+
+if ($failed.Count -eq 0) {
+	Write-Host "`n=== pack (all frameworks) ===" -ForegroundColor Cyan
+	dotnet pack $LibraryFolder -c $Config -o "$Output/$Version" /p:version=$Version
+	if ($LASTEXITCODE -ne 0) { $failed += 'pack' }
 }
 
 Write-Host ''
 if ($failed.Count -gt 0) {
-	Write-Host "FAILED frameworks: $($failed -join ', ')" -ForegroundColor Red
+	Write-Host "FAILED: $($failed -join ', ')" -ForegroundColor Red
 	exit 1
 }
 
-Write-Host "All frameworks built successfully. Packages in $Output" -ForegroundColor Green
+Write-Host "Built successfully. Package in $Output/$Version" -ForegroundColor Green

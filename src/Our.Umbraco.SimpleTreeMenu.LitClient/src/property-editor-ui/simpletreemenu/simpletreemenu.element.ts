@@ -20,6 +20,8 @@ interface TreeNode {
     key: string,
     name: string,
     oldKey?: string,
+    id?: number,
+    contentTypeAlias?: string,
     level: number,
     properties?: object,
     items: TreeNode[]
@@ -313,6 +315,7 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
                 key: this.generateGUID(),
                 oldKey: node.key,
                 name: node.name,
+                contentTypeAlias: node.contentTypeAlias ?? this._doctype,
                 items: node.items || [],
                 properties: node.properties || {},
             };
@@ -530,6 +533,13 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
         const setLevelsRecursive = (list: TreeNode[], depth: number) => {
             for (let i = 0; i < list.length; i++) {
                 list[i].level = depth;
+
+                if (list[i].key == undefined)
+                    list[i].key = this.generateGUID();
+
+                if (list[i].contentTypeAlias == undefined)
+                    list[i].contentTypeAlias = this._doctype;
+
                 if (list[i].items && list[i].items.length > 0) {
                     setLevelsRecursive(list[i].items, depth + 1);
                 }
@@ -558,6 +568,7 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
         const newNode: TreeNode = {
             key: this.generateGUID(),
             name: "Item",
+            contentTypeAlias: this._doctype,
             level: parentNode ? parentNode.level + 1 : 0,
             items: []
         };

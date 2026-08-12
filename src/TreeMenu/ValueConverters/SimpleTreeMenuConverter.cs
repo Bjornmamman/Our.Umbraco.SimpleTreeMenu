@@ -185,7 +185,11 @@ namespace Our.Umbraco.SimpleTreeMenu.ValueConverters
             }
 #elif NET9_0_OR_GREATER
 
-			IPublishedContentType? publishedContentType = _publishedContentTypeCache.Get(PublishedItemType.Element, elementTypeAlias);
+			// contentTypeAlias may be stored as a content type GUID (key) rather than an alias,
+			// so resolve by key when it parses as a Guid, otherwise by alias.
+			IPublishedContentType? publishedContentType = Guid.TryParse(elementTypeAlias, out var contentTypeKey)
+				? _publishedContentTypeCache.Get(PublishedItemType.Element, contentTypeKey)
+				: _publishedContentTypeCache.Get(PublishedItemType.Element, elementTypeAlias);
 			if (publishedContentType is null || publishedContentType.IsElement == false)
 			{
 				return null;

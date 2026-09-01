@@ -110,7 +110,6 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
             .addUniquePaths(['propertyAlias', 'variantId'])
             .onSetup((params) => {
                 let node = this.findNodeById(params.key)
-                console.log(node);
                 return {
                     data: {
                         doctype: this._doctype,
@@ -130,7 +129,9 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
                 if (node)
                     node.properties = submit.value as object;
 
+this.requestUpdate();
                 this.#onChange();
+                
             })
             .observeRouteBuilder((routeBuilder) => {
                 this._modalRoute = routeBuilder;
@@ -164,6 +165,10 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
             //background: rgb(0 0 0 / 4%);
             border-radius: var(--uui-border-radius);
             margin: 3px 0;
+        }
+
+        .tree-node .node-handle:hover {
+            outline: solid 1px var(--uui-color-border);
         }
 
         .draggable-tree > .tree-node {
@@ -235,6 +240,20 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
             margin: 3px 0;
         }
 
+        .tree-node.dragging .node-handle {
+            --uui-color-current: var(--uui-color-surface-alt);
+            filter: grayscale(1);
+        }
+
+        .tree-node.dragging .node-handle h1 {
+            opacity: 0.4;
+        }
+
+        .tree-node.dragging .node-handle .node-settings {
+            opacity: 0.4;
+            filter: grayscale(1);
+        }
+
 
 
         .add-new {
@@ -268,7 +287,7 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
                 ${node.items && node.items.length > 0 ? html`
                     <uui-badge style="--uui-badge-position: relative; --uui-badge-inset: 0" look="secondary" color="default">${node.items.length} children</uui-badge>
                 `: ''}
-                <uui-badge style="--uui-badge-position: relative; --uui-badge-inset: 0" look="secondary" color="default">Level ${node.level + 1} of 3</uui-badge>
+                <uui-badge style="--uui-badge-position: relative; --uui-badge-inset: 0" look="secondary" color="default">Level ${node.level + 1} of ${this._levels}</uui-badge>
                 
                 <uui-icon-registry-essential>
                   <uui-action-bar>
@@ -309,7 +328,12 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
     }
 
     handleDragStart(event: DragEvent, node: TreeNode) {
+        event.stopPropagation();
+
         this.shadowRoot?.querySelector('.draggable-tree')?.classList.add("dragging");
+        console.log("DRAGING START");
+        (event.currentTarget as HTMLElement | null)?.classList.add('dragging');
+
         if (event.dataTransfer && !event.dataTransfer.getData('text/plain')) {
             const draggedData = {
                 key: this.generateGUID(),
@@ -351,6 +375,7 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
 
     handleDragEnd(event: DragEvent) {
         this.shadowRoot?.querySelector('.draggable-tree')?.classList.remove("dragging");
+        (event.currentTarget as HTMLElement | null)?.classList.remove('dragging')
         this.#dragClean(event);
         this.#onChange();
     }
@@ -411,11 +436,7 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
         event.preventDefault();
         event.stopPropagation();
 
-        if (dropNode && this._levels && dropNode.level >= this._levels - 1)
-        {
-            this.requestUpdate();
-            return;
-        }
+        
 
         //Reursive loop throught dropNode.items and check level
         //const checkLevels = this.#checkLevels(dropNode);
@@ -436,7 +457,13 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
         const target = eventTarget.closest('.tree-node');
 
         if (target == null || target.parentElement == null) {
+            return;
+        }
 
+        const dropLevel = isDropZone ? dropNode?.level - 1 : dropNode?.level;
+
+        if (this._levels !== undefined && dropLevel >= this._levels - 1) {
+            this.requestUpdate();
             return;
         }
 
@@ -491,12 +518,14 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
             return;
         }
 
-        if (position === "before") {
+        if (!isDropZone) {
+            targetList.push(draggedData);
+        } else if (position === "before") {
             targetList.splice(index, 0, draggedData);
         } else {
             targetList.splice(index + 1, 0, draggedData);
         }
-        
+
         this.removeNodeFromTree(draggedData.oldKey, this.treeData);
         this.build();
     }

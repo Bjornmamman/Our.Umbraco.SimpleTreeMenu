@@ -27,7 +27,16 @@ $ErrorActionPreference = 'Stop'
 # Mirror the version-based TFM split in the csproj:
 #   v4 (AngularJS) -> net472-net8.0 (Umbraco 8-13)
 #   v5 (Lit)       -> net9.0-net10.0 (Umbraco 16+)
-$isLowerThanV5 = ([version]$Version) -lt [version]'5.0.0'
+$versionCore = ($Version -split '[-+]', 2)[0]
+
+try {
+	$parsedVersion = [version]$versionCore
+}
+catch {
+	throw "Version '$Version' is not valid. Expected a version such as '5.0.0' or '5.0.0-beta'."
+}
+
+$isLowerThanV5 = $parsedVersion -lt [version]'5.0.0'
 $versionFrameworks = if ($isLowerThanV5) {
 	@('net472', 'net5.0', 'net6.0', 'net7.0', 'net8.0')
 } else {

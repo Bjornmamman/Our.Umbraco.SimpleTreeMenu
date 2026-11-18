@@ -6,6 +6,7 @@ import { UmbModalRouteBuilder, UmbModalRouteRegistrationController } from "@umbr
 //import { UmbElementMixin } from "@umbraco-cms/backoffice/element-api";
 import { UmbVariantId } from "@umbraco-cms/backoffice/variant";
 import { UmbLitElement } from '@umbraco-cms/backoffice/lit-element';
+import { isElementTypeKey, resolveElementType } from '../../api/element-types';
 
 import type {
     UmbPropertyEditorConfigCollection,
@@ -85,6 +86,7 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
         this._doctype = config?.getValueByAlias('doctype') ?? 'MenuNode';
         this._nameTemplate = config?.getValueByAlias('nameTemplate');
         this._levels = parseInt(config?.getValueByAlias('levels') ?? '5', 10);
+        void this.#resolveDoctype(this._doctype);
 
         if (this.value && this.value.items) {
             this.treeData = JSON.parse(JSON.stringify(this.value.items));
@@ -92,6 +94,17 @@ export class SimpleTreeMenuElement extends UmbLitElement implements UmbPropertyE
             this.treeData = [];
         }
         
+    }
+
+    async #resolveDoctype(value: string) {
+        if (isElementTypeKey(value)) {
+            return;
+        }
+
+        const elementType = await resolveElementType(value);
+        if (elementType && this._doctype === value) {
+            this._doctype = elementType.id;
+        }
     }
 
     //private _modalContext?: UmbModalManagerContext;

@@ -1,9 +1,10 @@
-import { html as y, css as w, state as p, property as _, customElement as M } from "@umbraco-cms/backoffice/external/lit";
-import { UmbPropertyValueChangeEvent as $ } from "@umbraco-cms/backoffice/property-editor";
-import { UmbModalToken as L, UMB_MODAL_MANAGER_CONTEXT as A } from "@umbraco-cms/backoffice/modal";
-import { UmbModalRouteRegistrationController as I } from "@umbraco-cms/backoffice/router";
-import { UmbLitElement as U } from "@umbraco-cms/backoffice/lit-element";
-const C = new L(
+import { html as b, css as $, state as g, property as x, customElement as L } from "@umbraco-cms/backoffice/external/lit";
+import { UmbPropertyValueChangeEvent as I } from "@umbraco-cms/backoffice/property-editor";
+import { UmbModalToken as U } from "@umbraco-cms/backoffice/modal";
+import { UmbModalRouteRegistrationController as M } from "@umbraco-cms/backoffice/router";
+import { UmbLitElement as N } from "@umbraco-cms/backoffice/lit-element";
+import { i as P, r as R } from "./element-types.js";
+const q = new U(
   "treeitem.editor.modal",
   {
     modal: {
@@ -12,35 +13,36 @@ const C = new L(
     }
   }
 );
-var P = Object.defineProperty, R = Object.getOwnPropertyDescriptor, z = (e) => {
+var C = Object.defineProperty, B = Object.getOwnPropertyDescriptor, E = (e) => {
   throw TypeError(e);
-}, n = (e, t, r, a) => {
-  for (var i = a > 1 ? void 0 : a ? R(t, r) : t, u = e.length - 1, m; u >= 0; u--)
-    (m = e[u]) && (i = (a ? m(t, r, i) : m(i)) || i);
-  return a && i && P(t, r, i), i;
-}, q = (e, t, r) => t.has(e) || z("Cannot " + r), B = (e, t, r) => t.has(e) ? z("Cannot add the same private member more than once") : t instanceof WeakSet ? t.add(e) : t.set(e, r), c = (e, t, r) => (q(e, t, "access private method"), r), d, O, k, N, b;
-const K = "simpletreemenu-list";
-let o = class extends U {
+}, l = (e, t, r, a) => {
+  for (var i = a > 1 ? void 0 : a ? B(t, r) : t, d = e.length - 1, c; d >= 0; d--)
+    (c = e[d]) && (i = (a ? c(t, r, i) : c(i)) || i);
+  return a && i && C(t, r, i), i;
+}, K = (e, t, r) => t.has(e) || E("Cannot " + r), G = (e, t, r) => t.has(e) ? E("Cannot add the same private member more than once") : t instanceof WeakSet ? t.add(e) : t.set(e, r), p = (e, t, r) => (K(e, t, "access private method"), r), u, z, S, w, _;
+const V = "simpletreemenu-list";
+let o = class extends N {
+  //private _modalContext?: UmbModalManagerContext;
   constructor() {
-    super(), B(this, d), this.treeData = [], this._value = {}, this._dragging = !1, this._doctype = "MenuNode", this._testData = { headline: "hehe" }, this._testFormat = "{=headline}", this.consumeContext(A, (e) => {
-      this._modalContext = e;
-    }), this.editModal = new I(
+    super(), G(this, u), this.treeData = [], this._value = {}, this._dragging = !1, this._doctype = "MenuNode", this._testData = { headline: "hehe" }, this._testFormat = "{=headline}", this.editModal = new M(
       this,
-      C
+      q
     ).addAdditionalPath(":key").addUniquePaths(["propertyAlias", "variantId"]).onSetup((e) => {
       let t = this.findNodeById(e.key);
-      return console.log(t), {
+      return {
         data: {
           doctype: this._doctype,
           key: e.key,
+          data: (t == null ? void 0 : t.properties) ?? {},
           properties: (t == null ? void 0 : t.properties) ?? {}
-        }
+        },
+        value: { value: (t == null ? void 0 : t.properties) ?? {} }
       };
     }).onSubmit((e) => {
       var r;
       if (!e || !e.value) return;
       let t = this.findNodeById((r = this.editModal.modalContext) == null ? void 0 : r.data.key);
-      t && (t.properties = e.value), c(this, d, b).call(this);
+      t && (t.properties = e.value), this.requestUpdate(), p(this, u, _).call(this);
     }).observeRouteBuilder((e) => {
       this._modalRoute = e;
     });
@@ -58,10 +60,10 @@ let o = class extends U {
     this.editModal.setUniquePathValue("variantId", e == null ? void 0 : e.toString());
   }
   set config(e) {
-    this._doctype = (e == null ? void 0 : e.getValueByAlias("doctype")) ?? "MenuNode", this._nameTemplate = e == null ? void 0 : e.getValueByAlias("nameTemplate"), this._levels = parseInt((e == null ? void 0 : e.getValueByAlias("levels")) ?? "5", 10), this.value && this.value.items ? this.treeData = JSON.parse(JSON.stringify(this.value.items)) : this.treeData = [];
+    this._doctype = (e == null ? void 0 : e.getValueByAlias("doctype")) ?? "MenuNode", this._nameTemplate = e == null ? void 0 : e.getValueByAlias("nameTemplate"), this._levels = parseInt((e == null ? void 0 : e.getValueByAlias("levels")) ?? "5", 10), p(this, u, z).call(this, this._doctype), this.value && this.value.items ? this.treeData = JSON.parse(JSON.stringify(this.value.items)) : this.treeData = [];
   }
   render() {
-    return y`
+    return b`
             <div class="draggable-tree">
                 ${this.treeData.map((e) => this.renderTreeNode(e, null, 0))}
                 <uui-button class="add-new" look="placeholder" color="default" label=${this.localize.term("general_add")} title=${this.localize.term("general_add")} @click=${() => this.addNodeToTree()}>
@@ -79,7 +81,7 @@ let o = class extends U {
   }
   renderTreeNode(e, t, r) {
     var a;
-    return y`
+    return b`
       <div
         class="tree-node"
         @dragover=${(i) => this.handleDragOver(i)}
@@ -94,10 +96,10 @@ let o = class extends U {
             <h1><umb-ufm-render inline .markdown="${this._nameTemplate}" .value=${e.properties}></umb-ufm-render></h1>
             
             <div class="node-settings">
-                ${e.items && e.items.length > 0 ? y`
+                ${e.items && e.items.length > 0 ? b`
                     <uui-badge style="--uui-badge-position: relative; --uui-badge-inset: 0" look="secondary" color="default">${e.items.length} children</uui-badge>
                 ` : ""}
-                <uui-badge style="--uui-badge-position: relative; --uui-badge-inset: 0" look="secondary" color="default">Level ${e.level + 1} of 3</uui-badge>
+                <uui-badge style="--uui-badge-position: relative; --uui-badge-inset: 0" look="secondary" color="default">Level ${e.level + 1} of ${this._levels}</uui-badge>
                 
                 <uui-icon-registry-essential>
                   <uui-action-bar>
@@ -119,7 +121,7 @@ let o = class extends U {
             </div>
         </div>
 
-        ${e.items && e.items.length > 0 ? y`
+        ${e.items && e.items.length > 0 ? b`
             <div class="node-children">
             ${e.items.map((i) => this.renderTreeNode(i, e, r + 1))}
             </div>
@@ -135,16 +137,17 @@ let o = class extends U {
     });
   }
   handleDragStart(e, t) {
-    var r, a;
-    if ((a = (r = this.shadowRoot) == null ? void 0 : r.querySelector(".draggable-tree")) == null || a.classList.add("dragging"), e.dataTransfer && !e.dataTransfer.getData("text/plain")) {
-      const i = {
+    var r, a, i;
+    if (e.stopPropagation(), (a = (r = this.shadowRoot) == null ? void 0 : r.querySelector(".draggable-tree")) == null || a.classList.add("dragging"), console.log("DRAGING START"), (i = e.currentTarget) == null || i.classList.add("dragging"), e.dataTransfer && !e.dataTransfer.getData("text/plain")) {
+      const d = {
         key: this.generateGUID(),
         oldKey: t.key,
         name: t.name,
+        contentTypeAlias: t.contentTypeAlias ?? this._doctype,
         items: t.items || [],
         properties: t.properties || {}
       };
-      e.dataTransfer.setData("text/plain", JSON.stringify(i));
+      e.dataTransfer.setData("text/plain", JSON.stringify(d));
     }
   }
   getParentNode(e, t) {
@@ -166,8 +169,8 @@ let o = class extends U {
     e.target && e.target.classList.remove("drag-over");
   }
   handleDragEnd(e) {
-    var t, r;
-    (r = (t = this.shadowRoot) == null ? void 0 : t.querySelector(".draggable-tree")) == null || r.classList.remove("dragging"), c(this, d, O).call(this, e), c(this, d, b).call(this);
+    var t, r, a;
+    (r = (t = this.shadowRoot) == null ? void 0 : t.querySelector(".draggable-tree")) == null || r.classList.remove("dragging"), (a = e.currentTarget) == null || a.classList.remove("dragging"), p(this, u, S).call(this, e), p(this, u, _).call(this);
   }
   findNodeById(e, t = this.treeData) {
     if (!t || !e)
@@ -196,49 +199,50 @@ let o = class extends U {
     return !1;
   }
   handleDrop(e, t, r) {
-    if (e.preventDefault(), e.stopPropagation(), t && this._levels && t.level >= this._levels - 1) {
-      this.requestUpdate();
-      return;
-    }
-    c(this, d, k).call(this, t);
+    e.preventDefault(), e.stopPropagation();
     const a = e.dataTransfer != null ? JSON.parse(e.dataTransfer.getData("text/plain")) : {}, i = this.isDescendantOrSelf(a, t.key);
     if (e.currentTarget == null || i) {
       this.requestUpdate();
       return;
     }
-    const u = e.target, m = u.classList.contains("drop-zone") ?? !1, g = u.closest(".tree-node");
-    if (g == null || g.parentElement == null)
+    const d = e.target, c = d.classList.contains("drop-zone") ?? !1, f = d.closest(".tree-node");
+    if (f == null || f.parentElement == null)
       return;
+    const O = c ? (t == null ? void 0 : t.level) - 1 : t == null ? void 0 : t.level;
+    if (this._levels !== void 0 && O >= this._levels - 1) {
+      this.requestUpdate();
+      return;
+    }
     let v = null;
-    const x = (T, l) => {
-      for (let s = 0; s < l.length; s++) {
-        if (l[s].key === a.oldKey)
+    const D = (T, n) => {
+      for (let s = 0; s < n.length; s++) {
+        if (n[s].key === a.oldKey)
           return v;
-        if (l[s].items) {
-          v = l[s];
-          const f = x(T, l[s].items);
-          if (f) return f;
+        if (n[s].items) {
+          v = n[s];
+          const m = D(T, n[s].items);
+          if (m) return m;
         }
       }
       return null;
     };
-    x(a, this.treeData), ((T, l) => {
-      for (let s = 0; s < l.length; s++) {
-        if (l[s].key === a.oldKey)
+    D(a, this.treeData), ((T, n) => {
+      for (let s = 0; s < n.length; s++) {
+        if (n[s].key === a.oldKey)
           return v;
-        if (l[s].items) {
-          v = l[s];
-          const f = x(T, l[s].items);
-          if (f) return f;
+        if (n[s].items) {
+          v = n[s];
+          const m = D(T, n[s].items);
+          if (m) return m;
         }
       }
       return null;
     })(a, this.treeData);
-    const E = [...g.parentElement.children].indexOf(g), S = u.classList.contains("before") ? "before" : "after";
-    let h = m ? r : t;
+    const k = [...f.parentElement.children].indexOf(f), A = d.classList.contains("before") ? "before" : "after";
+    let h = c ? r : t;
     h != null && !h.items && (h.items = []);
-    var D = h == null ? this.treeData : h.items;
-    a.level = h == null ? 0 : h.level + 1, D && (S === "before" ? D.splice(E, 0, a) : D.splice(E + 1, 0, a), this.removeNodeFromTree(a.oldKey, this.treeData), this.build());
+    var y = h == null ? this.treeData : h.items;
+    a.level = h == null ? 0 : h.level + 1, y && (c ? A === "before" ? y.splice(k, 0, a) : y.splice(k + 1, 0, a) : y.push(a), this.removeNodeFromTree(a.oldKey, this.treeData), this.build());
   }
   removeNodeFromTree(e, t = this.treeData) {
     return t.forEach((r, a) => {
@@ -249,7 +253,7 @@ let o = class extends U {
     }), !1;
   }
   build() {
-    c(this, d, N).call(this), this.requestUpdate(), c(this, d, b).call(this);
+    p(this, u, w).call(this), this.requestUpdate(), p(this, u, _).call(this);
   }
   deleteNode(e) {
     this.removeNodeFromTree(e), this.build();
@@ -266,14 +270,21 @@ let o = class extends U {
     const t = {
       key: this.generateGUID(),
       name: "Item",
+      contentTypeAlias: this._doctype,
       level: e ? e.level + 1 : 0,
       items: []
     };
     e ? e.items.push(t) : this.treeData.push(t), this.build();
   }
 };
-d = /* @__PURE__ */ new WeakSet();
-O = function(e) {
+u = /* @__PURE__ */ new WeakSet();
+z = async function(e) {
+  if (P(e))
+    return;
+  const t = await R(e);
+  t && this._doctype === e && (this._doctype = t.id);
+};
+S = function(e) {
   var t;
   try {
     Array.from(((t = this.shadowRoot) == null ? void 0 : t.querySelectorAll(".drag-over")) || []).forEach((r) => {
@@ -283,34 +294,27 @@ O = function(e) {
   }
   e && e.dataTransfer && e.dataTransfer.clearData();
 };
-k = function(e) {
-  if (this._levels === void 0) return !1;
-  if (e.level >= this._levels)
-    return !0;
-  if (e.items) {
-    for (const t of e.items)
-      if (c(this, d, k).call(this, t))
-        return !0;
-  }
-  return !1;
-};
-N = function() {
+w = function() {
   const e = (t, r) => {
     for (let a = 0; a < t.length; a++)
-      t[a].level = r, t[a].items && t[a].items.length > 0 && e(t[a].items, r + 1);
+      t[a].level = r, t[a].key == null && (t[a].key = this.generateGUID()), t[a].contentTypeAlias == null && (t[a].contentTypeAlias = this._doctype), t[a].items && t[a].items.length > 0 && e(t[a].items, r + 1);
   };
   e(this.treeData, 0);
 };
-b = function() {
-  this._value = { items: structuredClone(this.treeData) }, this.dispatchEvent(new $());
+_ = function() {
+  this._value = { items: structuredClone(this.treeData) }, this.dispatchEvent(new I());
 };
-o.styles = w`
+o.styles = $`
         .tree-node {
             padding-left: 10px;
             cursor: pointer;
             //background: rgb(0 0 0 / 4%);
             border-radius: var(--uui-border-radius);
             margin: 3px 0;
+        }
+
+        .tree-node .node-handle:hover {
+            outline: solid 1px var(--uui-color-border);
         }
 
         .draggable-tree > .tree-node {
@@ -382,6 +386,20 @@ o.styles = w`
             margin: 3px 0;
         }
 
+        .tree-node.dragging .node-handle {
+            --uui-color-current: var(--uui-color-surface-alt);
+            filter: grayscale(1);
+        }
+
+        .tree-node.dragging .node-handle h1 {
+            opacity: 0.4;
+        }
+
+        .tree-node.dragging .node-handle .node-settings {
+            opacity: 0.4;
+            filter: grayscale(1);
+        }
+
 
 
         .add-new {
@@ -392,38 +410,38 @@ o.styles = w`
             margin-top:  var(--uui-size-6);
         }
     `;
-n([
-  p()
+l([
+  g()
 ], o.prototype, "treeData", 2);
-n([
-  p()
+l([
+  g()
 ], o.prototype, "_dragging", 2);
-n([
-  p()
+l([
+  g()
 ], o.prototype, "_modalRoute", 2);
-n([
-  p()
+l([
+  g()
 ], o.prototype, "_doctype", 2);
-n([
-  p()
+l([
+  g()
 ], o.prototype, "_nameTemplate", 2);
-n([
-  p()
+l([
+  g()
 ], o.prototype, "_levels", 2);
-n([
-  _({ type: Object })
+l([
+  x({ type: Object })
 ], o.prototype, "value", 1);
-n([
-  _()
+l([
+  x()
 ], o.prototype, "alias", 1);
-n([
-  _()
+l([
+  x()
 ], o.prototype, "variantId", 1);
-n([
-  _({ attribute: !1 })
+l([
+  x({ attribute: !1 })
 ], o.prototype, "config", 1);
-o = n([
-  M(K)
+o = l([
+  L(V)
 ], o);
 export {
   o as SimpleTreeMenuElement,

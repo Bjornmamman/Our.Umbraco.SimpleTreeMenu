@@ -66,10 +66,12 @@
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
 		<PackageReference Include="Umbraco.Cms.Web.Website" Version="[16.0.0,17.0.0)" />
+		<PackageReference Include="Umbraco.Cms.Api.Management" Version="[16.0.0,17.0.0)" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
 		<PackageReference Include="Umbraco.Cms.Web.Website" Version="[17.0.0,18.0.0)" />
+		<PackageReference Include="Umbraco.Cms.Api.Management" Version="[17.0.0,18.0.0)" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -105,11 +107,17 @@
 
 	<ItemGroup>
 		<Compile Include="SimpleTreeMenuPropertyEditor.cs" />
+		<Compile Include="SimpleTreeMenuValueEditor.cs" />
 		<Compile Include="ValueConverters\ISimpleTreeItem.cs" />
 		<Compile Include="ValueConverters\ISimpleTreeMenu.cs" />
 		<Compile Include="ValueConverters\SimpleTreeItem.cs" />
 		<Compile Include="ValueConverters\SimpleTreeMenu.cs" />
 		<Compile Include="ValueConverters\SimpleTreeMenuConverter.cs" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(VersionForComparison)' &gt;= '5.0.0'">
+		<Compile Include="Composers\SimpleTreeMenuApiComposer.cs" />
+		<Compile Include="Controllers\SimpleTreeMenuApiController.cs" />
 	</ItemGroup>
 
 	<Target Name="RemoveLoggingAnalyzer" BeforeTargets="CoreCompile">

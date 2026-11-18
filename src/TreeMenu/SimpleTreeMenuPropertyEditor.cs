@@ -1,6 +1,7 @@
 ﻿
 #if NET9_0_OR_GREATER
 using Umbraco.Cms.Core.IO;
+using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.PropertyEditors;
 using Umbraco.Cms.Core.Serialization;
 
@@ -24,6 +25,9 @@ namespace Our.Umbraco.SimpleTreeMenu
 			_ioHelper = ioHelper;
 			_configurationEditorJsonSerializer = configurationEditorJsonSerializer;
 		}
+
+		protected override IDataValueEditor CreateValueEditor() =>
+			DataValueEditorFactory.Create<SimpleTreeMenuValueEditor>(Attribute!);
 
 		/// <summary>
 		///     Return a custom pre-value editor

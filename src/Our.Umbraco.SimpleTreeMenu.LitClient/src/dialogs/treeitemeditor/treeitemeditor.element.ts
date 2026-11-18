@@ -6,6 +6,7 @@ import { UmbPropertyDatasetElement, UmbPropertyValueData } from "@umbraco-cms/ba
 import { UmbPropertyEditorConfigCollection } from "@umbraco-cms/backoffice/property-editor";
 import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
 import type { UmbModalContext } from '@umbraco-cms/backoffice/modal';
+import { resolveElementType } from '../../api/element-types';
 
 //import { UUIInputEvent } from "@umbraco-cms/backoffice/external/uui";
 
@@ -33,42 +34,21 @@ export class ItemEditorModalElement extends UmbLitElement
         super.connectedCallback();
         
         const doctypeKey = this.data?.doctype ?? "";
-        let doctypeRequest;
-        let doctypeData;
 
-        console.log(this.data)
-
-        //If doctypeKey is guid, then we need to get the alias
-        if (doctypeKey.length === 36) {
-            doctypeRequest = await DocumentTypeService.getDocumentTypeById({ path: { id: doctypeKey } });
-            doctypeData = doctypeRequest.data;
-        } else {
-            let doctypesRequest = await DocumentTypeService.getItemDocumentTypeSearch({
-                query: {
-                    query: doctypeKey,
-                    isElement: true
-                }
-            });
-            let doctypes = doctypesRequest.data;
-
-            let doctype = doctypes.items.find((x) => x.isElement && (x.id == doctypeKey || x.name.toLowerCase() === doctypeKey.toLowerCase()));
-
-            if (!doctype) {
-                console.error(`Document type with alias ${doctypeKey} not found.`);
-                return;
-            }
-
-            doctypeRequest = await DocumentTypeService.getDocumentTypeById({ path: { id: doctype.id } });
-            doctypeData = doctypeRequest.data;
-
-            if (doctypeData.id == doctypeKey || doctypeData.alias.toLowerCase() !== doctypeKey.toLowerCase()) {
-                console.error(`Document type with alias ${doctypeKey} is invalid.`);
-                return;
-            }
+        const elementType = await resolveElementType(doctypeKey);
+        if (!elementType) {
+            console.error(`Element type with alias or key ${doctypeKey} not found.`);
+            return;
         }
 
-        console.log(doctypeData);
-        
+        const doctypeRequest = await DocumentTypeService.getDocumentTypeById({ path: { id: elementType.id } });
+        const doctypeData = doctypeRequest.data;
+
+        if (!doctypeData) {
+            console.error(`Element type with alias or key ${doctypeKey} not found.`);
+            return;
+        }
+
         let datatypeIds = doctypeData.properties.map(x => x.dataType.id);
 
         for (let datatypeId of datatypeIds) {

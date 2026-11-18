@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -17,7 +17,12 @@
 
   <ItemGroup>
     <Folder Include="umbraco\Data\TEMP\InMemoryAuto\" />
-    <Folder Include="wwwroot\App_Plugins\SimpleTreeMenu\" />
+    <Folder Include="wwwroot\App_Plugins\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Served from the referenced TreeMenu project (RCL); a local copy causes conflicting static web assets -->
+    <Content Remove="wwwroot\App_Plugins\SimpleTreeMenu\**" />
   </ItemGroup>
 
   <PropertyGroup>

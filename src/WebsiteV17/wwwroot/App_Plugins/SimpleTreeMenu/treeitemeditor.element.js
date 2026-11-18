@@ -1,116 +1,111 @@
-import { html as v, repeat as $, property as _, state as h, customElement as g } from "@umbraco-cms/backoffice/external/lit";
-import { DocumentTypeService as y, DataTypeService as D } from "@umbraco-cms/backoffice/external/backend-api";
-import { UmbPropertyEditorConfigCollection as E } from "@umbraco-cms/backoffice/property-editor";
-import { UmbLitElement as I } from "@umbraco-cms/backoffice/lit-element";
-var x = Object.defineProperty, V = Object.getOwnPropertyDescriptor, f = (t) => {
-  throw TypeError(t);
-}, p = (t, e, a, i) => {
-  for (var o = i > 1 ? void 0 : i ? V(e, a) : e, l = t.length - 1, d; l >= 0; l--)
-    (d = t[l]) && (o = (i ? d(e, a, o) : d(o)) || o);
-  return i && o && x(e, a, o), o;
-}, q = (t, e, a) => e.has(t) || f("Cannot " + a), P = (t, e, a) => e.has(t) ? f("Cannot add the same private member more than once") : e instanceof WeakSet ? e.add(t) : e.set(t, a), m = (t, e, a) => (q(t, e, "access private method"), a), n, b, C, w;
-let r = class extends I {
+import { html as m, repeat as E, property as h, state as c, customElement as T } from "@umbraco-cms/backoffice/external/lit";
+import { DocumentTypeService as $, DataTypeService as w } from "@umbraco-cms/backoffice/external/backend-api";
+import { UmbPropertyEditorConfigCollection as x } from "@umbraco-cms/backoffice/property-editor";
+import { UmbLitElement as D } from "@umbraco-cms/backoffice/lit-element";
+import { r as g } from "./element-types.js";
+var I = Object.defineProperty, V = Object.getOwnPropertyDescriptor, v = (e) => {
+  throw TypeError(e);
+}, n = (e, t, a, r) => {
+  for (var o = r > 1 ? void 0 : r ? V(t, a) : t, s = e.length - 1, p; s >= 0; s--)
+    (p = e[s]) && (o = (r ? p(t, a, o) : p(o)) || o);
+  return r && o && I(t, a, o), o;
+}, P = (e, t, a) => t.has(e) || v("Cannot " + a), k = (e, t, a) => t.has(e) ? v("Cannot add the same private member more than once") : t instanceof WeakSet ? t.add(e) : t.set(e, a), u = (e, t, a) => (P(e, t, "access private method"), a), d, _, f, b;
+let i = class extends D {
   constructor() {
-    super(), P(this, n), this._values = [], this._dataTypes = {}, this.dataValue = {};
+    super(), k(this, d), this._values = [], this._dataTypes = {}, this.dataValue = {};
   }
   async connectedCallback() {
-    var l, d;
+    var p, y;
     super.connectedCallback();
-    const t = ((l = this.data) == null ? void 0 : l.doctype) ?? "";
-    let e, a;
-    if (console.log(this.data), t.length === 36)
-      e = await y.getDocumentTypeById({ path: { id: t } }), a = e.data;
-    else {
-      let u = (await y.getItemDocumentTypeSearch({ query: t })).data.items.find((c) => c.isElement && (c.id == t || c.name.toLowerCase() === t.toLowerCase()));
-      if (!u) {
-        console.error(`Document type with alias ${t} not found.`);
-        return;
-      }
-      if (e = await y.getDocumentTypeById({ id: u.id }), a = e.data, a.id == t || a.alias.toLowerCase() !== t.toLowerCase()) {
-        console.error(`Document type with alias ${t} is invalid.`);
-        return;
-      }
+    const e = ((p = this.data) == null ? void 0 : p.doctype) ?? "", t = await g(e);
+    if (!t) {
+      console.error(`Element type with alias or key ${e} not found.`);
+      return;
     }
-    console.log(a);
-    let i = a.properties.map((s) => s.dataType.id);
-    for (let s of i) {
-      let u = (await D.getDataTypeById({ path: { id: s } })).data;
-      this._dataTypes[s] = u;
+    const r = (await $.getDocumentTypeById({ path: { id: t.id } })).data;
+    if (!r) {
+      console.error(`Element type with alias or key ${e} not found.`);
+      return;
     }
-    this._doctype = a;
-    const o = (d = this.data) == null ? void 0 : d.properties;
-    this._values = Object.keys(o).map((s) => ({ alias: s, value: o[s] })), this.dataValue = o;
+    let o = r.properties.map((l) => l.dataType.id);
+    for (let l of o) {
+      let C = (await w.getDataTypeById({ path: { id: l } })).data;
+      this._dataTypes[l] = C;
+    }
+    this._doctype = r;
+    const s = (y = this.data) == null ? void 0 : y.properties;
+    this._values = Object.keys(s).map((l) => ({ alias: l, value: s[l] })), this.dataValue = s;
   }
   render() {
-    var t;
-    return v`
+    var e;
+    return m`
             <umb-body-layout>
                 <uui-box>
                 <umb-property-dataset
                     .value=${this._values}
-                    @change=${m(this, n, w)}>
-                        ${$(
-      ((t = this._doctype) == null ? void 0 : t.properties) ?? [],
-      (e) => e.alias,
-      (e) => v`<umb-property
-                        alias=${e.alias}
-                        label=${e.name}
-                        description=${e.description}
-                        property-editor-ui-alias=${this._dataTypes[e.dataType.id].editorUiAlias}
-                        .config=${new E([{ alias: "maxNumber", value: 1 }])}>
+                    @change=${u(this, d, b)}>
+                        ${E(
+      ((e = this._doctype) == null ? void 0 : e.properties) ?? [],
+      (t) => t.alias,
+      (t) => m`<umb-property
+                        alias=${t.alias}
+                        label=${t.name}
+                        description=${t.description}
+                        property-editor-ui-alias=${this._dataTypes[t.dataType.id].editorUiAlias}
+                        .config=${new x([{ alias: "maxNumber", value: 1 }])}>
                     </umb-property>`
     )}
                 </umb-property-dataset>
                 </uui-box>
 
                 <div slot="actions">
-                        <uui-button id="cancel" label="Cancel" @click="${m(this, n, C)}">Cancel</uui-button>
+                        <uui-button id="cancel" label="Cancel" @click="${u(this, d, f)}">Cancel</uui-button>
                         <uui-button
                             id="submit"
                             color='positive'
                             look="primary"
                             label="Submit"
-                            @click=${m(this, n, b)}></uui-button>
+                            @click=${u(this, d, _)}></uui-button>
             </div>
             </umb-body-layout>
         `;
   }
 };
-n = /* @__PURE__ */ new WeakSet();
-b = function() {
-  var t, e;
-  (t = this.modalContext) == null || t.updateValue({ value: this.dataValue ?? {} }), (e = this.modalContext) == null || e.submit();
+d = /* @__PURE__ */ new WeakSet();
+_ = function() {
+  var e, t;
+  (e = this.modalContext) == null || e.updateValue({ value: this.dataValue ?? {} }), (t = this.modalContext) == null || t.submit();
 };
-C = function() {
-  var t;
-  (t = this.modalContext) == null || t.reject();
+f = function() {
+  var e;
+  (e = this.modalContext) == null || e.reject();
 };
-w = function(t) {
+b = function(e) {
   var a;
-  const e = t.target.value;
-  this.dataValue = e.reduce((i, o) => ({ ...i, [o.alias]: o.value }), {}), (a = this.modalContext) == null || a.updateValue({ value: this.dataValue ?? {} });
+  const t = e.target.value;
+  this.dataValue = t.reduce((r, o) => ({ ...r, [o.alias]: o.value }), {}), (a = this.modalContext) == null || a.updateValue({ value: this.dataValue ?? {} });
 };
-p([
-  _({ attribute: !1 })
-], r.prototype, "modalContext", 2);
-p([
-  _({ attribute: !1 })
-], r.prototype, "data", 2);
-p([
-  h()
-], r.prototype, "_values", 2);
-p([
-  h()
-], r.prototype, "_doctype", 2);
-p([
-  h()
-], r.prototype, "_dataTypes", 2);
-r = p([
-  g("item-editor-modal")
-], r);
-const M = r;
+n([
+  h({ attribute: !1 })
+], i.prototype, "modalContext", 2);
+n([
+  h({ attribute: !1 })
+], i.prototype, "data", 2);
+n([
+  c()
+], i.prototype, "_values", 2);
+n([
+  c()
+], i.prototype, "_doctype", 2);
+n([
+  c()
+], i.prototype, "_dataTypes", 2);
+i = n([
+  T("item-editor-modal")
+], i);
+const j = i;
 export {
-  r as ItemEditorModalElement,
-  M as default
+  i as ItemEditorModalElement,
+  j as default
 };
 //# sourceMappingURL=treeitemeditor.element.js.map

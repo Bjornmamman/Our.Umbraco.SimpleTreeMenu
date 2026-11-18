@@ -22,11 +22,14 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    permissions:
+      id-token: write
+      contents: read
 
     steps:      
       - name: Get Version 
         id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\/release\//}
+        run: echo "VERSION=${GITHUB_REF/refs\/tags\/release\//}" >> "$GITHUB_OUTPUT"
         shell: bash
 
       - name: Compare version with 5.0.0
@@ -34,42 +37,52 @@ jobs:
         run: |
           VERSION=${{ steps.get_version.outputs.VERSION }}
           if [[ "$(printf '%s\n' "$VERSION" "5.0.0" | sort -V | head -n1)" == "$VERSION" && "$VERSION" != "5.0.0" ]]; then
-            echo "::set-output name=is_lower_than_v5::true"
+            echo "is_lower_than_v5=true" >> "$GITHUB_OUTPUT"
           else
-            echo "::set-output name=is_lower_than_v5::false"
+            echo "is_lower_than_v5=false" >> "$GITHUB_OUTPUT"
           fi
         shell: bash
       
       - name: checkout
-        uses: actions/checkout@v2
-        
+        uses: actions/checkout@v4
+
       - name: Setup NuGet.exe for use with actions
-        uses: NuGet/setup-nuget@v1      
-        
+        uses: NuGet/setup-nuget@v2
+
       - name: Setup .net core
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            5.0.x
+            6.0.x
+            7.0.x
+            8.0.x
+            9.0.x
+            10.0.x
+
+      - name: Setup Node
+        if: steps.compare_versions.outputs.is_lower_than_v5 == 'false'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
       
 #      - name: Setup UmbPack
 #        run: dotnet tool install Umbraco.Tools.Packages --global
 
       - name: Create NuGet package file
         run: dotnet pack ${{ env.LIBRARY_FOLDER }} -c ${{ env.CONFIG }} -o ${{ env.OUTPUT }} /p:version=${{ steps.get_version.outputs.VERSION }} 
-      
+
+      - name: NuGet login (Trusted Publishing)
+        id: nuget_login
+        uses: NuGet/login@v1
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
       - name: Push NuGet package file
-        run: dotnet nuget push ${{ env.OUTPUT }}/${{ env.NAME }}.${{ steps.get_version.outputs.VERSION }}.nupkg --skip-duplicate -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+        run: dotnet nuget push ${{ env.OUTPUT }}/${{ env.NAME }}.${{ steps.get_version.outputs.VERSION }}.nupkg --skip-duplicate -k ${{ steps.nuget_login.outputs.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
 
-
-        
-#      - name: Create Umbraco package file
-#        if: steps.compare_versions.outputs.is_lower_than_v5 == 'true'
-#        run: UmbPack pack ./package.xml -n ${{ env.UMBNAME }}_${{ steps.get_version.outputs.VERSION }}.zip -o ${{ env.OUTPUT }} -v ${{ steps.get_version.outputs.VERSION }}
- 
-#      - name: Push Umbraco package file
-#        if: steps.compare_versions.outputs.is_lower_than_v5 == 'true'
-#        run: UmbPack push "${{ env.OUTPUT }}/${{ env.UMBNAME }}_${{ steps.get_version.outputs.VERSION }}.zip" -k ${{ secrets.UMB_API_KEY }}
-        
       - name: upload-artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: Build-Results-${{ steps.get_version.outputs.VERSION }}
           path: ${{ env.OUTPUT }}/**/*
